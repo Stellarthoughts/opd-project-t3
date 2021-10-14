@@ -16,6 +16,10 @@ const wtf = (number) =>
   return number + 1;
 }
 
+const wtf2 = (number) => {
+    return number + 1;
+}
+
 const Something = () => {
   const iamagod = "Who?";
   return (
