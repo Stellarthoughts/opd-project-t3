@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { List } from "./List";
-
-export const Tasks = () => {
+ 
+export const Tasks = ({navigation}) => {
     return (
         <View style={styles.container}>
             <List/>

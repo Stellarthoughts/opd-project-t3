@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import { ListItem } from "./ListItem";
+import { ListItem } from "./ListItems";
 
 export const List = () => {
     const [ListOfItems, getListItem] = useState([

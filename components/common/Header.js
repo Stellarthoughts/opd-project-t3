@@ -29,13 +29,14 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'space-between',
         width: "100%",
         paddingLeft: 15,
         paddingRight: 15,
+        paddingBottom: 20,
+        paddingTop: 20,
         backgroundColor: '#28282c',
     },
 

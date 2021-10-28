@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-export const HomeScreen = () => {
+function HomeScreen ({navigation}) {
     return (
         <View>
-            <Text>f</Text>
+            <Button title="Click me to get away."
+            onPress={() => 
+                navigation.navigate('Tasks')
+            }
+            />
+            <Text>www</Text>
         </View>
     );
 }
+
+export default HomeScreen;

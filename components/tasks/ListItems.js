@@ -22,6 +22,7 @@ export const ListItem = ({ el }) => {
     );
 }
 
+
 const styles = StyleSheet.create({
     box: {
         flex: 1,
