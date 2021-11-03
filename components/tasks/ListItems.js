@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 
-export const ListItem = ({ el }) => {
+function ListItem ({ el }) {
     return (
         <View style={styles.box}>
             <View style={styles.data}>
@@ -85,3 +85,5 @@ const styles = StyleSheet.create({
         fontSize: 36,
     },
 });
+
+export default ListItem;

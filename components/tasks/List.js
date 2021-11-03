@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import { ListItem } from "./ListItems";
+import ListItem from "./ListItems";
 
-export const List = () => {
+function List () {
     const [ListOfItems, getListItem] = useState([
         {title: "название1", data: "11", index: 1},
         {title: "название2", data: "12", index: 2},
@@ -27,3 +27,5 @@ const styles = StyleSheet.create({
     },
 
 });
+
+export default List;

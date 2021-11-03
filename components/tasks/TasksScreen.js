@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { List } from "./List";
-import { Header } from '../common/Header';
+import List from "./List";
+import Header from '../common/Header';
  
 function TasksScreen ({navigation}) {
     return (

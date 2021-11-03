@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
-export const Header = () => {
+function Header () {
     const ButtonAddPress = () => {
         alert("Добавить элемент в список");
     }
@@ -67,3 +67,5 @@ const styles = StyleSheet.create({
         fontSize: 22,
     }
 });
+
+export default Header;
