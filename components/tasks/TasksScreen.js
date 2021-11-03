@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { List } from "./List";
 import { Header } from '../common/Header';
  
-function Tasks ({navigation}) {
+function TasksScreen ({navigation}) {
     return (
         <View style={styles.container}>
             <Header/>
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Tasks;
+export default TasksScreen;

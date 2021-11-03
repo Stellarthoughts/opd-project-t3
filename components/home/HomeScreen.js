@@ -9,6 +9,11 @@ function HomeScreen({ navigation }) {
                     navigation.navigate('Tasks')
                 }
             />
+            <Button title="Click me to what."
+                onPress={() =>
+                    navigation.navigate('Settings')
+                }
+            />
         </View>
     );
 }
