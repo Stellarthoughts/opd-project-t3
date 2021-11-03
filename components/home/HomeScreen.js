@@ -9,7 +9,6 @@ function HomeScreen ({navigation}) {
                 navigation.navigate('Tasks')
             }
             />
-            <Text>www</Text>
         </View>
     );
 }

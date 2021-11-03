@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { List } from "./List";
+import { Header } from '../common/Header';
  
-export const Tasks = ({navigation}) => {
+function Tasks ({navigation}) {
     return (
         <View style={styles.container}>
+            <Header/>
             <List/>
         </View>
     );
@@ -20,3 +22,5 @@ const styles = StyleSheet.create({
     },
 
 });
+
+export default Tasks;
