@@ -12,37 +12,37 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  return (
-      <NavigationContainer style={styles.container}> 
-          <Stack.Navigator>
-            <Stack.Screen 
-            name="Home" 
-            component={HomeScreen} 
-            options={{ 
-              title: 'Главная',
-              headerStyle: {
-                backgroundColor: '#f4511e',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
-          />
-            <Stack.Screen name="Tasks" component={Tasks}/>
-          </Stack.Navigator>
-      </NavigationContainer>
-  );
+	return (
+		<NavigationContainer style={styles.container}>
+			<Stack.Navigator initialRouteName="Home">
+				<Stack.Screen
+					name="Home"
+					component={HomeScreen}
+					options={{
+						title: 'Главная',
+						headerStyle: {
+							backgroundColor: '#f4511e',
+						},
+						headerTintColor: '#fff',
+						headerTitleStyle: {
+							fontWeight: 'bold',
+						},
+					}}
+				/>
+				<Stack.Screen name="Tasks" component={Tasks} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#ffffff',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0
+	},
 });
 
 export default App;
