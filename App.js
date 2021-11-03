@@ -5,10 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './components/home/HomeScreen';
-import { Header } from './components/common/Header';
-import Tasks from './components/tasks/TasksScreen';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksScreen from './components/tasks/TasksScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
