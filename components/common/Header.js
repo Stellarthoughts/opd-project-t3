@@ -1,26 +1,52 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
-function Header () {
-    const ButtonAddPress = () => {
-        alert("Добавить элемент в список");
+function Header ({navigation}) {
+    const ButtonHome = () => {
+        navigation.navigate('Home');
     }
 
-    const ButtonMenuPress = () => {
-        alert("Открыть/закрыть меню");
+    const ButtonHolder1 = () => {
+        navigation.navigate('Tasks');
+    }
+
+    const ButtonTasks = () => {
+        navigation.navigate('Tasks');
+    }
+
+    const ButtonHolder2 = () => {
+        navigation.navigate('Tasks');
+    }
+
+    const ButtonSettings = () => {
+        navigation.navigate('Settings');
     }
 
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={ButtonMenuPress}>
+            <TouchableWithoutFeedback onPress={ButtonHome}>
                 <View  style={styles.menuButton}>
-                    <Text style={styles.textButton}>≡</Text>
+                    <Text style={styles.textButton}></Text>
                 </View>
             </TouchableWithoutFeedback>
-            <Text style={styles.textTitle}>To do list</Text>
-            <TouchableWithoutFeedback onPress={ButtonAddPress}>
+            <TouchableWithoutFeedback onPress={ButtonHolder1}>
                 <View style={styles.addButton}>
-                    <Text style={styles.textButton}>+</Text>
+                    <Text style={styles.textButton}></Text>
+                </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={ButtonTasks}>
+                <View style={styles.addButton}>
+                    <Text style={styles.textButton}></Text>
+                </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={ButtonHolder2}>
+                <View style={styles.addButton}>
+                    <Text style={styles.textButton}></Text>
+                </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={ButtonSettings}>
+                <View style={styles.addButton}>
+                    <Text style={styles.textButton}></Text>
                 </View>
             </TouchableWithoutFeedback>
         </View>
