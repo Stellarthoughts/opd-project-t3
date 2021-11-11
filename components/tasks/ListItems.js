@@ -3,87 +3,84 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 
 function ListItem ({ el }) {
     return (
-        <View style={styles.box}>
-            <View style={styles.data}>
-                <Text style={styles.dataText}>{el.data}</Text>
+        <View style={styles.task}>
+            <View style={styles.icon}>
+                <Text style={styles.dataText}></Text>
             </View>
-            <View style={styles.body}>
-                <Text style={styles.bodyTitle}>{el.title}</Text>
+            <View style={styles.info}>
+                <Text style={styles.title}>{el.title}</Text>
                 <View style={styles.tasks}>
-                    <View style={styles.task}></View>
-                    <View style={styles.task}></View>
-                    <View style={styles.task}></View>
+                    <Text style={styles.countTasks}>{el.completedTask}</Text>
+                    <Text style={styles.countTasks}>/</Text>
+                    <Text style={styles.countTasks}>{el.countTask}</Text>
+                    <View style={styles.progressBar}>
+                        <View style={styles.progressBarValue}></View>
+                    </View>
                 </View>
             </View>
-            <View style={styles.checked}>
-                <Text style={styles.checkedText}>✓</Text>
+            <View style={styles.open}>
+                <View style={styles.openCircle}>
+                    <Text>V</Text>
+                </View>
             </View>
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
-    box: {
-        flex: 1,
+    task: {
         flexDirection: "row",
-        margin: 10,
-        padding: 10,
-        backgroundColor: "#4c4c5d",
-        borderRadius: 10,
+        width: "100%",
+        height: "auto",
+        backgroundColor: "#333",
+        marginTop: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
     },
 
-    data: {
+    icon: {
         flex: 1,
-        height: 'auto',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: "auto",
+        padding: 10,
+        backgroundColor: "#666",
     },
 
-    dataText: {
-        color: "#ffffff",
-        fontSize: 36,
-    },
-
-    body: {
+    info: {
         flex: 4,
-        flexDirection: "column",
-        alignItems: 'flex-start',
-        justifyContent: 'center',
+        height: "auto",
+        padding: 10,
+        backgroundColor: "#444",
     },
 
-    bodyTitle: {
-        color: "#ffffff",
-        padding: 2,
-        fontSize: 22,
+    title: {
+        backgroundColor: "#555",
     },
 
     tasks: {
         flexDirection: "row",
+        backgroundColor: "#666",
+    },
+
+    countTasks: {
+        backgroundColor: "#666",
+    },
+
+    progressBar: {
+        backgroundColor: "#666",
+    },
+
+    progressBarValue: {
+        backgroundColor: "#666",
+    },
+
+    open: {
         flex: 1,
-        padding: 2,
+        backgroundColor: "#777",
     },
 
-    task: {
-        width: 15,
-        height: 15,
-        marginRight: 10,
-        borderRadius: 20,
-        backgroundColor: "#7c7c7c"
-    },
-
-    checked: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    checkedText: {
-        color: "#4fb737",
-        fontSize: 36,
-    },
+    openCircle: {
+        backgroundColor: "#888",
+    }
 });
 
 export default ListItem;
