@@ -1,29 +1,59 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Image} from 'react-native';
+import Images from '../../resources';
 
-function Header () {
-    const ButtonAddPress = () => {
-        alert("Добавить элемент в список");
-    }
-
-    const ButtonMenuPress = () => {
-        alert("Открыть/закрыть меню");
-    }
-
+function Header ({navigation}) {
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={ButtonMenuPress}>
-                <View  style={styles.menuButton}>
-                    <Text style={styles.textButton}>≡</Text>
-                </View>
-            </TouchableWithoutFeedback>
-            <Text style={styles.textTitle}>To do list</Text>
-            <TouchableWithoutFeedback onPress={ButtonAddPress}>
-                <View style={styles.addButton}>
-                    <Text style={styles.textButton}>+</Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <NavigationElement 
+                nav={navigation} node={'Home'}
+                viewStyle={styles.button}
+                imageSrc={Images.header.home}
+                imageStyle={styles.icon}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                viewStyle={styles.button}
+                imageSrc={Images.header.building}
+                imageStyle={styles.icon}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                viewStyle={styles.button}
+                imageSrc={Images.header.tasks}
+                imageStyle={styles.icon}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                viewStyle={styles.button}
+                imageSrc={Images.header.like}
+                imageStyle={styles.icon}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Settings'}
+                viewStyle={styles.button}
+                imageSrc={Images.header.settings}
+                imageStyle={styles.icon}
+            />
         </View>
+    );
+}
+
+const NavigationButton = (nav, node) => {
+    nav.navigate(node);
+}
+
+const NavigationElement = ({nav, node, imageSrc, viewStyle, imageStyle}) =>
+{
+    return(
+        <TouchableWithoutFeedback onPress={() => NavigationButton(nav, node)}>
+            <View style={viewStyle}>
+                <Image 
+                    style={imageStyle}
+                    source={imageSrc}
+                />    
+            </View>
+        </TouchableWithoutFeedback>
     );
 }
 
@@ -35,9 +65,21 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingLeft: 15,
         paddingRight: 15,
-        paddingBottom: 20,
-        paddingTop: 20,
-        backgroundColor: '#28282c',
+        paddingBottom: 5,
+        paddingTop: 5,
+        backgroundColor: '#05CEB6',
+    },
+
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 50,
+        height: 50,
+    },
+
+    icon: {
+        width: 35,
+        height: 35,
     },
 
     textTitle: {
