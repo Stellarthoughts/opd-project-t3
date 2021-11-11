@@ -3,87 +3,96 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 
 function ListItem ({ el }) {
     return (
-        <View style={styles.box}>
-            <View style={styles.data}>
-                <Text style={styles.dataText}>{el.data}</Text>
+        <View style={styles.task}>
+            <View style={styles.icon}>
+                <Text style={styles.dataText}></Text>
             </View>
-            <View style={styles.body}>
-                <Text style={styles.bodyTitle}>{el.title}</Text>
+            <View style={styles.info}>
+                <Text style={styles.title}>{el.title}</Text>
                 <View style={styles.tasks}>
-                    <View style={styles.task}></View>
-                    <View style={styles.task}></View>
-                    <View style={styles.task}></View>
+                    <Text style={styles.countTasks}>{el.completedTask}</Text>
+                    <Text style={styles.countTasks}>/</Text>
+                    <Text style={styles.countTasks}>{el.countTask}</Text>
+                    <View style={styles.progressBar}>
+                        <View style={styles.progressBarValue}></View>
+                    </View>
                 </View>
             </View>
-            <View style={styles.checked}>
-                <Text style={styles.checkedText}>✓</Text>
+            <View style={styles.open}>
+                <View style={styles.openCircle}>
+                    <Text>V</Text>
+                </View>
             </View>
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
-    box: {
-        flex: 1,
+    task: {
         flexDirection: "row",
-        margin: 10,
-        padding: 10,
-        backgroundColor: "#4c4c5d",
-        borderRadius: 10,
+        height: "auto",
+        backgroundColor: "#FFFFFF",
+        marginTop: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderRadius: 20,
+        overflow: "hidden",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 4,
     },
 
-    data: {
+    icon: {
         flex: 1,
-        height: 'auto',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: "100%",
+        backgroundColor: "#E9E9E9",
     },
 
-    dataText: {
-        color: "#ffffff",
-        fontSize: 36,
-    },
-
-    body: {
+    info: {
         flex: 4,
-        flexDirection: "column",
-        alignItems: 'flex-start',
-        justifyContent: 'center',
+        height: "auto",
+        padding: 10,
     },
 
-    bodyTitle: {
-        color: "#ffffff",
-        padding: 2,
-        fontSize: 22,
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
     },
 
     tasks: {
         flexDirection: "row",
+        marginTop: 5,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    countTasks: {
+        fontSize: 18,
+    },
+
+    progressBar: {
+        marginLeft: 15,
+        marginRight: 15,
+        width: "100%",
+        height: 5,
+        backgroundColor: "#C9EDEC",
+        borderRadius: 8,
+    },
+
+    progressBarValue: {
+    },
+
+    open: {
         flex: 1,
-        padding: 2,
     },
 
-    task: {
-        width: 15,
-        height: 15,
-        marginRight: 10,
-        borderRadius: 20,
-        backgroundColor: "#7c7c7c"
-    },
-
-    checked: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    checkedText: {
-        color: "#4fb737",
-        fontSize: 36,
-    },
+    openCircle: {
+    }
 });
 
 export default ListItem;
