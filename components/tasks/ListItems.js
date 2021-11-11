@@ -30,56 +30,68 @@ function ListItem ({ el }) {
 const styles = StyleSheet.create({
     task: {
         flexDirection: "row",
-        width: "100%",
         height: "auto",
-        backgroundColor: "#333",
+        backgroundColor: "#FFFFFF",
         marginTop: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderRadius: 20,
+        overflow: "hidden",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 4,
     },
 
     icon: {
         flex: 1,
-        height: "auto",
-        padding: 10,
-        backgroundColor: "#666",
+        height: "100%",
+        backgroundColor: "#E9E9E9",
     },
 
     info: {
         flex: 4,
         height: "auto",
         padding: 10,
-        backgroundColor: "#444",
     },
 
     title: {
-        backgroundColor: "#555",
+        fontSize: 20,
+        fontWeight: "bold",
     },
 
     tasks: {
         flexDirection: "row",
-        backgroundColor: "#666",
+        marginTop: 5,
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     countTasks: {
-        backgroundColor: "#666",
+        fontSize: 18,
     },
 
     progressBar: {
-        backgroundColor: "#666",
+        marginLeft: 15,
+        marginRight: 15,
+        width: "100%",
+        height: 5,
+        backgroundColor: "#C9EDEC",
+        borderRadius: 8,
     },
 
     progressBarValue: {
-        backgroundColor: "#666",
     },
 
     open: {
         flex: 1,
-        backgroundColor: "#777",
     },
 
     openCircle: {
-        backgroundColor: "#888",
     }
 });
 
