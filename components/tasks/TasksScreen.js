@@ -6,7 +6,6 @@ import Header from '../common/Header';
 function TasksScreen ({navigation}) {
     return (
         <View style={styles.container}>
-            <Header/>
             <List/>
         </View>
     );
