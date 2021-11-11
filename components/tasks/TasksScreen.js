@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import List from "./List";
 import Header from '../common/Header';
+import { SafeAreaView } from 'react-native-safe-area-context';
  
 function TasksScreen ({navigation}) {
     return (
-        <View style={styles.container}>
-            <Header/>
+        <SafeAreaView style={styles.container}>
+            <Header navigation={navigation}/>
             <List/>
-        </View>
+        </SafeAreaView>
     );
 }
 
