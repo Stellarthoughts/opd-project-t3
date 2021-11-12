@@ -4,9 +4,9 @@ import ListItem from "./ListItems";
 
 function List () {
     const [ListOfItems, getListItem] = useState([
-        {title: "Название списка", completedTask: "3", countTask: "4", idCompleted: "0", mas: [{name: "Название", id: 1}], index: 1},
-        {title: "Название списка", completedTask: "2", countTask: "2", idCompleted: "1", mas: [{name: "Название", id: 1}], index: 2},
-        {title: "Название списка", completedTask: "3", countTask: "6", idCompleted: "0", mas: [{name: "Название", id: 1}], index: 3},
+        {title: "Название списка", completedTask: "3", countTask: "4", idCompleted: "75%", mas: [{name: "Название", id: 1}], index: 1},
+        {title: "Название списка", completedTask: "2", countTask: "2", idCompleted: "100%", mas: [{name: "Название", id: 1}], index: 2},
+        {title: "Название списка", completedTask: "3", countTask: "6", idCompleted: "50%", mas: [{name: "Название", id: 1}], index: 3},
     ])
 
     return (

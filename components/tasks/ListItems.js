@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
+import ProgressBar from './ProgressBar';
 
 function ListItem ({ el }) {
     return (
@@ -10,17 +11,25 @@ function ListItem ({ el }) {
             <View style={styles.info}>
                 <Text style={styles.title}>{el.title}</Text>
                 <View style={styles.tasks}>
-                    <Text style={styles.countTasks}>{el.completedTask}</Text>
-                    <Text style={styles.countTasks}>/</Text>
-                    <Text style={styles.countTasks}>{el.countTask}</Text>
+                    <View style={styles.tasksInfo}>
+                        <Text style={styles.countTasks}>{el.completedTask}</Text>
+                        <Text style={styles.countTasks}>/</Text>
+                        <Text style={styles.countTasks}>{el.countTask}</Text>
+                    </View>
                     <View style={styles.progressBar}>
                         <View style={styles.progressBarValue}></View>
+                        <ProgressBar
+                            height={7}
+                            backgroundColor={'#C9EDEC'}
+                            completedColor={'#01CAC2'}
+                            percentage={el.idCompleted}
+                        />
                     </View>
                 </View>
             </View>
             <View style={styles.open}>
                 <View style={styles.openCircle}>
-                    <Text>V</Text>
+                    <Text style={styles.openText}>ᐯ</Text>
                 </View>
             </View>
         </View>
@@ -66,8 +75,7 @@ const styles = StyleSheet.create({
 
     tasks: {
         flexDirection: "row",
-        marginTop: 5,
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
     },
 
@@ -75,16 +83,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 
+    tasksInfo: {
+        flex: 1,
+        flexDirection: "row",
+    },
+
     progressBar: {
         marginLeft: 15,
         marginRight: 15,
-        width: "100%",
+        width: 170,
         height: 5,
         backgroundColor: "#C9EDEC",
         borderRadius: 8,
-    },
-
-    progressBarValue: {
     },
 
     open: {
@@ -92,7 +102,19 @@ const styles = StyleSheet.create({
     },
 
     openCircle: {
-    }
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#C9EDEC",
+        width: 45,
+        height: 45,
+        borderRadius: 50,
+    },
+
+    openText: {
+        color: "#01CAC2",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
 });
 
 export default ListItem;
