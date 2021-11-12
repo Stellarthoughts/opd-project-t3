@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Image} from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Image, TouchableHighlight} from 'react-native';
 import Images from '../../resources';
 
 function Header ({navigation}) {
@@ -7,33 +7,23 @@ function Header ({navigation}) {
         <View style={styles.container}>
             <NavigationElement 
                 nav={navigation} node={'Home'}
-                viewStyle={styles.button}
                 imageSrc={Images.header.home}
-                imageStyle={styles.icon}
             />
             <NavigationElement 
                 nav={navigation} node={'Tasks'}
-                viewStyle={styles.button}
                 imageSrc={Images.header.building}
-                imageStyle={styles.icon}
             />
             <NavigationElement 
                 nav={navigation} node={'Tasks'}
-                viewStyle={styles.button}
                 imageSrc={Images.header.tasks}
-                imageStyle={styles.icon}
             />
             <NavigationElement 
                 nav={navigation} node={'Tasks'}
-                viewStyle={styles.button}
                 imageSrc={Images.header.like}
-                imageStyle={styles.icon}
             />
             <NavigationElement 
                 nav={navigation} node={'Settings'}
-                viewStyle={styles.button}
                 imageSrc={Images.header.settings}
-                imageStyle={styles.icon}
             />
         </View>
     );
@@ -43,21 +33,27 @@ const NavigationButton = (nav, node) => {
     nav.navigate(node);
 }
 
-const NavigationElement = ({nav, node, imageSrc, viewStyle, imageStyle}) =>
+const NavigationElement = ({nav, node, imageSrc}) =>
 {
     return(
-        <TouchableWithoutFeedback onPress={() => NavigationButton(nav, node)}>
-            <View style={viewStyle}>
-                <Image 
-                    style={imageStyle}
+        <TouchableHighlight 
+            onPress={() => NavigationButton(nav, node)}
+            activeOpacity={0.6}
+            underlayColor="#0ff9dd"
+        >
+            <View style={styles.button}>
+                <Image
+                    resizeMode="contain" 
+                    style={styles.icon}
                     source={imageSrc}
                 />    
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableHighlight>
     );
 }
 
 const styles = StyleSheet.create({
+    
     container: {
         flexDirection: "row",
         alignItems: 'center',
@@ -65,21 +61,21 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingLeft: 15,
         paddingRight: 15,
-        paddingBottom: 5,
-        paddingTop: 5,
         backgroundColor: '#05CEB6',
     },
 
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
+        marginBottom: 5,
+        marginTop: 5,
+        width: 60,
         height: 50,
     },
 
     icon: {
-        width: 35,
-        height: 35,
+        width: 40,
+        height: 40,
     },
 
     textTitle: {
