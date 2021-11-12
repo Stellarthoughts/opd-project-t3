@@ -15,25 +15,21 @@ function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<Stack.Navigator initialRouteName="Home">
-				<Stack.Screen
-					name="Home"
-					component={HomeScreen}
-					options={{
-						title: 'Главная',
-						headerStyle: {
-							backgroundColor: '#f4511e',
-						},
-						headerTintColor: '#fff',
-						headerTitleStyle: {
-							fontWeight: 'bold',
-						},
-					}}
-				/>
-				<Stack.Group
-					screenOptions={{
-						headerShown: false
-					}}
-				>
+				<Stack.Group screenOptions={{ headerShown: false }}>
+					<Stack.Screen
+						name="Home"
+						component={HomeScreen}
+						options={{
+							title: 'Главная',
+							headerStyle: {
+								backgroundColor: '#f4511e',
+							},
+							headerTintColor: '#fff',
+							headerTitleStyle: {
+								fontWeight: 'bold',
+							},
+						}}
+					/>
 					<Stack.Screen name="Tasks" component={TasksScreen}/>
 					<Stack.Screen name="Settings" component={SettingsScreen}/>
 				</Stack.Group>

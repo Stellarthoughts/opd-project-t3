@@ -1,20 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../common/Header';
 
 function HomeScreen({ navigation }) {
     return (
-        <View>
-            <Button title="Click me to get away."
-                onPress={() =>
-                    navigation.navigate('Tasks')
-                }
-            />
-            <Button title="Click me to what."
-                onPress={() =>
-                    navigation.navigate('Settings')
-                }
-            />
-        </View>
+        <SafeAreaView>
+            <Header navigation={navigation}/>
+        </SafeAreaView>
     );
 }
 
