@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback, Image, TouchableHighlight} from 'react-native';
+import {useRoute} from '@react-navigation/native';
 import Images from '../../resources';
 
 function Header ({navigation}) {
@@ -35,9 +36,14 @@ const NavigationButton = (nav, node) => {
 
 const NavigationElement = ({nav, node, imageSrc}) =>
 {
+    const active = useRoute().name == node ? true : false;
+    const touchStyle = active ? styles.active : null;
+    const pressEvent = active ? null : () => NavigationButton(nav, node);
+
     return(
-        <TouchableHighlight 
-            onPress={() => NavigationButton(nav, node)}
+        <TouchableHighlight
+            style={touchStyle}
+            onPress={pressEvent}
             activeOpacity={0.6}
             underlayColor="#0ff9dd"
         >
@@ -46,7 +52,7 @@ const NavigationElement = ({nav, node, imageSrc}) =>
                     resizeMode="contain" 
                     style={styles.icon}
                     source={imageSrc}
-                />    
+                />  
             </View>
         </TouchableHighlight>
     );
@@ -71,6 +77,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         width: 60,
         height: 50,
+    },
+
+    active: {
+        backgroundColor: '#ffffff',
     },
 
     icon: {
