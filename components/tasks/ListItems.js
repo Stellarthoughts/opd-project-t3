@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, FlatList, Text, Image } from 'react-native';
 import ProgressBar from './ProgressBar';
+import Images from '../../resources';
 
 function ListItem ({ el }) {
     return (
         <View style={styles.task}>
             <View style={styles.icon}>
-                <Text style={styles.dataText}></Text>
+                <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
             </View>
             <View style={styles.info}>
                 <Text style={styles.title}>{el.title}</Text>
@@ -17,7 +18,6 @@ function ListItem ({ el }) {
                         <Text style={styles.countTasks}>{el.countTask}</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <View style={styles.progressBarValue}></View>
                         <ProgressBar
                             height={7}
                             backgroundColor={'#C9EDEC'}
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "#FFFFFF",
         marginTop: 10,
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: 15,
+        marginRight: 15,
         marginBottom: 8,
         borderRadius: 20,
         overflow: "hidden",
@@ -58,12 +58,14 @@ const styles = StyleSheet.create({
 
     icon: {
         flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
         height: "100%",
         backgroundColor: "#E9E9E9",
     },
 
     info: {
-        flex: 4,
+        flex: 3,
         height: "auto",
         padding: 10,
     },
@@ -84,14 +86,12 @@ const styles = StyleSheet.create({
     },
 
     tasksInfo: {
-        flex: 1,
         flexDirection: "row",
+        width: "20%",
     },
 
     progressBar: {
-        marginLeft: 15,
-        marginRight: 15,
-        width: 170,
+        width: "80%",
         height: 5,
         backgroundColor: "#C9EDEC",
         borderRadius: 8,
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     open: {
         flex: 1,
         justifyContent: "center",
+        alignItems: "center",
     },
 
     openCircle: {
@@ -115,6 +116,11 @@ const styles = StyleSheet.create({
         color: "#01CAC2",
         fontSize: 20,
         fontWeight: "bold",
+    },
+
+    openFolder: {
+        width: 54,
+        height: 38,
     },
 });
 
