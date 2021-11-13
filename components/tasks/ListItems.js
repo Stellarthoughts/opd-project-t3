@@ -38,15 +38,14 @@ function ListItem ({ el }) {
 
 const styles = StyleSheet.create({
     task: {
-        flexDirection: "row",
+        flex: 1,
         height: "auto",
+        flexDirection: "row",
         backgroundColor: "#FFFFFF",
         marginTop: 10,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 8,
-        alignItems: 'center',
-        justifyContent: 'space-between',
         borderRadius: 20,
         overflow: "hidden",
         shadowColor: '#000',
@@ -54,6 +53,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
+        backgroundColor: "#fff",
     },
 
     icon: {
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
 
     open: {
         flex: 1,
+        justifyContent: "center",
     },
 
     openCircle: {
