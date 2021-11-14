@@ -10,7 +10,7 @@ function FormAddListItem ({addHendler}) {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <TextInput style={styles.input} onChangeText={onChange} placeholder='Введите название задачи...' />
             <Button color='green' title='Добавить задачу' onPress={() => addHendler(text)}/>
         </View>
@@ -18,10 +18,16 @@ function FormAddListItem ({addHendler}) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 20,
+        marginBottom: 20,
+    },
+
     input: {
         borderBottomWidth: 1,
         borderColor: "#000",
         padding: 10,
+        marginBottom: 20,
     }
 });
 
