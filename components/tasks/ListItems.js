@@ -3,7 +3,12 @@ import { StyleSheet, View, FlatList, Text, Image } from 'react-native';
 import ProgressBar from './ProgressBar';
 import Images from '../../resources';
 
-function ListItem ({ el }) {
+function ListItem({ el }) {
+    //var {x, y, width, height};
+    /*const layoutHandler = (event) => {
+        var { x, y, width, height } = event.nativeEvent.layout;
+        console.log(x);
+    };*/
     return (
         <View style={styles.task}>
             <View style={styles.icon}>
@@ -12,7 +17,7 @@ function ListItem ({ el }) {
             <View style={styles.info}>
                 <Text style={styles.title}>{el.title}</Text>
                 <View style={styles.tasks}>
-                    <View style={styles.tasksInfo}>
+                    <View /*onLayout={layoutHandler}*/ style={styles.tasksInfo}>
                         <Text style={styles.countTasks}>{el.completedTask}</Text>
                         <Text style={styles.countTasks}>/</Text>
                         <Text style={styles.countTasks}>{el.countTask}</Text>
@@ -22,7 +27,8 @@ function ListItem ({ el }) {
                             height={7}
                             backgroundColor={'#C9EDEC'}
                             completedColor={'#01CAC2'}
-                            percentage={el.idCompleted}
+                            completed={el.completedTask}
+                            count={el.countTask}
                         />
                     </View>
                 </View>
@@ -87,14 +93,12 @@ const styles = StyleSheet.create({
 
     tasksInfo: {
         flexDirection: "row",
-        width: "20%",
     },
 
     progressBar: {
-        width: "80%",
-        height: 5,
-        backgroundColor: "#C9EDEC",
-        borderRadius: 8,
+        width: "90%",
+        paddingLeft: "5%",
+        paddingRight: "5%",
     },
 
     open: {

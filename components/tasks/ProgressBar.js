@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 
-function ProgressBar ({navigation, percentage, height, backgroundColor, completedColor}) {
-    const [getPercentage, setPercentage] = useState(percentage);
+function ProgressBar ({navigation, height, backgroundColor, completedColor, completed, count}) {
     const [getheight, setHeight] = useState(height);
     const [getBackgroundColor, setBackgroundColor] = useState(backgroundColor);
     const [getCompletedColor, setCompletedColor] = useState(completedColor);
+    var percent = completed / count * 100;
+    var percentString = percent.toString() + '%';
     return (
         <View>
             <View style={{justifyContent: 'center'}}>
@@ -19,7 +20,7 @@ function ProgressBar ({navigation, percentage, height, backgroundColor, complete
                 />
                 <View
                     style={{
-                        width: getPercentage ? getPercentage : 0,
+                        width: percentString ? percentString : 0,
                         height: height,
                         borderRadius: 5,
                         backgroundColor: getCompletedColor,

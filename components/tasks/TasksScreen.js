@@ -9,14 +9,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 function TasksScreen ({navigation}) {
 
     const [ListOfItems, setListItem] = useState([
-        {title: "Название списка 1", completedTask: "3", countTask: "4", idCompleted: "75%", key: '1'},
-        {title: "Название списка 2", completedTask: "2", countTask: "2", idCompleted: "100%", key: '2'},
-        {title: "Название списка 3", completedTask: "3", countTask: "6", idCompleted: "50%", key: '3'},
-        {title: "Название списка 4", completedTask: "5", countTask: "99", idCompleted: "66%", key: '4'},
-        {title: "Название списка 5", completedTask: "23", countTask: "34", idCompleted: "66%", key: '5'},
-        {title: "Название списка 6", completedTask: "5", countTask: "99", idCompleted: "66%", key: '6'},
-        {title: "Название списка 7", completedTask: "5", countTask: "99", idCompleted: "66%", key: '7'},
-        {title: "Название списка 8", completedTask: "5", countTask: "99", idCompleted: "66%", key: '8'},
+        {title: "Название списка 1", completedTask: "3", countTask: "4", key: '1'},
+        {title: "Название списка 2", completedTask: "2", countTask: "2", key: '2'},
+        {title: "Название списка 3", completedTask: "3", countTask: "6", key: '3'},
+        {title: "Название списка 4", completedTask: "5", countTask: "99", key: '4'},
+        {title: "Название списка 5", completedTask: "23", countTask: "34", key: '5'},
+        {title: "Название списка 6", completedTask: "5", countTask: "99", key: '6'},
+        {title: "Название списка 7", completedTask: "5", countTask: "99", key: '7'},
+        {title: "Название списка 8", completedTask: "1000", countTask: "100000", key: '8'},
     ])
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -29,6 +29,7 @@ function TasksScreen ({navigation}) {
     }
 
     const addHendler = (text) => {
+        setModalVisible(false);
         setListItem((list) => {
             return [
                 {title: text, completedTask: "3", countTask: "4", idCompleted: "75%", key: Math.random().toString(36).substring(7)},
