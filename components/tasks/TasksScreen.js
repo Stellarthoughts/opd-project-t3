@@ -43,7 +43,7 @@ function TasksScreen ({navigation}) {
     const deleteHendler = (key) => {
         setListItem((list) => {
             return [
-                ...list.splice(key, 1)
+                ...list.filter((_, i) => i != key)
             ]
         })
     }
@@ -68,8 +68,8 @@ function TasksScreen ({navigation}) {
                 </View>
             </Modal>
             <Header navigation={navigation}/>
-            <List listData={ListOfItems}/>
-            <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
+            <List listData={ListOfItems} />
+            <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
         </SafeAreaView>
     );
 }
