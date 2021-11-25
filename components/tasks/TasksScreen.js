@@ -1,24 +1,23 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
 import List from "./List";
 import Header from '../common/Header';
 import CButton from '../common/CButton';
 import FormAddListItem from "./FormAddListItem";
 import { SafeAreaView } from 'react-native-safe-area-context';
- 
-function TasksScreen ({navigation}) {
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-    const [ListOfItems, setListItem] = useState([
-        {title: "Название списка 1", completedTask: "3", countTask: "4", subtasksItem: [{name: "Подзадача 1", key: '1'}, {name: "Подзадача 2", key: '2'}], key: '1'},
-        {title: "Название списка 2", completedTask: "2", countTask: "2", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '2'},
-        {title: "Название списка 3", completedTask: "3", countTask: "6", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '3'},
-        {title: "Название списка 4", completedTask: "5", countTask: "99", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '4'},
-        {title: "Название списка 5", completedTask: "23", countTask: "34", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '5'},
-        {title: "Название списка 6", completedTask: "5", countTask: "99", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '6'},
-        {title: "Название списка 7", completedTask: "5", countTask: "99", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '7'},
-        {title: "Название списка 8", completedTask: "5000", countTask: "10000", subtasksItem: [{name: "Подзадача 1", key: '1'}], key: '8'},
-    ])
-    //[subtasksItem, setSubtasksItem]
+const TasksScreen = ({navigation}) => {
+    const [ListOfItems, setListItem] = useState(async () => {
+        const keys = await AsyncStorage.getAllKeys();
+        let taskArray = []
+        if (keys !== null) {
+            const result = await AsyncStorage.multiGet(keys);
+
+            result.forEach(task => taskArray.unshift(JSON.parse(task[1])))
+        }
+        setListItem(taskArray)
+    })
     const [modalVisible, setModalVisible] = useState(false);
 
     const onOpenModel = () => {
@@ -29,15 +28,46 @@ function TasksScreen ({navigation}) {
         setModalVisible(false);
     }
 
-    const addHendler = (text) => {
+    const addHendler = async (text) => {
         setModalVisible(false);
         if (text.length == 0) text = "Без названия"
-        setListItem((list) => {
+
+        const key = Math.random().toString(36).substring(7)
+        
+        storeTask(
+            {
+                title: text, 
+                completedTask: "0", 
+                countTask: "0", 
+                subtasksItem: [], 
+                key: key
+            }
+        )
+
+        const storedTask = await AsyncStorage.getItem(key)
+        setListItem( (tasks) => {
             return [
-                {title: text, completedTask: "0", countTask: "0", subtasksItem: [], key: Math.random().toString(36).substring(7)},
-                ...list
+                JSON.parse(storedTask),
+                ...tasks
             ]
         })
+    }
+
+    const showTasks = async () => {
+        try {
+            const keys = await AsyncStorage.getAllKeys();
+            alert(keys)
+        } catch (err) {
+            alert("Error showing!")
+        }
+    }
+
+    const storeTask = async (list) => {
+        try {
+            await AsyncStorage.setItem(list.key, JSON.stringify(list))
+        } catch (error) {
+            alert('Error saving occured')
+        }
     }
 
     return (
