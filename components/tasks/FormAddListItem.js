@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
-import ListItem from "./ListItems";
+import ListItem from "./ListItem";
 import CButton from '../common/CButton';
 
 function FormAddListItem ({addHendler}) {

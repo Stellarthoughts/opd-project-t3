@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import ListItem from "./ListItems";
+import ListItem from "./ListItem";
 
 function List ({listData}) {
     return (

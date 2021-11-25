@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, Animated } from 'react-native';
+import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput } from 'react-native';
 import ProgressBar from './ProgressBar';
 import Images from '../../resources';
 import CButton from '../common/CButton';
@@ -44,7 +44,7 @@ function ListItem({ el }) {
                     <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.title}>{el.title}</Text>
+                    <TextInput style={styles.title}>{el.title}</TextInput>
                     <View style={styles.tasks}>
                         <View style={styles.tasksInfo}>
                             <Text style={styles.countTasks}>{el.completedTask}</Text>
@@ -71,7 +71,7 @@ function ListItem({ el }) {
             <View style={styles.subtask}>
                 <FlatList data={ListOfItems} renderItem={({ item }) => (
                     <View style={styles.subtaskItem}>
-                        <Text style={styles.subtaskItemText}>{item.name}</Text>
+                        <TextInput style={styles.subtaskItemText}>{item.name}</TextInput>
                     </View>
                 )}/>
                 <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} isShadow={false} onPress={addSubtaskHandler} title="+ Добавить строку"/>
