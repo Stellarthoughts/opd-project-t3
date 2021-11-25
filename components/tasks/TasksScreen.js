@@ -40,6 +40,14 @@ function TasksScreen ({navigation}) {
         })
     }
 
+    const deleteHendler = (key) => {
+        setListItem((list) => {
+            return [
+                ...list.splice(key, 1);
+            ]
+        })
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Modal
