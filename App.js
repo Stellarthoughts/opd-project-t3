@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -15,22 +15,24 @@ function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<Stack.Navigator initialRouteName="Home">
-				<Stack.Screen
-					name="Home"
-					component={HomeScreen}
-					options={{
-						title: 'Главная',
-						headerStyle: {
-							backgroundColor: '#f4511e',
-						},
-						headerTintColor: '#fff',
-						headerTitleStyle: {
-							fontWeight: 'bold',
-						},
-					}}
-				/>
-				<Stack.Screen name="Tasks" component={TasksScreen}/>
-				<Stack.Screen name="Settings" component={SettingsScreen}/>
+				<Stack.Group screenOptions={{ headerShown: false }}>
+					<Stack.Screen
+						name="Home"
+						component={HomeScreen}
+						options={{
+							title: 'Главная',
+							headerStyle: {
+								backgroundColor: '#f4511e',
+							},
+							headerTintColor: '#fff',
+							headerTitleStyle: {
+								fontWeight: 'bold',
+							},
+						}}
+					/>
+					<Stack.Screen name="Tasks" component={TasksScreen}/>
+					<Stack.Screen name="Settings" component={SettingsScreen}/>
+				</Stack.Group>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

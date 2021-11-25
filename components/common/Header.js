@@ -1,33 +1,65 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Image, TouchableHighlight} from 'react-native';
+import {useRoute} from '@react-navigation/native';
+import Images from '../../resources';
 
-function Header () {
-    const ButtonAddPress = () => {
-        alert("Добавить элемент в список");
-    }
-
-    const ButtonMenuPress = () => {
-        alert("Открыть/закрыть меню");
-    }
-
+function Header ({navigation}) {
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={ButtonMenuPress}>
-                <View  style={styles.menuButton}>
-                    <Text style={styles.textButton}>≡</Text>
-                </View>
-            </TouchableWithoutFeedback>
-            <Text style={styles.textTitle}>To do list</Text>
-            <TouchableWithoutFeedback onPress={ButtonAddPress}>
-                <View style={styles.addButton}>
-                    <Text style={styles.textButton}>+</Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <NavigationElement 
+                nav={navigation} node={'Home'}
+                imageSrc={Images.header.home}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                imageSrc={Images.header.building}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                imageSrc={Images.header.tasks}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Tasks'}
+                imageSrc={Images.header.like}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Settings'}
+                imageSrc={Images.header.settings}
+            />
         </View>
     );
 }
 
+const NavigationButton = (nav, node) => {
+    nav.navigate(node);
+}
+
+const NavigationElement = ({nav, node, imageSrc}) =>
+{
+    const active = useRoute().name == node ? true : false;
+    const touchStyle = active ? styles.active : null;
+    const pressEvent = active ? null : () => NavigationButton(nav, node);
+
+    return(
+        <TouchableHighlight
+            style={touchStyle}
+            onPress={pressEvent}
+            activeOpacity={0.6}
+            underlayColor="#0ff9dd"
+        >
+            <View style={styles.button}>
+                <Image
+                    resizeMode="contain" 
+                    style={styles.icon}
+                    source={imageSrc}
+                />  
+            </View>
+        </TouchableHighlight>
+    );
+}
+
 const styles = StyleSheet.create({
+    
     container: {
         flexDirection: "row",
         alignItems: 'center',
@@ -35,37 +67,26 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingLeft: 15,
         paddingRight: 15,
-        paddingBottom: 20,
-        paddingTop: 20,
-        backgroundColor: '#28282c',
+        backgroundColor: '#05CEB6',
     },
 
-    textTitle: {
-        color: "#eee7e7",
-        fontSize: 22,
-    },
-
-    addButton: {
+    button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 35,
-        height: 35,
-        backgroundColor: "#8fc998",
-        borderRadius: 20,
+        marginBottom: 5,
+        marginTop: 5,
+        width: 60,
+        height: 50,
     },
 
-    menuButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 35,
-        height: 35,
-        backgroundColor: "#c2b5b5",
-        borderRadius: 2,
+    active: {
+        backgroundColor: '#ffffff',
     },
 
-    textButton: {
-        fontSize: 22,
-    }
+    icon: {
+        width: 40,
+        height: 40,
+    },
 });
 
 export default Header;
