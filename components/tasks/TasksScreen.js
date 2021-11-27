@@ -53,12 +53,17 @@ const TasksScreen = ({navigation}) => {
         })
     }
 
-    const showTasks = async () => {
+    const deleteHendler = (key) => {
+        setListItem((list) => {
+            return [
+                ...list.filter((_, i) => i != key)
+            ]
+        })
+
         try {
-            const keys = await AsyncStorage.getAllKeys();
-            alert(keys)
+            await AsyncStorage.removeItem(key)
         } catch (err) {
-            alert("Error showing!")
+            alarm("Deleting item error!")
         }
     }
 
