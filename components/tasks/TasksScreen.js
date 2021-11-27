@@ -53,7 +53,7 @@ const TasksScreen = ({navigation}) => {
         })
     }
 
-    const deleteHendler = (key) => {
+    const deleteHendler = async (key) => {
         setListItem((list) => {
             return [
                 ...list.filter((_, i) => i != key)
