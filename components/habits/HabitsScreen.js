@@ -1,25 +1,53 @@
-import React, {forwardRef, useState} from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
-import List from "./List";
-import Header from '../common/Header';
-import CButton from '../common/CButton';
-import FormAddListItem from "./FormAddListItem";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../common/Header';
+import FormAddListItem from "./FormAddListItem";
+import CButton from '../common/CButton';
+import List from "./List";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TasksScreen = ({navigation}) => {
+function HabitsScreen({ navigation }) {
     const [ListOfItems, setListItem] = useState(async () => {
         const keys = await AsyncStorage.getAllKeys();
-        let taskArray = []
+        let habitsArray = []
         if (keys !== null) {
             const result = await AsyncStorage.multiGet(keys);
 
-            result.forEach(task => taskArray.unshift(JSON.parse(task[1])))
+            result.forEach(habit => habitsArray.unshift(JSON.parse(habit[1])))
         }
-        setListItem(taskArray)
+        setListItem(habitsArray)
     })
     const [modalVisible, setModalVisible] = useState(false);
+    const addHendler = async (text) => {
+        setModalVisible(false);
+        if (text.length == 0) text = "Привычка"
 
+        const key = Math.random().toString(36).substring(7)
+
+        storeHabit(
+            {
+                title: text,
+                firstDay: "false",
+                secondDay: "false",
+                thirdDay: "false",
+                fourthDay: "false",
+                fifthDay: "false",
+                sixthDay: "false",
+                seventhDay: "false",
+                currentDay: "1",
+                key: key
+            }
+        )
+
+        const storedHabit = await AsyncStorage.getItem(key)
+        setListItem((habits) => {
+            return [
+                JSON.parse(storedHabit),
+                ...habits
+            ]
+        })
+    }
     const onOpenModel = () => {
         setModalVisible(true);
     }
@@ -27,32 +55,6 @@ const TasksScreen = ({navigation}) => {
     const onCloseModal = () => {
         setModalVisible(false);
     }
-
-    const addHendler = async (text) => {
-        setModalVisible(false);
-        if (text.length == 0) text = "Без названия"
-
-        const key = Math.random().toString(36).substring(7)
-        
-        storeTask(
-            {
-                title: text, 
-                completedTask: "0", 
-                countTask: "0", 
-                subtasksItem: [], 
-                key: key
-            }
-        )
-
-        const storedTask = await AsyncStorage.getItem(key)
-        setListItem( (tasks) => {
-            return [
-                JSON.parse(storedTask),
-                ...tasks
-            ]
-        })
-    }
-
     const deleteHendler = async (key) => {
         setListItem((list) => {
             return [
@@ -66,17 +68,16 @@ const TasksScreen = ({navigation}) => {
             alarm("Deleting item error!")
         }
     }
-
-    const storeTask = async (list) => {
+    const storeHabit = async (list) => {
         try {
-            await AsyncStorage.setItem(list.key, JSON.stringify(list))
+            await AsyncStorage.setItem(list.title, JSON.stringify(list))
         } catch (error) {
             alert('Error saving occured')
         }
     }
-
     return (
         <SafeAreaView style={styles.container}>
+            <Header navigation={navigation} />
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -87,25 +88,23 @@ const TasksScreen = ({navigation}) => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Добавление новой задачи</Text>
+                        <Text style={styles.modalText}>Добавление новой привычки</Text>
                         <FormAddListItem addHendler={addHendler}></FormAddListItem>
 
-                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
+                        <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
                 </View>
             </Modal>
-            <Header navigation={navigation}/>
             <List listData={ListOfItems} />
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
         </SafeAreaView>
     );
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        backgroundColor: "#eee",
+        backgroundColor: "#fff",
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -52}],
+        transform: [{ translateX: -80 }, { translateY: -52 }],
         width: 70,
         height: 70,
     },
@@ -159,4 +158,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TasksScreen;
+export default HabitsScreen;

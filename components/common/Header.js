@@ -19,7 +19,7 @@ function Header ({navigation}) {
                 imageSrc={Images.header.tasks}
             />
             <NavigationElement 
-                nav={navigation} node={'Tasks'}
+                nav={navigation} node={'Habits'}
                 imageSrc={Images.header.like}
             />
             <NavigationElement 

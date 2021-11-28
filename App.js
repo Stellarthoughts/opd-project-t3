@@ -8,6 +8,7 @@ import HomeScreen from './components/home/HomeScreen';
 import TasksScreen from './components/tasks/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
+import HabitsScreen from './components/habits/HabitsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ function App() {
 					/>
 					<Stack.Screen name="Tasks" component={TasksScreen}/>
 					<Stack.Screen name="Settings" component={SettingsScreen}/>
+					<Stack.Screen name="Habits" component={HabitsScreen}/>
 				</Stack.Group>
 			</Stack.Navigator>
 		</NavigationContainer>
