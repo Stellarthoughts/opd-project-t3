@@ -6,18 +6,15 @@ import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getAStorageItem, setAStorageKey, addToAStorageKey } from '../../storage/Storage';
 
 const TasksScreen = ({navigation}) => {
-    
-    const [ListOfItems, setListItem] = useState(async () => {
-        const keys = await AsyncStorage.getAllKeys();
-        let taskArray = []
-        if (keys !== null) {
-            const result = await AsyncStorage.multiGet(keys);
 
-            result.forEach(task => taskArray.unshift(JSON.parse(task[1])))
-        } 
-        setListItem(taskArray)
+    const storageKey = 'Tasks';
+
+    const [ListOfItems, setListItem] = useState(async () => {
+        let storage = await getAStorageItem(storageKey);
+        setListItem(storage);
     })
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -30,13 +27,13 @@ const TasksScreen = ({navigation}) => {
         setModalVisible(false);
     }
 
-    const addHendler = async (text) => {
+    const addHandler = async (text) => {
         setModalVisible(false);
         if (text.length == 0) text = "Без названия"
 
         const key = Math.random().toString(36).substring(7)
         
-        storeTask(
+        await addToAStorageKey(storageKey,
             {
                 title: text, 
                 completedTask: "0", 
@@ -46,14 +43,9 @@ const TasksScreen = ({navigation}) => {
             }
         )
 
-        const storedTask = await AsyncStorage.getItem(key)
-        setListItem( (tasks) => {
-            return [
-                JSON.parse(storedTask),
-                ...tasks
-            ]
-        })
         console.log(ListOfItems);
+        let tasks = await getAStorageItem(storageKey);
+        setListItem(tasks);
     }
 
     const deleteHendler = async (key) => {
@@ -91,7 +83,7 @@ const TasksScreen = ({navigation}) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи</Text>
-                        <FormAddListItem addHendler={addHendler} placeholder="Введите название задачи..."></FormAddListItem>
+                        <FormAddListItem addHendler={addHandler} placeholder="Введите название задачи..."></FormAddListItem>
 
                         <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
                     </View>
