@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, To
 import List from "./List";
 import Header from '../../common/Header';
 import CButton from '../../common/CButton';
-import FormAddListItem from "./FormAddListItem";
+import FormAddListItem from "../../common/FormAddListItem"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,7 +16,7 @@ const TasksScreen = ({navigation}) => {
             const result = await AsyncStorage.multiGet(keys);
 
             result.forEach(task => taskArray.unshift(JSON.parse(task[1])))
-        }
+        } 
         setListItem(taskArray)
     })
 
@@ -90,7 +90,7 @@ const TasksScreen = ({navigation}) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи</Text>
-                        <FormAddListItem addHendler={addHendler}></FormAddListItem>
+                        <FormAddListItem addHendler={addHendler} placeholder="Введите название задачи..."></FormAddListItem>
 
                         <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
                     </View>

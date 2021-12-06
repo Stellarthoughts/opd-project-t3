@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
-import ListItem from "./ListItem";
-import CButton from '../../common/CButton';
+import ListItem from "../tasks/untimed/ListItem";
+import CButton from './CButton';
 
-function FormAddListItem ({addHendler}) {
+function FormAddListItem ({addHendler, placeholder}) {
     const [text, setValue] = useState('');
 
     const onChange = (text) => {
@@ -12,7 +12,7 @@ function FormAddListItem ({addHendler}) {
 
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} onChangeText={onChange} placeholder='Введите название задачи...' />
+            <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} />
             <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHendler(text)} title='Добавить задачу'/>
         </View>
     );

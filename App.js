@@ -5,10 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './components/home/HomeScreen';
-import TasksScreen from './components/tasks/unscheduled/TasksScreen';
+import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
+import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,23 +18,12 @@ function App() {
 		<NavigationContainer style={styles.container}>
 			<Stack.Navigator initialRouteName="Home">
 				<Stack.Group screenOptions={{ headerShown: false }}>
-					<Stack.Screen
-						name="Home"
-						component={HomeScreen}
-						options={{
-							title: 'Главная',
-							headerStyle: {
-								backgroundColor: '#f4511e',
-							},
-							headerTintColor: '#fff',
-							headerTitleStyle: {
-								fontWeight: 'bold',
-							},
-						}}
-					/>
 					<Stack.Screen name="Tasks" component={TasksScreen}/>
-					<Stack.Screen name="Settings" component={SettingsScreen}/>
+					<Stack.Screen name="TasksTimed" component={TasksTimedScreen}/>
 					<Stack.Screen name="Habits" component={HabitsScreen}/>
+					<Stack.Screen name="Home" component={HomeScreen}/>
+					<Stack.Screen name="Settings" component={SettingsScreen}/>
+					
 				</Stack.Group>
 			</Stack.Navigator>
 		</NavigationContainer>

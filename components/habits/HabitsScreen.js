@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../common/Header';
-import FormAddListItem from "./FormAddListItem";
+import FormAddListItem from "../common/FormAddListItem";
 import CButton from '../common/CButton';
 import List from "./List";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -89,7 +89,7 @@ function HabitsScreen({ navigation }) {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
-                        <FormAddListItem addHendler={addHendler}></FormAddListItem>
+                        <FormAddListItem addHendler={addHendler} placeholder="Введите название привычки..."></FormAddListItem>
 
                         <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
