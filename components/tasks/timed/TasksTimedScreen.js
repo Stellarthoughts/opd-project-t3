@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from '../../common/Header';
 
 const TasksTimedScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-
+            <Header navigation={navigation}/>
         </SafeAreaView>
     );
 }

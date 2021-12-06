@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, Button, View, FlatList } from 'react-native';
 import CButton from '../common/CButton';
 
 function SubtaskList({data, set})
 {
+    const [getCurrentKey, setCurrentKey] = useState(0);
     const addSubtaskHandler = () => {
         set((list) => {
+            const key = getCurrentKey;
+            setCurrentKey(key + 1);
+            console.debug(key);
             return [
-                {name: "Новая подзадача", key: Math.random().toString(36).substring(7)},
+                {name: "Новая подзадача", key: key},
                 ...list
             ]
         })

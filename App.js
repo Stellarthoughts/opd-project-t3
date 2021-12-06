@@ -4,12 +4,12 @@ import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from './components/home/HomeScreen';
 import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
+import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ function App() {
 					<Stack.Screen name="Tasks" component={TasksScreen}/>
 					<Stack.Screen name="TasksTimed" component={TasksTimedScreen}/>
 					<Stack.Screen name="Habits" component={HabitsScreen}/>
-					<Stack.Screen name="Home" component={HomeScreen}/>
+					<Stack.Screen name="Schedule" component={ScheduleScreen}/>
 					<Stack.Screen name="Settings" component={SettingsScreen}/>
 					
 				</Stack.Group>

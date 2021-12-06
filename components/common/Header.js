@@ -7,15 +7,15 @@ function Header ({navigation}) {
     return (
         <View style={styles.container}>
             <NavigationElement 
-                nav={navigation} node={'Home'}
+                nav={navigation} node={'Tasks'}
                 imageSrc={Images.header.home}
             />
             <NavigationElement 
-                nav={navigation} node={'Tasks'}
+                nav={navigation} node={'TasksTimed'}
                 imageSrc={Images.header.building}
             />
             <NavigationElement 
-                nav={navigation} node={'Tasks'}
+                nav={navigation} node={'Schedule'}
                 imageSrc={Images.header.tasks}
             />
             <NavigationElement 
