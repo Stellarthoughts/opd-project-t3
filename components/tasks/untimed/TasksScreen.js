@@ -43,7 +43,6 @@ const TasksScreen = ({navigation}) => {
             }
         )
 
-        console.log(ListOfItems);
         let tasks = await getAStorageItem(storageKey);
         setListItem(tasks);
     }

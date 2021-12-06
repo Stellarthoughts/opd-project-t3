@@ -6,26 +6,25 @@ import FormAddListItem from "../common/FormAddListItem";
 import CButton from '../common/CButton';
 import List from "./List";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getAStorageItem, setAStorageKey, addToAStorageKey } from '../storage/Storage';
 
 function HabitsScreen({ navigation }) {
-    const [ListOfItems, setListItem] = useState(async () => {
-        const keys = await AsyncStorage.getAllKeys();
-        let habitsArray = []
-        if (keys !== null) {
-            const result = await AsyncStorage.multiGet(keys);
+    
+    const storageKey = 'Habits';
 
-            result.forEach(habit => habitsArray.unshift(JSON.parse(habit[1])))
-        }
-        setListItem(habitsArray)
+    const [ListOfItems, setListItem] = useState(async () => {
+        let storage = await getAStorageItem(storageKey);
+        setListItem(storage);
     })
+
     const [modalVisible, setModalVisible] = useState(false);
-    const addHendler = async (text) => {
+    const addHandler = async (text) => {
         setModalVisible(false);
         if (text.length == 0) text = "Привычка"
 
         const key = Math.random().toString(36).substring(7)
 
-        storeHabit(
+        await addToAStorageKey(storageKey,
             {
                 title: text,
                 firstDay: "false",
@@ -40,13 +39,8 @@ function HabitsScreen({ navigation }) {
             }
         )
 
-        const storedHabit = await AsyncStorage.getItem(key)
-        setListItem((habits) => {
-            return [
-                JSON.parse(storedHabit),
-                ...habits
-            ]
-        })
+        let habits = await getAStorageItem(storageKey);
+        setListItem(habits);
     }
     const onOpenModel = () => {
         setModalVisible(true);
@@ -89,7 +83,7 @@ function HabitsScreen({ navigation }) {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
-                        <FormAddListItem addHendler={addHendler} placeholder="Введите название привычки..."></FormAddListItem>
+                        <FormAddListItem addHendler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
 
                         <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>

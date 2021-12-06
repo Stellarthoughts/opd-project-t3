@@ -6,57 +6,55 @@ import CButton from '../common/CButton';
 function ListItem({ el }) {
     // Вывод элемента
     return (
-        <Animated.View style={styles.container}>
-            <View style={styles.task}>
-                <View style={styles.info}>
-                    <TextInput style={styles.title}>{el.title}</TextInput>
-                    <View style={ styles.circles }>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.open}>
-                            <View style={styles.openCircle} />
-                        </View>
-                        <View style={styles.opSquare}>
-                            <View style={styles.openSquare} />
-                        </View>
+        <View style={styles.container}>
+            <View style={styles.info}>
+                <TextInput style={styles.title}>{el.title}</TextInput>
+                <View style={ styles.circles }>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.open}>
+                        <View style={styles.openCircle} />
+                    </View>
+                    <View style={styles.opSquare}>
+                        <View style={styles.openSquare} />
                     </View>
                 </View>
             </View>
-        </Animated.View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FFFFFF",
-        //borderRadius: 20,
+        borderRadius: 20,
         marginTop: 10,
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,
         overflow: "hidden",
-        /*shadowColor: '#000',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
-        elevation: 4,*/
-        height: 80,
+        elevation: 4,
+        paddingBottom: 10,
     },
 
     subtask: {
