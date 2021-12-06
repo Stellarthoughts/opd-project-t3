@@ -23,7 +23,6 @@ function App() {
 					<Stack.Screen name="Habits" component={HabitsScreen}/>
 					<Stack.Screen name="Schedule" component={ScheduleScreen}/>
 					<Stack.Screen name="Settings" component={SettingsScreen}/>
-					
 				</Stack.Group>
 			</Stack.Navigator>
 		</NavigationContainer>

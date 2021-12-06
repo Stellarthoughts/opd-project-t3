@@ -53,6 +53,7 @@ const TasksScreen = ({navigation}) => {
                 ...tasks
             ]
         })
+        console.log(ListOfItems);
     }
 
     const deleteHendler = async (key) => {
