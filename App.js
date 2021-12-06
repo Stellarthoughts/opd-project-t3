@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './components/home/HomeScreen';
-import TasksScreen from './components/tasks/TasksScreen';
+import TasksScreen from './components/tasks/unscheduled/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';

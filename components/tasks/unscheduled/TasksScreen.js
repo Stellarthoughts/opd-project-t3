@@ -1,13 +1,14 @@
 import React, {forwardRef, useState} from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
 import List from "./List";
-import Header from '../common/Header';
-import CButton from '../common/CButton';
+import Header from '../../common/Header';
+import CButton from '../../common/CButton';
 import FormAddListItem from "./FormAddListItem";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TasksScreen = ({navigation}) => {
+    
     const [ListOfItems, setListItem] = useState(async () => {
         const keys = await AsyncStorage.getAllKeys();
         let taskArray = []
@@ -18,6 +19,7 @@ const TasksScreen = ({navigation}) => {
         }
         setListItem(taskArray)
     })
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const onOpenModel = () => {
@@ -95,8 +97,8 @@ const TasksScreen = ({navigation}) => {
                 </View>
             </Modal>
             <Header navigation={navigation}/>
-            <List listData={ListOfItems} />
-            <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
+            <List listData={ListOfItems}/>
+            <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );
 }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import ListItem from "./ListItem";
-import CButton from '../common/CButton';
+import CButton from '../../common/CButton';
 
 function FormAddListItem ({addHendler}) {
     const [text, setValue] = useState('');

@@ -1,8 +1,9 @@
 import React, {useState, useRef} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput } from 'react-native';
-import ProgressBar from './ProgressBar';
-import Images from '../../resources';
-import CButton from '../common/CButton';
+import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox } from 'react-native';
+import ProgressBar from '../ProgressBar';
+import Images from '../../../resources';
+import CButton from '../../common/CButton';
+import SubtaskList from '../SubtaskList';
 
 function ListItem({ el }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
@@ -26,16 +27,7 @@ function ListItem({ el }) {
     const inputRange = Object.values(animate_state)
     const height = value.interpolate({ inputRange, outputRange: [71.2727279663086, 238.5454559326172] })
     const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] })
-
-    const addSubtaskHandler = () => {
-        setListItem((list) => {
-            return [
-                {name: "Новая подзадача", key: Math.random().toString(36).substring(7)},
-                ...list
-            ]
-        })
-    }
-
+    
     // Вывод элемента
     return (
         <Animated.View style={[styles.container, {height}]}>
@@ -68,14 +60,7 @@ function ListItem({ el }) {
                     </Animated.View>
                 </View>
             </View>
-            <View style={styles.subtask}>
-                <FlatList data={ListOfItems} renderItem={({ item }) => (
-                    <View style={styles.subtaskItem}>
-                        <TextInput style={styles.subtaskItemText}>{item.name}</TextInput>
-                    </View>
-                )}/>
-                <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} isShadow={false} onPress={addSubtaskHandler} title="+ Добавить строку"/>
-            </View>
+            <SubtaskList data={ListOfItems} set={setListItem}/>   
         </Animated.View>
     );
 }
