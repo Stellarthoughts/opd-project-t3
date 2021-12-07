@@ -4,10 +4,14 @@ import ProgressBar from '../ProgressBar';
 import Images from '../../../resources';
 import CButton from '../../common/CButton';
 import SubtaskList from '../SubtaskList';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
 
 function ListItem({ el,deleteHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
     var isOpenDropMenu = false
+
+    
 
     // Анимация
     const animate_state = {
@@ -32,36 +36,39 @@ function ListItem({ el,deleteHandler }) {
     // Вывод элемента
     return (
         <Animated.View style={[styles.container, {height}]}>
-            <View style={styles.task}>
-                <View style={styles.icon}>
-                    <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
-                </View>
-                <View style={styles.info}>
-                    <TextInput style={styles.title}>{el.title}</TextInput>
-                    <View style={styles.tasks}>
-                        <View style={styles.tasksInfo}>
-                            <Text style={styles.countTasks}>{el.completedTask}</Text>
-                            <Text style={styles.countTasks}>/</Text>
-                            <Text style={styles.countTasks}>{el.countTask}</Text>
-                        </View>
-                        <View style={styles.progressBar}>
-                            <ProgressBar
-                                height={7}
-                                backgroundColor={'#C9EDEC'}
-                                completedColor={'#01CAC2'}
-                                completed={el.completedTask}
-                                count={el.countTask}
-                            />
+            <GestureRecognizer
+                onSwipeRight={() => deleteHandler(el)}
+            >
+                <View style={styles.task}>
+                    <View style={styles.icon}>
+                        <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
+                    </View>
+                    <View style={styles.info}>
+                        <TextInput style={styles.title}>{el.title}</TextInput>
+                        <View style={styles.tasks}>
+                            <View style={styles.tasksInfo}>
+                                <Text style={styles.countTasks}>{el.completedTask}</Text>
+                                <Text style={styles.countTasks}>/</Text>
+                                <Text style={styles.countTasks}>{el.countTask}</Text>
+                            </View>
+                            <View style={styles.progressBar}>
+                                <ProgressBar
+                                    height={7}
+                                    backgroundColor={'#C9EDEC'}
+                                    completedColor={'#01CAC2'}
+                                    completed={el.completedTask}
+                                    count={el.countTask}
+                                />
+                            </View>
                         </View>
                     </View>
+                    <View style={styles.open}>
+                        <Animated.View style={{transform: [{rotate}]}}>
+                            <CButton style={styles.openCircle} styleText={styles.openText} onPress={startAnimate} title="ᐯ"/>
+                        </Animated.View>
+                    </View>
                 </View>
-                <View style={styles.open}>
-                    <Animated.View style={{transform: [{rotate}]}}>
-                        <CButton style={styles.openCircle} styleText={styles.openText} onPress={startAnimate} title="ᐯ"/>
-                    </Animated.View>
-                </View>
-                <Button onPress={() => {deleteHandler(el)}} title="удалить"></Button>
-            </View>
+            </GestureRecognizer>
             <SubtaskList data={ListOfItems} set={setListItem}/>   
         </Animated.View>
     );
