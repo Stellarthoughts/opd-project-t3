@@ -1,11 +1,11 @@
 import React, {useState, useRef} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox } from 'react-native';
+import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button } from 'react-native';
 import ProgressBar from '../ProgressBar';
 import Images from '../../../resources';
 import CButton from '../../common/CButton';
 import SubtaskList from '../SubtaskList';
 
-function ListItem({ el }) {
+function ListItem({ el,deleteHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
     var isOpenDropMenu = false
 
@@ -27,6 +27,7 @@ function ListItem({ el }) {
     const inputRange = Object.values(animate_state)
     const height = value.interpolate({ inputRange, outputRange: [71.2727279663086, 238.5454559326172] })
     const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] })
+
     
     // Вывод элемента
     return (
@@ -59,6 +60,7 @@ function ListItem({ el }) {
                         <CButton style={styles.openCircle} styleText={styles.openText} onPress={startAnimate} title="ᐯ"/>
                     </Animated.View>
                 </View>
+                <Button onPress={() => {deleteHandler(el)}} title="удалить"></Button>
             </View>
             <SubtaskList data={ListOfItems} set={setListItem}/>   
         </Animated.View>

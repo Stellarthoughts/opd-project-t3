@@ -6,7 +6,7 @@ import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getAStorageItem, setAStorageKey, addToAStorageKey } from '../../storage/Storage';
+import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey } from '../../storage/Storage';
 
 const TasksScreen = ({navigation}) => {
 
@@ -31,7 +31,7 @@ const TasksScreen = ({navigation}) => {
         setModalVisible(false);
         if (text.length == 0) text = "Без названия"
 
-        const key = Math.random().toString(36).substring(7)
+        const id = Math.random().toString(36).substring(7)
         
         await addToAStorageKey(storageKey,
             {
@@ -39,7 +39,7 @@ const TasksScreen = ({navigation}) => {
                 completedTask: "0", 
                 countTask: "0", 
                 subtasksItem: [], 
-                key: key
+                id: id
             }
         )
 
@@ -47,26 +47,9 @@ const TasksScreen = ({navigation}) => {
         setListItem(tasks);
     }
 
-    const deleteHendler = async (key) => {
-        setListItem((list) => {
-            return [
-                ...list.filter((_, i) => i != key)
-            ]
-        })
-
-        try {
-            await AsyncStorage.removeItem(key)
-        } catch (err) {
-            alarm("Deleting item error!")
-        }
-    }
-
-    const storeTask = async (list) => {
-        try {
-            await AsyncStorage.setItem(list.key, JSON.stringify(list))
-        } catch (error) {
-            alert('Error saving occured')
-        }
+    const deleteHandler = async (item) => {
+        let tasks = await removeFromAStorageKey(storageKey,item)
+        setListItem(tasks);
     }
 
     return (
@@ -89,7 +72,7 @@ const TasksScreen = ({navigation}) => {
                 </View>
             </Modal>
             <Header navigation={navigation}/>
-            <List listData={ListOfItems}/>
+            <List listData={ListOfItems} deleteHandler={deleteHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );
