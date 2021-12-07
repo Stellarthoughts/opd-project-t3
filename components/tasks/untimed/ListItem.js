@@ -7,37 +7,47 @@ import SubtaskList from '../SubtaskList';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
-function ListItem({ el,deleteHandler }) {
+function ListItem({ el, deleteHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
     var isOpenDropMenu = false
-
-    
 
     // Анимация
     const animate_state = {
         start: 0,
         end: 1,
     }
-    const value = useRef(new Animated.Value(animate_state.start)).current
+    const value = useRef(new Animated.Value(animate_state.start)).current;
+    const inputRange = Object.values(animate_state);
+    const height = value.interpolate({ inputRange, outputRange: [71.2727279663086, 238.5454559326172] });
+    const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] });
+
     const startAnimate = (event) => {
         if (isOpenDropMenu) {
-            Animated.timing(value, {toValue: animate_state.start, useNativeDriver: false, duration: 500}).start()
+            Animated.timing(value, {toValue: animate_state.start, useNativeDriver: false, duration: 500}).start();
         }
         else {
-            Animated.timing(value, {toValue: animate_state.end, useNativeDriver: false, duration: 500}).start()
+            Animated.timing(value, {toValue: animate_state.end, useNativeDriver: false, duration: 500}).start();
         }
-        isOpenDropMenu = !isOpenDropMenu
+        isOpenDropMenu = !isOpenDropMenu;
     }
-    const inputRange = Object.values(animate_state)
-    const height = value.interpolate({ inputRange, outputRange: [71.2727279663086, 238.5454559326172] })
-    const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] })
-
     
+    // Анимация удаления
+    const animate_deletion_state = {
+        start: 0,
+        end: 1,
+    }
+    const deletionValue = useRef(new Animated.Value(animate_deletion_state.start)).current;
+    const posOffset = deletionValue.interpolate({ inputRange, outputRange: [15, 1000] });
+
+    const startAnimateDeletion = (event) => {
+        Animated.timing(deletionValue, {toValue: animate_deletion_state.end, useNativeDriver: false, duration: 250}).start(() => deleteHandler(el));
+    }
+
     // Вывод элемента
     return (
-        <Animated.View style={[styles.container, {height}]}>
+        <Animated.View style={[styles.container, {height: height, marginLeft: posOffset}]}>
             <GestureRecognizer
-                onSwipeRight={() => deleteHandler(el)}
+                onSwipeRight={startAnimateDeletion}
             >
                 <View style={styles.task}>
                     <View style={styles.icon}>
