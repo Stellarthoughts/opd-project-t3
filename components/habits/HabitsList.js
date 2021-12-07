@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import ListItem from "./ListItem";
+import HabitsListItem from "./HabitsListItem";
 
-function List ({listData}) {
+function HabitsList ({listData}) {
     return (
         <View style={styles.container}>
             <FlatList data={listData} renderItem={({ item }) => (
-                <ListItem el={item} />
+                <HabitsListItem el={item} />
             )}/>
         </View>
     );
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default List;
+export default HabitsList;

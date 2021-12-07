@@ -4,8 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../common/Header';
 import FormAddListItem from "../common/FormAddListItem";
 import CButton from '../common/CButton';
-import List from "./List";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import HabitsList from "./HabitsList";
 import {getAStorageItem, setAStorageKey, addToAStorageKey } from '../storage/Storage';
 
 function HabitsScreen({ navigation }) {
@@ -35,6 +34,8 @@ function HabitsScreen({ navigation }) {
                 sixthDay: "false",
                 seventhDay: "false",
                 currentDay: "1",
+                currentDate: new Date().getTime() / 86400000,
+                hasSquare: "true",
                 key: key
             }
         )
@@ -48,26 +49,6 @@ function HabitsScreen({ navigation }) {
 
     const onCloseModal = () => {
         setModalVisible(false);
-    }
-    const deleteHendler = async (key) => {
-        setListItem((list) => {
-            return [
-                ...list.filter((_, i) => i != key)
-            ]
-        })
-
-        try {
-            await AsyncStorage.removeItem(key)
-        } catch (err) {
-            alarm("Deleting item error!")
-        }
-    }
-    const storeHabit = async (list) => {
-        try {
-            await AsyncStorage.setItem(list.title, JSON.stringify(list))
-        } catch (error) {
-            alert('Error saving occured')
-        }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -89,7 +70,7 @@ function HabitsScreen({ navigation }) {
                     </View>
                 </View>
             </Modal>
-            <List listData={ListOfItems} />
+            <HabitsList listData={ListOfItems} />
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
         </SafeAreaView>
     );
