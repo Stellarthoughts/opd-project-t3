@@ -8,15 +8,15 @@ function Header ({navigation}) {
         <View style={styles.container}>
             <NavigationElement 
                 nav={navigation} node={'Tasks'}
-                imageSrc={Images.header.home}
+                imageSrc={Images.header.tasks}
             />
             <NavigationElement 
                 nav={navigation} node={'TasksTimed'}
-                imageSrc={Images.header.building}
+                imageSrc={Images.header.tasks}
             />
             <NavigationElement 
                 nav={navigation} node={'Schedule'}
-                imageSrc={Images.header.tasks}
+                imageSrc={Images.header.building}
             />
             <NavigationElement 
                 nav={navigation} node={'Habits'}
