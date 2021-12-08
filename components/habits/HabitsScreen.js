@@ -5,7 +5,7 @@ import Header from '../common/Header';
 import FormAddListItem from "../common/FormAddListItem";
 import CButton from '../common/CButton';
 import HabitsList from "./HabitsList";
-import {getAStorageItem, setAStorageKey, addToAStorageKey } from '../storage/Storage';
+import { getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../storage/Storage';
 
 function HabitsScreen({ navigation }) {
     
@@ -21,7 +21,7 @@ function HabitsScreen({ navigation }) {
         setModalVisible(false);
         if (text.length == 0) text = "Привычка"
 
-        const key = Math.random().toString(36).substring(7)
+        const id = Math.random().toString(36).substring(7)
 
         await addToAStorageKey(storageKey,
             {
@@ -36,7 +36,7 @@ function HabitsScreen({ navigation }) {
                 currentDay: "1",
                 currentDate: new Date().getTime() / 86400000,
                 hasSquare: "true",
-                key: key
+                id: id
             }
         )
 
@@ -50,6 +50,15 @@ function HabitsScreen({ navigation }) {
     const onCloseModal = () => {
         setModalVisible(false);
     }
+    const deleteHandler = async (item) => {
+        let habits = await removeFromAStorageKey(storageKey, item)
+        setListItem(habits);
+    }
+
+    const updateHandler = async (replacement) => {
+        let habits = await replaceInAStorageKey(storageKey, replacement);
+        setListItem(habits);
+    } 
     return (
         <SafeAreaView style={styles.container}>
             <Header navigation={navigation} />
@@ -64,13 +73,13 @@ function HabitsScreen({ navigation }) {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
-                        <FormAddListItem addHendler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
+                        <FormAddListItem addHandler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
 
                         <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
                 </View>
             </Modal>
-            <HabitsList listData={ListOfItems} />
+            <HabitsList listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
         </SafeAreaView>
     );

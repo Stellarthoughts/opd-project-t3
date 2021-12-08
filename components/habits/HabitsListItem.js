@@ -1,34 +1,38 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, Modal } from 'react-native';
-import CButton from '../common/CButton';
+import { CheckBox } from 'react-native-elements';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
-function HabitsListItem({ el }) {
+function HabitsListItem({ el, deleteHandler, updateHandler }) {
     // Вывод элемента
-    var curDay = Math.floor(Math.abs(el.currentDate - parseInt(new Date().getTime()) / 86400000)) + el.currentDay;
-    if (curDay != el.currentDay && curDay != 1) {
+    var curDay = Math.floor(Math.abs(el.currentDate - parseInt(new Date().getTime()) / 86400000)) + 1;
+    if (curDay != el.currentDay && curDay != 1 && curDay <= 7 && curDay > 0) {
         el.hasSquare = true;
-        //el.currentDay = curDay;
+        el.currentDay = curDay;
+        updateHandler(el);
+    }
+    var isFlagged = false
+    if (curDay > 7) {
+        el.hasSquare = false;
+        isFlagged = true;
+        updateHandler(el);
     }
     const [modalVisible, setModalVisible] = useState(!el.hasSquare);
-    const [firstColor, setFirstColor] = useState(false);
-    const [secondColor, setSecondColor] = useState(false);
-    const [thirdColor, setThirdColor] = useState(false);
-    const [fourthColor, setFourthColor] = useState(false);
-    const [fifthColor, setFifthColor] = useState(false);
-    const [sixthColor, setSixthColor] = useState(false);
-    const [seventhColor, setSeventhColor] = useState(false);
-    var isColoredFirst = false
-    var isColoredSecond = false
-    var isColoredThird = false
-    var isColoredThird = false
-    var isColoredFourth = false
-    var isColoredFifth = false
-    var isColoredSixth = false
-    var isColoredSeventh = false
-    var isFlagged = false
+    const [firstColor, setFirstColor] = useState(!el.firstDay);
+    const [secondColor, setSecondColor] = useState(!el.secondDay);
+    const [thirdColor, setThirdColor] = useState(!el.thirdDay);
+    const [fourthColor, setFourthColor] = useState(!el.fourthDay);
+    const [fifthColor, setFifthColor] = useState(!el.fifthDay);
+    const [sixthColor, setSixthColor] = useState(!el.sixthDay);
+    const [seventhColor, setSeventhColor] = useState(!el.seventhDay);
+    var isColoredFirst = !el.firstDay
+    var isColoredSecond = !el.secondDay
+    var isColoredThird = !el.thirdDay
+    var isColoredFourth = !el.fourthDay
+    var isColoredFifth = !el.fifthDay
+    var isColoredSixth = !el.sixthDay
+    var isColoredSeventh = !el.seventhDay
     const flag = (event) => {
-        //console.log(curDay)
-        //console.log(el.currentDay)
         if (curDay == 1) {
             isColoredFirst = !isColoredFirst;
             setFirstColor(isColoredFirst);
@@ -67,12 +71,36 @@ function HabitsListItem({ el }) {
         isFlagged = !isFlagged;
         setModalVisible(isFlagged);
         el.hasSquare = !isFlagged;
+        updateHandler(el);
+    }
+    // Анимация удаления
+    const animate_state = {
+        start: 0,
+        end: 1,
+    }
+    const inputRange = Object.values(animate_state);
+    const animate_deletion_state = {
+        start: 0,
+        end: 1,
+    }
+    const deletionValue = useRef(new Animated.Value(animate_deletion_state.start)).current;
+    const posOffset = deletionValue.interpolate({ inputRange, outputRange: [0, 1000] });
+    const startAnimateDeletion = (event) => {
+        Animated.timing(deletionValue, { toValue: animate_deletion_state.end, useNativeDriver: false, duration: 250 }).start(() => deleteHandler(el));
+    }
+    function updateTitle(text) {
+        el.title = text;
+        updateHandler(el);
     }
     return (
-        <View style={styles.container}>
+        <Animated.View style={[styles.empty, { marginLeft: posOffset }]}>
+        <GestureRecognizer
+            onSwipeRight={startAnimateDeletion}
+        >
+            <View style={styles.container}>
             <View style={styles.info}>
-                <TextInput style={styles.title}>{el.title}</TextInput>
-                <View style={ styles.circles }>
+                <TextInput style={styles.title} onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>{el.title}</TextInput>
+                <View style={styles.circles}>
                     <View style={styles.open}>
                         <View style={!firstColor ? styles.openCircle : styles.closeCircle} />
                     </View>
@@ -95,15 +123,33 @@ function HabitsListItem({ el }) {
                         <View style={!seventhColor ? styles.openCircle : styles.closeCircle} />
                     </View>
                     <View style={styles.opSquare}>
-                        {!modalVisible ? <CButton style={styles.openSquare} onPress={flag} /> : <View style={styles.closeSquare} />}
+                        {!modalVisible ? <CheckBox
+                            checked={modalVisible}
+                            style={styles.checkbox}
+                            size={35}
+                            uncheckedColor="#565656"
+                            checkedColor="black"
+                            onPress={flag}
+                        /> : <CheckBox
+                                checked={modalVisible}
+                                size={35}
+                                uncheckedColor="#565656"
+                                checkedColor="black"
+                                style={styles.checkbox}
+                            />}
                     </View>
                 </View>
+                </View>
             </View>
-        </View>
+            </GestureRecognizer>
+        </Animated.View>
     );
 }
 
 const styles = StyleSheet.create({
+    empty: {
+        width: "100%",
+    },
     container: {
         backgroundColor: "#FFFFFF",
         borderRadius: 20,
@@ -117,7 +163,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
-        paddingBottom: 10,
+        paddingBottom: 0,
     },
 
     info: {
@@ -129,7 +175,6 @@ const styles = StyleSheet.create({
     title: {
         color: "#444",
         fontSize: 25,
-        marginBottom: 15,
         paddingLeft: 8,
         fontWeight: "bold",
     },
@@ -169,10 +214,10 @@ const styles = StyleSheet.create({
     },
 
     opSquare: {
-        marginLeft: 30,
+        marginLeft: 15,
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 10,
+        marginRight: 0,
     },
 
     openSquare: {
@@ -194,6 +239,8 @@ const styles = StyleSheet.create({
         borderColor: "white",
         width: 27,
         height: 27,
+    },
+    checkbox: {
     },
 });
 
