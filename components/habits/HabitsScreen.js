@@ -73,7 +73,7 @@ function HabitsScreen({ navigation }) {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
-                        <FormAddListItem addHendler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
+                        <FormAddListItem addHandler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
 
                         <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
