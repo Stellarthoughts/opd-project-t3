@@ -6,7 +6,7 @@ import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey } from '../../storage/Storage';
+import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 
 const TasksScreen = ({navigation}) => {
 
@@ -52,6 +52,11 @@ const TasksScreen = ({navigation}) => {
         setListItem(tasks);
     }
 
+    const updateHandler = async (replacement) => {
+        let tasks = await replaceInAStorageKey(storageKey,replacement);
+        setListItem(tasks);
+    } 
+
     return (
         <SafeAreaView style={styles.container}>
             <Modal
@@ -72,7 +77,7 @@ const TasksScreen = ({navigation}) => {
                 </View>
             </Modal>
             <Header navigation={navigation}/>
-            <List listData={ListOfItems} deleteHandler={deleteHandler}/>
+            <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );

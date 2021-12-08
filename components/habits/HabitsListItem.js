@@ -27,8 +27,8 @@ function HabitsListItem({ el }) {
     var isColoredSeventh = false
     var isFlagged = false
     const flag = (event) => {
-        console.log(curDay)
-        console.log(el.currentDay)
+        //console.log(curDay)
+        //console.log(el.currentDay)
         if (curDay == 1) {
             isColoredFirst = !isColoredFirst;
             setFirstColor(isColoredFirst);

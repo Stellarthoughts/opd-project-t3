@@ -35,6 +35,7 @@ export async function addToAStorageKey(key,item)
     let existingVals = await getAStorageItem(key);
     existingVals.push(item);
     setAStorageKey(key,existingVals);
+    return existingVals;
 }
 
 export async function removeFromAStorageKey(key,item)
@@ -46,6 +47,20 @@ export async function removeFromAStorageKey(key,item)
         })
         setAStorageKey(key,filteredVals);
         return filteredVals;
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+export async function replaceInAStorageKey(key,replacement)
+{
+    try {
+        let existingVals = await getAStorageItem(key);
+        let ind = existingVals.findIndex((item) => item.id == replacement.id);
+        existingVals[ind] = replacement;
+        setAStorageKey(key,existingVals);
+        return existingVals;
     }
     catch(err) {
         console.log(err);

@@ -7,7 +7,7 @@ import SubtaskList from '../SubtaskList';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
-function ListItem({ el, deleteHandler }) {
+function ListItem({ el, deleteHandler, updateHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
     var isOpenDropMenu = false
 
@@ -18,7 +18,7 @@ function ListItem({ el, deleteHandler }) {
     }
     const value = useRef(new Animated.Value(animate_state.start)).current;
     const inputRange = Object.values(animate_state);
-    const height = value.interpolate({ inputRange, outputRange: [71.2727279663086, 238.5454559326172] });
+    let height = value.interpolate({ inputRange, outputRange: [71, 280] });
     const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] });
 
     const startAnimate = (event) => {
@@ -43,6 +43,18 @@ function ListItem({ el, deleteHandler }) {
         Animated.timing(deletionValue, {toValue: animate_deletion_state.end, useNativeDriver: false, duration: 250}).start(() => deleteHandler(el));
     }
 
+    // Update el
+    function updateTitle(text) {
+        el.title = text;
+        updateHandler(el);
+    }
+
+    function updateSubtasks(array) {
+        el.subtasksItem = array;
+        height = value.interpolate({ inputRange, outputRange: [71, 280] });
+        updateHandler(el);
+    }
+
     // Вывод элемента
     return (
         <Animated.View style={[styles.container, {height: height, marginLeft: posOffset}]}>
@@ -54,7 +66,7 @@ function ListItem({ el, deleteHandler }) {
                         <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
                     </View>
                     <View style={styles.info}>
-                        <TextInput style={styles.title}>{el.title}</TextInput>
+                        <TextInput style={styles.title} onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>{el.title}</TextInput>
                         <View style={styles.tasks}>
                             <View style={styles.tasksInfo}>
                                 <Text style={styles.countTasks}>{el.completedTask}</Text>
@@ -79,7 +91,7 @@ function ListItem({ el, deleteHandler }) {
                     </View>
                 </View>
             </GestureRecognizer>
-            <SubtaskList data={ListOfItems} set={setListItem}/>   
+            <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}/>   
         </Animated.View>
     );
 }

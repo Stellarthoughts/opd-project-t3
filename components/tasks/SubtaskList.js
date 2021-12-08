@@ -1,32 +1,55 @@
 import React, {useState} from 'react';
-import { StyleSheet, TextInput, Text, Button, View, FlatList } from 'react-native';
+import { StyleSheet, TextInput, Text, Button, View, FlatList, ScrollView } from 'react-native';
 import CButton from '../common/CButton';
 
-function SubtaskList({data, set})
+function SubtaskList({data, set, updateHandler})
 {
-    const [getCurrentKey, setCurrentKey] = useState(0);
+    
     const addSubtaskHandler = () => {
         set((list) => {
-            const key = getCurrentKey;
-            setCurrentKey(key + 1);
-            console.debug(key);
-            return [
-                {name: "Новая подзадача", key: key},
-                ...list
+            const key = Math.random().toString(36).substring(7);
+            let res = [
+                ...list,
+                {name: "Новая подзадача", key: key, done: false}
             ]
+            updateHandler(res);
+            return res; 
+        })
+    }
+
+    const updateItem = (key,text) =>
+    {
+        console.log(key);
+        set((list) => {
+            let ind = list.findIndex((item) => item.key == key);
+            list[ind].name = text;
+            updateHandler(list);
+            return list;
         })
     }
 
     return (
-        <View style={styles.subtask}>
-                <FlatList data={data} renderItem={({ item }) => (
-                    <View style={styles.subtaskItem}>
-                        <TextInput style={styles.subtaskItemText}>{item.name}</TextInput>
-                    </View>
+        <ScrollView style={styles.subtask}>
+                <FlatList data={data} renderItem={({item}) => (
+                    <SubtaskListItem item={item} updateItem={updateItem}/>
                 )}/>
                 <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} isShadow={false} 
                 onPress={addSubtaskHandler} 
-                title="+ Добавить строку"/>
+                title="+ Добавить подзадачу"/>
+        </ScrollView>
+    )
+}
+
+function SubtaskListItem({item, updateItem})
+{
+    return (
+        <View style={styles.subtaskItem}>
+            <TextInput 
+            style={styles.subtaskItemText} 
+            onEndEditing={(event) => updateItem(item.key, event.nativeEvent.text)}
+            >
+                {item.name}
+            </TextInput>
         </View>
     )
 }
