@@ -51,8 +51,20 @@ function ListItem({ el, deleteHandler, updateHandler }) {
 
     function updateSubtasks(array) {
         el.subtasksItem = array;
+
+        el.countTask = el.subtasksItem.length;
+        let i = 0;
+        el.subtasksItem.forEach((item) => {if(item.done) i++;});
+        el.completedTask = i;
+
+        setCompletedTask(el.completedTask);
+        setCountTask(el.countTask);
+
         updateHandler(el);
     }
+
+    const [completedTask, setCompletedTask]  = useState(el.completedTask);
+    const [countTask, setCountTask]  = useState(el.countTask);
 
     // Вывод элемента
     return (
@@ -72,9 +84,9 @@ function ListItem({ el, deleteHandler, updateHandler }) {
                         </TextInput>
                         <View style={styles.tasks}>
                             <View style={styles.tasksInfo}>
-                                <Text style={styles.countTasks}>{el.completedTask}</Text>
+                                <Text style={styles.countTasks}>{completedTask}</Text>
                                 <Text style={styles.countTasks}>/</Text>
-                                <Text style={styles.countTasks}>{el.countTask}</Text>
+                                <Text style={styles.countTasks}>{countTask}</Text>
                             </View>
                             <View style={styles.progressBar}>
                                 <ProgressBar

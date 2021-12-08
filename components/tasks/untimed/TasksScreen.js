@@ -36,8 +36,8 @@ const TasksScreen = ({navigation}) => {
         await addToAStorageKey(storageKey,
             {
                 title: text, 
-                completedTask: "0", 
-                countTask: "0", 
+                completedTask: 0, 
+                countTask: 0, 
                 subtasksItem: [], 
                 id: id
             }

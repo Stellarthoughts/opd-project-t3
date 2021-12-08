@@ -20,12 +20,22 @@ function SubtaskList({data, set, updateHandler})
         })
     }
 
-    const updateItem = (key,text) =>
+    const updateItemText = (key,text) =>
     {
-        console.log(key);
         set((list) => {
             let ind = list.findIndex((item) => item.key == key);
             list[ind].name = text;
+            updateHandler(list);
+            return list;
+        })
+    }
+
+    const updateItemDone = (key,flag) =>
+    {
+        console.log(flag);
+        set((list) => {
+            let ind = list.findIndex((item) => item.key == key);
+            list[ind].done = flag;
             updateHandler(list);
             return list;
         })
@@ -35,7 +45,7 @@ function SubtaskList({data, set, updateHandler})
         <ScrollView style={styles.subtask} 
         snapToEnd='true' ref={scroll}>
                 <FlatList data={data} renderItem={({item}) => (
-                    <SubtaskListItem item={item} updateItem={updateItem}/>
+                    <SubtaskListItem item={item} updateItemText={updateItemText} updateItemDone={updateItemDone}/>
                 )}/>
                 <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} 
                 isShadow={false} onPress={addSubtaskHandler}
@@ -44,13 +54,14 @@ function SubtaskList({data, set, updateHandler})
     )
 }
 
-function SubtaskListItem({item, updateItem})
+function SubtaskListItem({item, updateItemText, updateItemDone})
 {
     return (
         <View style={styles.subtaskItem}>
+            <Button style={styles.button} onPress={() => updateItemDone(item.key, !item.done)} title="V"/>
             <TextInput 
             style={styles.subtaskItemText} 
-            onEndEditing={(event) => updateItem(item.key, event.nativeEvent.text)}
+            onEndEditing={(event) => updateItemText(item.key, event.nativeEvent.text)}
             placeholder="Новая подзадача"
             >
                 {item.name}
@@ -69,7 +80,12 @@ const styles = StyleSheet.create({
     },
 
     subtaskItem: {
+        flexDirection: "row",
         marginBottom: 5,
+    },
+
+    button: {
+        marginRight: 10,
     },
 
     subtaskItemText: {
