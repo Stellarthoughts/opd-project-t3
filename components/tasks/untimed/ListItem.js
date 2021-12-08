@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button } from 'react-native';
+import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button, ScrollView } from 'react-native';
 import ProgressBar from '../ProgressBar';
 import Images from '../../../resources';
 import CButton from '../../common/CButton';
@@ -10,6 +10,7 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 function ListItem({ el, deleteHandler, updateHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
     var isOpenDropMenu = false
+    const scroll = useRef(null);
 
     // Анимация
     const animate_state = {
@@ -49,7 +50,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
         updateHandler(el);
     }
 
-    function updateSubtasks(array) {
+    function updateSubtasks(array,doScroll) {
         el.subtasksItem = array;
 
         el.countTask = el.subtasksItem.length;
@@ -59,6 +60,11 @@ function ListItem({ el, deleteHandler, updateHandler }) {
 
         setCompletedTask(el.completedTask);
         setCountTask(el.countTask);
+
+        if(doScroll) 
+        {
+            scroll.current.scrollToEnd({ animated: true });
+        }
 
         updateHandler(el);
     }
@@ -106,7 +112,10 @@ function ListItem({ el, deleteHandler, updateHandler }) {
                     </View>
                 </View>
             </GestureRecognizer>
-            <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}/>   
+            <ScrollView style={styles.subtask} 
+            snapToEnd='true' ref={scroll}>
+                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}/>   
+            </ScrollView>
         </Animated.View>
     );
 }

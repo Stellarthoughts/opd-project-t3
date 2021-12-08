@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import { StyleSheet, TextInput, Text, Button, View, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, Text, Button, View, FlatList } from 'react-native';
 import { useRef } from 'react/cjs/react.development';
 import CButton from '../common/CButton';
+import { CheckBox } from 'react-native-elements';
 
 function SubtaskList({data, set, updateHandler})
 {   
-    const scroll = useRef(null);
-
     const addSubtaskHandler = () => {
         set((list) => {
             const key = Math.random().toString(36).substring(7);
@@ -14,8 +13,7 @@ function SubtaskList({data, set, updateHandler})
                 ...list,
                 {name: "", key: key, done: false}
             ]
-            updateHandler(res);
-            scroll.current.scrollToEnd({ animated: true });
+            updateHandler(res, true);
             return res; 
         })
     }
@@ -25,40 +23,53 @@ function SubtaskList({data, set, updateHandler})
         set((list) => {
             let ind = list.findIndex((item) => item.key == key);
             list[ind].name = text;
-            updateHandler(list);
+            updateHandler(list, false);
             return list;
         })
     }
 
     const updateItemDone = (key,flag) =>
     {
-        console.log(flag);
         set((list) => {
             let ind = list.findIndex((item) => item.key == key);
             list[ind].done = flag;
-            updateHandler(list);
+            updateHandler(list, false);
             return list;
         })
     }
 
     return (
-        <ScrollView style={styles.subtask} 
-        snapToEnd='true' ref={scroll}>
-                <FlatList data={data} renderItem={({item}) => (
-                    <SubtaskListItem item={item} updateItemText={updateItemText} updateItemDone={updateItemDone}/>
-                )}/>
-                <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} 
-                isShadow={false} onPress={addSubtaskHandler}
-                title="+ Добавить подзадачу"/>      
-        </ScrollView>
+        <View>
+            <FlatList data={data} renderItem={({item}) => (
+                <SubtaskListItem item={item} updateItemText={updateItemText} updateItemDone={updateItemDone}/>
+            )}/>
+            <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} 
+            isShadow={false} onPress={addSubtaskHandler}
+            title="+ Добавить подзадачу"/>   
+        </View>   
     )
 }
 
 function SubtaskListItem({item, updateItemText, updateItemDone})
 {
+    const [checked, setChecked] = useState(item.done);
+
+    const changeState = (event) =>
+    {
+        setChecked(!checked);
+        updateItemDone(item.key, !checked);
+    }
+
     return (
         <View style={styles.subtaskItem}>
-            <Button style={styles.button} onPress={() => updateItemDone(item.key, !item.done)} title="V"/>
+            <CheckBox
+            checked={checked}
+            style={styles.checkbox}
+            size={25}
+            uncheckedColor="#565656"
+            checkedColor="black"
+            onPress={changeState}
+            />
             <TextInput 
             style={styles.subtaskItemText} 
             onEndEditing={(event) => updateItemText(item.key, event.nativeEvent.text)}
@@ -71,6 +82,10 @@ function SubtaskListItem({item, updateItemText, updateItemDone})
 }
 
 const styles = StyleSheet.create({
+
+    checkbox: {
+
+    },
 
     subtask: {
         marginTop: 10,
