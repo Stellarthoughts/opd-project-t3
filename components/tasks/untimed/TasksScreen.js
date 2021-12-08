@@ -29,7 +29,7 @@ const TasksScreen = ({navigation}) => {
 
     const addHandler = async (text) => {
         setModalVisible(false);
-        if (text.length == 0) text = "Без названия"
+        if (text.length == 0) text = ""
 
         const id = Math.random().toString(36).substring(7)
         
@@ -70,7 +70,7 @@ const TasksScreen = ({navigation}) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи</Text>
-                        <FormAddListItem addHendler={addHandler} placeholder="Введите название задачи..."></FormAddListItem>
+                        <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."></FormAddListItem>
 
                         <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
                     </View>
