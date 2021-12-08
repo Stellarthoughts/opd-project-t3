@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import ListItem from "../tasks/untimed/ListItem";
 import CButton from './CButton';
 
-function FormAddListItem ({addHendler, placeholder}) {
+function FormAddListItem ({addHandler: addHandler, placeholder}) {
     const [text, setValue] = useState('');
 
     const onChange = (text) => {
@@ -13,7 +13,7 @@ function FormAddListItem ({addHendler, placeholder}) {
     return (
         <View style={styles.container}>
             <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} />
-            <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHendler(text)} title='Добавить задачу'/>
+            <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHandler(text)} title='Добавить задачу'/>
         </View>
     );
 }

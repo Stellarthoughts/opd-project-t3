@@ -51,7 +51,6 @@ function ListItem({ el, deleteHandler, updateHandler }) {
 
     function updateSubtasks(array) {
         el.subtasksItem = array;
-        height = value.interpolate({ inputRange, outputRange: [71, 280] });
         updateHandler(el);
     }
 
@@ -66,7 +65,11 @@ function ListItem({ el, deleteHandler, updateHandler }) {
                         <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
                     </View>
                     <View style={styles.info}>
-                        <TextInput style={styles.title} onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>{el.title}</TextInput>
+                        <TextInput placeholder="Новая задача" 
+                        style={styles.title} 
+                        onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>
+                            {el.title}
+                        </TextInput>
                         <View style={styles.tasks}>
                             <View style={styles.tasksInfo}>
                                 <Text style={styles.countTasks}>{el.completedTask}</Text>
