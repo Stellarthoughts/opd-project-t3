@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableHighlight } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -10,6 +10,7 @@ import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
+import Header from './components/common/Header';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,11 +22,26 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 	</View>
 );
 
+const MyTabBar = ({ state, descriptors, navigation }) => {
+	return(
+		<View style={{ 
+			flexDirection: 'row', 
+			backgroundColor:"#05CEB6", 
+			height:50,
+			borderRadius:50,
+			justifyContent:"center",
+			alignItems:"center" }}
+		>
+			
+    	</View>
+	);
+};
+
 function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
-			<Tab.Navigator initialRouteName="Home" tabBar={() => null}>
+			<Tab.Navigator initialRouteName="Home" >
 				<Tab.Group screenOptions={{ headerShown: false }}>
 					<Tab.Screen name="Tasks" component={TasksScreen}/>
 					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
