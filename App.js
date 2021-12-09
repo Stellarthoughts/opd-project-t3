@@ -25,7 +25,7 @@ function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
-			<Tab.Navigator initialRouteName="Home">
+			<Tab.Navigator initialRouteName="Home" tabBar={() => null}>
 				<Tab.Group screenOptions={{ headerShown: false }}>
 					<Tab.Screen name="Tasks" component={TasksScreen}/>
 					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
