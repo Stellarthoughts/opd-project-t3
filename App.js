@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
@@ -25,15 +25,15 @@ function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Group screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="Tasks" component={TasksScreen}/>
-					<Stack.Screen name="TasksTimed" component={TasksTimedScreen}/>
-					<Stack.Screen name="Habits" component={HabitsScreen}/>
-					<Stack.Screen name="Schedule" component={ScheduleScreen}/>
-					<Stack.Screen name="Settings" component={SettingsScreen}/>
-				</Stack.Group>
-			</Stack.Navigator>
+			<Tab.Navigator initialRouteName="Home">
+				<Tab.Group screenOptions={{ headerShown: false }}>
+					<Tab.Screen name="Tasks" component={TasksScreen}/>
+					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
+					<Tab.Screen name="Habits" component={HabitsScreen}/>
+					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
+					<Tab.Screen name="Settings" component={SettingsScreen}/>
+				</Tab.Group>
+			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
