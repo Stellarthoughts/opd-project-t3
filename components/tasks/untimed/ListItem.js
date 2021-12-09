@@ -144,15 +144,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 
-    subtaskItem: {
-        marginBottom: 5,
-    },
-
-    subtaskItemText: {
-        color: "#555",
-        fontSize: 16,
-    },
-
     task: {
         height: 75,
         flexDirection: "row",
