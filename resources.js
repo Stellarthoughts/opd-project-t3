@@ -1,5 +1,3 @@
-
-
 const Images = {
     header: {
         home: require('./assets/header/house.png'),
@@ -9,7 +7,8 @@ const Images = {
         settings: require('./assets/header/gears.png')
     },
     tasks: {
-        openFolder: require('./assets/tasks/folder.png')
+        openFolder: require('./assets/tasks/folder.png'),
+        closedFolder: require('./assets/tasks/folderClosed.png')
     }
 }
 

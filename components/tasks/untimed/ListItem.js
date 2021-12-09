@@ -8,9 +8,10 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
 function ListItem({ el, deleteHandler, updateHandler }) {
-    const [ListOfItems, setListItem] = useState(el.subtasksItem)
-    var isOpenDropMenu = false
+    const [ListOfItems, setListItem] = useState(el.subtasksItem);
+    var isOpenDropMenu = false;
     const scroll = useRef(null);
+    const [completed, setCompleted] = useState(el.completedTask == el.countTask);
 
     // Анимация
     const animate_state = {
@@ -60,6 +61,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
 
         setCompletedTask(el.completedTask);
         setCountTask(el.countTask);
+        setCompleted(el.completedTask == el.countTask);
 
         if(doScroll) 
         {
@@ -80,7 +82,8 @@ function ListItem({ el, deleteHandler, updateHandler }) {
             >
                 <View style={styles.task}>
                     <View style={styles.icon}>
-                        <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
+                        <Image style={styles.openFolder} 
+                        source={completed ? Images.tasks.closedFolder : Images.tasks.openFolder}/>
                     </View>
                     <View style={styles.info}>
                         <TextInput placeholder="Новая задача" 

@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#eee",
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginBottom: 0,
     },
 
     centeredView: {
