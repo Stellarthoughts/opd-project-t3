@@ -6,15 +6,28 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 function HabitsListItem({ el, deleteHandler, updateHandler }) {
     // Вывод элемента
     var curDay = Math.floor(Math.abs(el.currentDate - parseInt(new Date().getTime()) / 86400000)) + 1;
-    if (curDay != el.currentDay && curDay != 1 && curDay <= 7 && curDay > 0) {
+    var day = Math.abs(curDay - el.finalDay - 1)
+    if (day < 0)
+        day = 0
+    if (curDay != el.currentDay && curDay % 7 < 7 && curDay > 0 && day != 0) {
         el.hasSquare = true;
         el.currentDay = curDay;
         updateHandler(el);
     }
     var isFlagged = false
-    if (curDay > 7) {
+    if (day == 0) {
         el.hasSquare = false;
         isFlagged = true;
+        updateHandler(el);
+    }
+    if (curDay % 7 == 1 && curDay > 1) {
+        el.firstDay = false;
+        el.secondDay = false;
+        el.thirdDay = false;
+        el.fourthDay = false;
+        el.fifthDay = false;
+        el.sixthDay = false;
+        el.seventhDay = false;
         updateHandler(el);
     }
     const [modalVisible, setModalVisible] = useState(!el.hasSquare);
@@ -32,6 +45,21 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
     var isColoredFifth = !el.fifthDay
     var isColoredSixth = !el.sixthDay
     var isColoredSeventh = !el.seventhDay
+    var dayOffset
+    var textOffset
+    if (day % 10 >= 5)
+        dayOffset = "дней"
+    else if (day % 10 == 0)
+        dayOffset = "дней"
+    else if (day % 10 > 0 && day % 10 < 5 && day < 11
+        || day % 10 > 0 && day % 10 < 5 && day > 14)
+        dayOffset = "день"
+    else if (day > 10 && day < 15)
+        dayOffset = "дней"
+    if (day % 10 == 1 && day < 11 || day % 10 == 1 && day > 20)
+        textOffset = "остался"
+    else
+        textOffset = "осталось"
     const flag = (event) => {
         if (curDay == 1) {
             isColoredFirst = !isColoredFirst;
@@ -69,7 +97,7 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
             el.seventhDay = !isColoredSeventh;
         }
         isFlagged = !isFlagged;
-        setModalVisible(isFlagged);
+        setModalVisible(!modalVisible);
         el.hasSquare = !isFlagged;
         updateHandler(el);
     }
@@ -96,7 +124,7 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
         <Animated.View style={[styles.empty, { marginLeft: posOffset }]}>
         <GestureRecognizer
             onSwipeRight={startAnimateDeletion}
-        >
+            >
             <View style={styles.container}>
             <View style={styles.info}>
                 <TextInput style={styles.title} onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>{el.title}</TextInput>
@@ -123,22 +151,17 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
                         <View style={!seventhColor ? styles.openCircle : styles.closeCircle} />
                     </View>
                     <View style={styles.opSquare}>
-                        {!modalVisible ? <CheckBox
+                        <CheckBox
                             checked={modalVisible}
                             style={styles.checkbox}
                             size={35}
                             uncheckedColor="#565656"
                             checkedColor="black"
                             onPress={flag}
-                        /> : <CheckBox
-                                checked={modalVisible}
-                                size={35}
-                                uncheckedColor="#565656"
-                                checkedColor="black"
-                                style={styles.checkbox}
-                            />}
+                        />
                     </View>
                 </View>
+                <Text style={styles.text}>{curDay} день, {textOffset} {day} {dayOffset}</Text>
                 </View>
             </View>
             </GestureRecognizer>
@@ -163,7 +186,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
-        paddingBottom: 0,
+        paddingBottom: 5,
     },
 
     info: {
@@ -241,6 +264,11 @@ const styles = StyleSheet.create({
         height: 27,
     },
     checkbox: {
+    },
+    text: {
+        color: "#444",
+        fontSize: 15,
+        paddingLeft: 15,
     },
 });
 
