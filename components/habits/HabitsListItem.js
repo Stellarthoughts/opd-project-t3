@@ -6,21 +6,18 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 function HabitsListItem({ el, deleteHandler, updateHandler }) {
     // Вывод элемента
     var curDay = Math.floor(Math.abs(el.currentDate - parseInt(new Date().getTime()) / 86400000)) + 1;
-    var day = Math.abs(curDay - el.finalDay - 1)
+    var day = -curDay + el.finalDay + 1
     if (day < 0)
         day = 0
-    if (curDay != el.currentDay && curDay % 7 < 7 && curDay > 0 && day != 0) {
+    if (curDay != el.currentDay && curDay > 0 && day != 0) {
         el.hasSquare = true;
         el.currentDay = curDay;
         updateHandler(el);
     }
     var isFlagged = false
+    let canWork = true
     if (day == 0) {
-        el.hasSquare = false;
-        isFlagged = true;
-        updateHandler(el);
-    }
-    if (curDay % 7 == 1 && curDay > 1) {
+        canWork = false;
         el.firstDay = false;
         el.secondDay = false;
         el.thirdDay = false;
@@ -28,7 +25,104 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
         el.fifthDay = false;
         el.sixthDay = false;
         el.seventhDay = false;
-        updateHandler(el);
+    }
+    if (curDay % 7 == 1 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.firstDay || !el.secondDay || !el.thirdDay || !el.fourthDay || !el.fifthDay || !el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 2 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.secondDay || !el.thirdDay || !el.fourthDay || !el.fifthDay || !el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 3 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.thirdDay || !el.fourthDay || !el.fifthDay || !el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 4 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.fourthDay || !el.fifthDay || !el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 5 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.fifthDay || !el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 6 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.sixthDay || !el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
+    }
+    else if (curDay % 7 == 0 && curDay > 1) {
+        if (el.hasSquare) {
+            if (!el.seventhDay) {
+                el.firstDay = true;
+                el.secondDay = true;
+                el.thirdDay = true;
+                el.fourthDay = true;
+                el.fifthDay = true;
+                el.sixthDay = true;
+                el.seventhDay = true;
+                updateHandler(el);
+            }
+        }
     }
     const [modalVisible, setModalVisible] = useState(!el.hasSquare);
     const [firstColor, setFirstColor] = useState(!el.firstDay);
@@ -51,9 +145,12 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
         dayOffset = "дней"
     else if (day % 10 == 0)
         dayOffset = "дней"
-    else if (day % 10 > 0 && day % 10 < 5 && day < 11
-        || day % 10 > 0 && day % 10 < 5 && day > 14)
+    else if (day % 10 > 0 && day % 10 < 2 && day < 11
+        || day % 10 > 0 && day % 10 < 2 && day > 14)
         dayOffset = "день"
+    else if (day % 10 > 1 && day % 10 < 5 && day < 11
+        || day % 10 > 1 && day % 10 < 5 && day > 14)
+        dayOffset = "дня"
     else if (day > 10 && day < 15)
         dayOffset = "дней"
     if (day % 10 == 1 && day < 11 || day % 10 == 1 && day > 20)
@@ -61,37 +158,37 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
     else
         textOffset = "осталось"
     const flag = (event) => {
-        if (curDay == 1) {
+        if (curDay % 7 == 1) {
             isColoredFirst = !isColoredFirst;
             setFirstColor(isColoredFirst);
             el.firstDay = !isColoredFirst;
         }
-        else if (curDay == 2) {
+        else if (curDay % 7 == 2) {
             isColoredSecond = !isColoredSecond;
             setSecondColor(isColoredSecond);
             el.secondDay = !isColoredSecond;
         }
-        else if (curDay == 3) {
+        else if (curDay % 7 == 3) {
             isColoredThird = !isColoredThird;
             setThirdColor(isColoredThird);
             el.thirdDay = !isColoredThird;
         }
-        else if (curDay == 4) {
+        else if (curDay % 7 == 4) {
             isColoredFourth = !isColoredFourth;
             setFourthColor(isColoredFourth);
             el.fourthDay = !isColoredFourth;
         }
-        else if (curDay == 5) {
+        else if (curDay % 7 == 5) {
             isColoredFifth = !isColoredFifth;
             setFifthColor(isColoredFifth);
             el.fifthDay = !isColoredFifth;
         }
-        else if (curDay == 6) {
+        else if (curDay % 7 == 6) {
             isColoredSixth = !isColoredSixth;
             setSixthColor(isColoredSixth);
             el.sixthDay = !isColoredSixth;
         }
-        else if (curDay == 7) {
+        else if (curDay % 7 == 0) {
             isColoredSeventh = !isColoredSeventh;
             setSeventhColor(isColoredSeventh);
             el.seventhDay = !isColoredSeventh;
@@ -151,14 +248,20 @@ function HabitsListItem({ el, deleteHandler, updateHandler }) {
                         <View style={!seventhColor ? styles.openCircle : styles.closeCircle} />
                     </View>
                     <View style={styles.opSquare}>
-                        <CheckBox
-                            checked={modalVisible}
-                            style={styles.checkbox}
-                            size={35}
-                            uncheckedColor="#565656"
-                            checkedColor="black"
-                            onPress={flag}
-                        />
+                        {canWork ? < CheckBox
+                        checked={modalVisible}
+                        style={styles.checkbox}
+                        size={35}
+                        uncheckedColor="#565656"
+                        checkedColor="black"
+                        onPress={flag}
+                                /> : < CheckBox
+                                        checked={false}
+                                        style={styles.checkbox}
+                                        size={35}
+                                        uncheckedColor="black"
+                                        checkedColor="black"
+                                    />}
                     </View>
                 </View>
                 <Text style={styles.text}>{curDay} день, {textOffset} {day} {dayOffset}</Text>
