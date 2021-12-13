@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, To
 import List from "./List";
 import Header from '../../common/Header';
 import CButton from '../../common/CButton';
-import FormAddListItem from "../../common/FormAddListItem"; 
+import FormAddListItem from "../../common/FormAddListItem";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
@@ -32,13 +32,13 @@ const TasksScreen = ({navigation}) => {
         if (text.length == 0) text = ""
 
         const id = Math.random().toString(36).substring(7)
-        
+
         await addToAStorageKey(storageKey,
             {
-                title: text, 
-                completedTask: 0, 
-                countTask: 0, 
-                subtasksItem: [], 
+                title: text,
+                completedTask: 0,
+                countTask: 0,
+                subtasksItem: [],
                 id: id
             }
         )
@@ -55,7 +55,7 @@ const TasksScreen = ({navigation}) => {
     const updateHandler = async (replacement) => {
         let tasks = await replaceInAStorageKey(storageKey,replacement);
         setListItem(tasks);
-    } 
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        backgroundColor: "#eee",
+        backgroundColor: "#ebebeb",
         alignItems: 'center',
         justifyContent: 'flex-start',
     },

@@ -30,9 +30,7 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
 			height:50,
 			borderRadius:50,
 			justifyContent:"center",
-			alignItems:"center" }}
-		>
-			
+			alignItems:"center" }}>	
     	</View>
 	);
 };
@@ -45,8 +43,8 @@ function App() {
 				<Tab.Group screenOptions={{ headerShown: false }}>
 					<Tab.Screen name="Tasks" component={TasksScreen}/>
 					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
-					<Tab.Screen name="Habits" component={HabitsScreen}/>
 					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
+					<Tab.Screen name="Habits" component={HabitsScreen}/>
 					<Tab.Screen name="Settings" component={SettingsScreen}/>
 				</Tab.Group>
 			</Tab.Navigator>

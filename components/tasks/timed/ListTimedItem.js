@@ -1,15 +1,15 @@
 import React, {useState, useRef} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, TextInput, CheckBox, Button, ScrollView } from 'react-native';
 import ProgressBar from '../ProgressBar';
 import Images from '../../../resources';
 import CButton from '../../common/CButton';
-import SubtaskList from '../SubtaskList';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import SubtaskList from '../SubtaskList';
+import DateBlock from './DateBlock';
 
-
-function ListItem({ el, deleteHandler, updateHandler }) {
+function ListTimedItem({ el, deleteHandler, updateHandler }) {
     const [ListOfItems, setListItem] = useState(el.subtasksItem)
-    var isOpenDropMenu = false
+
     const scroll = useRef(null);
 
     // Анимация
@@ -17,6 +17,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
         start: 0,
         end: 1,
     }
+
     const value = useRef(new Animated.Value(animate_state.start)).current;
     const inputRange = Object.values(animate_state);
     let height = value.interpolate({ inputRange, outputRange: [71, 280] });
@@ -29,7 +30,6 @@ function ListItem({ el, deleteHandler, updateHandler }) {
         else {
             Animated.timing(value, {toValue: animate_state.end, useNativeDriver: false, duration: 500}).start();
         }
-        isOpenDropMenu = !isOpenDropMenu;
     }
 
     // Анимация удаления
@@ -74,53 +74,32 @@ function ListItem({ el, deleteHandler, updateHandler }) {
 
     // Вывод элемента
     return (
-        <Animated.View style={[styles.container, {height: height, marginLeft: posOffset}]}>
+        <Animated.View style={[styles.container, { marginLeft: posOffset }]}>
             <GestureRecognizer
                 onSwipeRight={startAnimateDeletion}
             >
                 <View style={styles.task}>
-                    <View style={styles.icon}>
-                        <Image style={styles.openFolder} source={Images.tasks.openFolder}/>
-                    </View>
+                    <DateBlock date={el.date} />
                     <View style={styles.info}>
                         <TextInput placeholder="Новая задача"
                         style={styles.title}
                         onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>
                             {el.title}
                         </TextInput>
-                        <View style={styles.tasks}>
-                            <View style={styles.tasksInfo}>
-                                <Text style={styles.countTasks}>{completedTask}</Text>
-                                <Text style={styles.countTasks}>/</Text>
-                                <Text style={styles.countTasks}>{countTask}</Text>
-                            </View>
-                            <View style={styles.progressBar}>
-                                <ProgressBar
-                                    height={7}
-                                    backgroundColor={'#C9EDEC'}
-                                    completedColor={'#01CAC2'}
-                                    completed={el.completedTask}
-                                    count={el.countTask}
-                                />
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.open}>
-                        <Animated.View style={{transform: [{rotate}]}}>
-                            <CButton style={styles.openCircle} styleText={styles.openText} onPress={startAnimate} title="ᐯ"/>
-                        </Animated.View>
+                        {/*<View style={styles.tasks} />*/}
+                        <ScrollView style={styles.subtask}
+                                    snapToEnd='true' ref={scroll}>
+                            <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}
+                                         styles={subtaskTimedStyles} />
+                        </ScrollView>
                     </View>
                 </View>
             </GestureRecognizer>
-            <ScrollView style={styles.subtask}
-            snapToEnd='true' ref={scroll}>
-                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks} styles={subtaskStyles}/>
-            </ScrollView>
         </Animated.View>
     );
 }
 
-const subtaskStyles = StyleSheet.create({
+const subtaskTimedStyles = StyleSheet.create({
 
     subtaskItem: {
         flexDirection: "row",
@@ -136,38 +115,49 @@ const subtaskStyles = StyleSheet.create({
     },
 
     subtaskButtonBg: {
-        backgroundColor: "#fff"
+        backgroundColor: "#F2F2F2",
+        alignItems: "flex-start",
     },
 });
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#FFFFFF",
-        borderRadius: 20,
-        marginTop: 10,
+        backgroundColor: '#F9F9F9',
+        marginTop: 30,
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,
+        height: 200,
         overflow: "hidden",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
-        height: 75,
     },
+
+    task: {
+        height: 190,
+        flexDirection: "column",
+    },
+
 
     subtask: {
         marginTop: 10,
-        marginLeft: 15,
         marginRight: 15,
         marginBottom: 10,
     },
 
-    task: {
-        height: 75,
-        flexDirection: "row",
-        backgroundColor: "#FFFFFF",
+    info: {
+        flex: 1,
+        backgroundColor: "#F2F2F2",
+        height: "auto",
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 10,
+        padding: 10,
+        marginTop: 13,
+        height: 50,
         borderRadius: 20,
         overflow: "hidden",
         shadowColor: '#000',
@@ -177,19 +167,6 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
 
-    icon: {
-        width: 80,
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        backgroundColor: "#E9E9E9",
-    },
-
-    info: {
-        flex: 1,
-        height: "auto",
-        padding: 10,
-    },
 
     title: {
         color: "#444",
@@ -203,50 +180,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
-    countTasks: {
-        color: "#444",
-        fontSize: 18,
-    },
-
     tasksInfo: {
         flexDirection: "row",
     },
 
-    progressBar: {
-        flex: 1,
-        marginLeft: 10,
-    },
-
-    open: {
-        width: 80,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    openCircle: {
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#C9EDEC",
-        width: 45,
-        height: 45,
-        borderRadius: 50,
-    },
-
-    openText: {
-        color: "#01CAC2",
-        fontSize: 20,
-        fontWeight: "bold",
-        fontWeight: "normal",
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
-    },
-
-    openFolder: {
-        width: 54,
-        height: 38,
-    },
 });
 
-export default ListItem;
+export default ListTimedItem;
