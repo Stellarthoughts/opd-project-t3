@@ -42,6 +42,7 @@ function HabitsScreen({ navigation }) {
                 currentDay: "1",
                 currentDate: new Date().getTime() / 86400000,
                 hasSquare: "true",
+                daysCounter: 0,
                 finalDay: Day,
                 id: id
             }
