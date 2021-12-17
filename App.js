@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -11,8 +11,14 @@ import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
 import Header from './components/common/Header';
+import Images from './resources';
 
 const Tab = createBottomTabNavigator();
+const tasksImage = Images.header.tasks;
+const tasksTimedImage = Images.header.tasks;
+const schedule = Images.header.building;
+const habbits = Images.header.like;
+const settings = Images.header.settings;
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
@@ -40,11 +46,43 @@ function App() {
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
 			<Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
-				tabBarStyle: {
-					// display: 'none',
-					marginTop: 0,
-					// borderWidth: 0.5
+				tabBarIcon: ({ focused, color, size }) => {
+					let iconName;
+
+					if (route.name === 'Tasks') {
+						iconName = focused
+							? tasksImage
+							: tasksImage;
+					} else if (route.name === 'TasksTimed') {
+						iconName = focused
+							? tasksTimedImage
+							: tasksTimedImage;
+					} else if (route.name === 'Schedule') {
+						iconName = focused
+							? schedule
+							: schedule;
+					} else if (route.name === 'Habits') {
+						iconName = focused
+							? habbits
+							: habbits;
+					} else if (route.name === 'Settings') {
+						iconName = focused
+							? settings
+							: settings;
+					}
+
+					// You can return any component that you like here!
+					return <Image source={iconName} style={{
+						height: 30, width: 34, marginTop: 6, marginLeft: 3, marginBottom: 9,
+					}}/>;
 				},
+				tabBarActiveTintColor: '#fff',
+				tabBarInactiveTintColor: 'gray',
+				tabBarStyle: {
+					// height: 60,
+					backgroundColor: '#05CEB6',
+				},
+				tabBarShowLabel: false
 			})}
 			>
 				<Tab.Group screenOptions={{ headerShown: false }}>

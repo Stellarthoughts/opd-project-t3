@@ -19,7 +19,7 @@ function TimedList ({ listData, deleteHandler, updateHandler }) {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "auto",
+        height: "100%",
     },
 
 });

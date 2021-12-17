@@ -88,7 +88,6 @@ const TasksTimedScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Header navigation={navigation}/> */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -120,6 +119,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F9F9F9",
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginBottom: Platform.OS === 'ios' ? -25 : 0,
     },
 
     centeredView: {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -80}],
+        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -105}] : [{translateX: -80}, {translateY: -60}],
         width: 70,
         height: 70,
     },

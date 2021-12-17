@@ -71,13 +71,6 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
     const [completedTask, setCompletedTask]  = useState(el.completedTask);
     const [countTask, setCountTask]  = useState(el.countTask);
 
-    const pickedDate = new Date(el.date);
-    const todaysDate = new Date();
-
-    function hadDateExpired() {
-        console.log(pickedDate < todaysDate);
-        return pickedDate < todaysDate;
-    }
     // console.log(pickedDate);
     // console.log(hadDateExpired());
     // Вывод элемента
@@ -123,7 +116,7 @@ const subtaskTimedStyles = StyleSheet.create({
     },
 
     subtaskButtonBg: {
-        backgroundColor: "#F2F2F2",
+        backgroundColor: "#E9E9E9",
         alignItems: "flex-start",
     },
 });
@@ -131,23 +124,15 @@ const subtaskTimedStyles = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F9F9F9',
-        marginTop: 30,
+        marginTop: 25,
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,
         height: 240,
-        // borderWidth: 0.5,
-        overflow: "hidden",
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 4,
     },
 
     task: {
         height: 240,
-        // borderWidth: 0.5,
         flexDirection: "column",
     },
 
@@ -159,7 +144,7 @@ const styles = StyleSheet.create({
 
     info: {
         flex: 1,
-        backgroundColor: "#F2F2F2",
+        backgroundColor: "#E9E9E9",
         height: "auto",
         paddingTop: 10,
         paddingBottom: 10,
@@ -168,13 +153,6 @@ const styles = StyleSheet.create({
         marginTop: 13,
         height: 80,
         borderRadius: 20,
-        // borderWidth: 0.5,
-        overflow: "hidden",
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 4,
     },
 
 
