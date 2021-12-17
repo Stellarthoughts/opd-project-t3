@@ -79,7 +79,7 @@ function App() {
 				tabBarActiveTintColor: '#fff',
 				tabBarInactiveTintColor: 'gray',
 				tabBarStyle: {
-					// height: 60,
+					height: 60,
 					backgroundColor: '#05CEB6',
 				},
 				tabBarShowLabel: false
