@@ -11,6 +11,8 @@ const Images = {
     },
     timedTasks: {
         clock: require('./assets/timedTasks/clock.png'),
+        openFolder: require('./assets/tasks/folder.png'),
+        closedFolder: require('./assets/tasks/folderClosed.png')
     }
 }
 

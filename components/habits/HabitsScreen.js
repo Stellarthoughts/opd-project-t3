@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../common/Header';
-import FormAddListItem from "../common/FormAddListItem";
+import FormAddHabitListItem from "../common/FormAddHabitListItem";
 import CButton from '../common/CButton';
 import HabitsList from "./HabitsList";
 import { getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../storage/Storage';
@@ -17,9 +17,15 @@ function HabitsScreen({ navigation }) {
     })
 
     const [modalVisible, setModalVisible] = useState(false);
-    const addHandler = async (text) => {
+    const addHandler = async (text, day) => {
         setModalVisible(false);
+        var Day
         if (text.length == 0) text = "Привычка"
+        if (day.length == 0) Day = 21
+        if (parseInt(day) < 1)
+            Day = 21
+        else
+            Day = parseInt(day) * 7
 
         const id = Math.random().toString(36).substring(7)
 
@@ -36,6 +42,8 @@ function HabitsScreen({ navigation }) {
                 currentDay: "1",
                 currentDate: new Date().getTime() / 86400000,
                 hasSquare: "true",
+                daysCounter: 0,
+                finalDay: Day,
                 id: id
             }
         )
@@ -73,8 +81,7 @@ function HabitsScreen({ navigation }) {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
-                        <FormAddListItem addHandler={addHandler} placeholder="Введите название привычки..."></FormAddListItem>
-
+                        <FormAddHabitListItem addHandler={addHandler} placeholder="Введите название привычки..." dayPlaceholder="3"></FormAddHabitListItem>
                         <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
                 </View>
