@@ -24,13 +24,13 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 
 const MyTabBar = ({ state, descriptors, navigation }) => {
 	return(
-		<View style={{ 
-			flexDirection: 'row', 
-			backgroundColor:"#05CEB6", 
-			height:50,
-			borderRadius:50,
+		<View style={{
+			flexDirection: 'row',
+			backgroundColor:"#05CEB6",
+			height: 50,
+			borderRadius: 50,
 			justifyContent:"center",
-			alignItems:"center" }}>	
+			alignItems:"center" }}>
     	</View>
 	);
 };
@@ -39,7 +39,14 @@ function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
-			<Tab.Navigator initialRouteName="Home" >
+			<Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
+				tabBarStyle: {
+					// display: 'none',
+					marginTop: 0,
+					// borderWidth: 0.5
+				},
+			})}
+			>
 				<Tab.Group screenOptions={{ headerShown: false }}>
 					<Tab.Screen name="Tasks" component={TasksScreen}/>
 					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
@@ -53,7 +60,7 @@ function App() {
 }
 
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 34 : 56;
 
 const styles = StyleSheet.create({
 	container: {

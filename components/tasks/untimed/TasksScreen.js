@@ -58,7 +58,7 @@ const TasksScreen = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} >
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#ebebeb",
         alignItems: 'center',
         justifyContent: 'flex-start',
+        paddingBottom: 0,
+        marginBottom: Platform.OS === 'ios' ? -30 : 0,
+        height: "100%",
     },
 
     centeredView: {
@@ -102,7 +105,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -80}],
+        // transform: [{translateX: -80}, {translateY: -110}],
+        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -110}] : [{translateX: -80}, {translateY: -70}],
         width: 70,
         height: 70,
     },
