@@ -6,7 +6,7 @@ function TimedList ({ listData, deleteHandler, updateHandler }) {
 
     function renderItem({item})
     {
-        return <ListTimedItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler} />
+        return <ListTimedItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
     }
 
     return (
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "auto",
-        paddingBottom: 60,
     },
 
 });

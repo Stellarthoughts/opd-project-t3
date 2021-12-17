@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
+        zIndex: 4,
         height: 75,
     },
 

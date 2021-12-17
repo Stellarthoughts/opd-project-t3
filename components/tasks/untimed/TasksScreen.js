@@ -75,7 +75,7 @@ const TasksScreen = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-            <Header navigation={navigation}/>
+            {/*<Header navigation={navigation}/>*/}
             <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
@@ -84,7 +84,7 @@ const TasksScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 12,
+        flex: 1,
         width: "100%",
         backgroundColor: "#ebebeb",
         alignItems: 'center',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -52}],
+        transform: [{translateX: -80}, {translateY: -80}],
         width: 70,
         height: 70,
     },

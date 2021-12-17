@@ -83,8 +83,7 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask, s
     // Logic
     const [checked, setChecked] = useState(item.done);
 
-    const changeState = (event) =>
-    {
+    const changeState = (event) => {
         setChecked(!checked);
         updateItemDone(item.key, !checked);
     }
@@ -118,21 +117,5 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask, s
 
     )
 }
-//
-// const styles = StyleSheet.create({
-//
-//     subtaskItem: {
-//         flexDirection: "row",
-//     },
-//
-//     checkbox: {
-//         paddingVertical: 3,
-//     },
-//
-//     subtaskItemText: {
-//         color: "#555",
-//         fontSize: 16,
-//     }
-// });
 
 export default SubtaskList;

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from 'moment';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Images from '../../../resources';
 
-const DateBlock = ({ date }) => {
-    let settedDate = moment(date).format('DD.MM.YYYY');
+const DateBlock = ({ date, expiredDate }) => {
+    let styledDate = moment(date).format('DD.MM.YYYY');
+
+    const [dateColor, setDateColor] = useState(expiredDate);
 
     return (
         <View style={styles.timeBlock}>
             <Image style={styles.clock} source={Images.timedTasks.clock} />
-            <Text style={styles.date}>{settedDate}</Text>
+            <Text style={[dateColor ? styles.dateExpired : styles.dateNotExpired]}>{styledDate}</Text>
         </View>
     );
 };
@@ -20,9 +22,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
-    date: {
-        // fontFamily: 'Roboto'
-        // flex: 1
+    dateExpired: {
+        color: 'red',
+        fontSize: 16
+    },
+
+    dateNotExpired: {
+        color: 'black',
+        fontSize: 16
     },
 
     clock: {

@@ -7,9 +7,8 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import SubtaskList from '../SubtaskList';
 import DateBlock from './DateBlock';
 
-function ListTimedItem({ el, deleteHandler, updateHandler }) {
-    const [ListOfItems, setListItem] = useState(el.subtasksItem)
-
+function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
+    const [ListOfItems, setListItem] = useState(el.subtasksItem);
     const scroll = useRef(null);
 
     // Анимация
@@ -72,6 +71,15 @@ function ListTimedItem({ el, deleteHandler, updateHandler }) {
     const [completedTask, setCompletedTask]  = useState(el.completedTask);
     const [countTask, setCountTask]  = useState(el.countTask);
 
+    const pickedDate = new Date(el.date);
+    const todaysDate = new Date();
+
+    function hadDateExpired() {
+        console.log(pickedDate < todaysDate);
+        return pickedDate < todaysDate;
+    }
+    // console.log(pickedDate);
+    // console.log(hadDateExpired());
     // Вывод элемента
     return (
         <Animated.View style={[styles.container, { marginLeft: posOffset }]}>
@@ -79,7 +87,8 @@ function ListTimedItem({ el, deleteHandler, updateHandler }) {
                 onSwipeRight={startAnimateDeletion}
             >
                 <View style={styles.task}>
-                    <DateBlock date={el.date} />
+                    <DateBlock date={el.date} expiredDate={el.expiredDate}/>
+                    {/*<DateBlock date={el.date} />*/}
                     <View style={styles.info}>
                         <TextInput placeholder="Новая задача"
                         style={styles.title}

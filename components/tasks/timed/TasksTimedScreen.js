@@ -8,6 +8,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TimedList from './TimedList';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 
+function compareDates(a, b) {
+    if (a.date === b.date)
+        return 0;
+
+    return a.date < b.date ? -1 : 1;
+}
+
 const TasksTimedScreen = ({ navigation }) => {
 
     const storageKey = 'TasksTimed';
@@ -17,7 +24,18 @@ const TasksTimedScreen = ({ navigation }) => {
 
     const [ListOfTimedItems, setListTimedItem] = useState(async () => {
         let storage = await getAStorageItem(storageKey);
-        setListTimedItem(storage);
+        const sortedTasks = storage.sort(compareDates);
+        const todaysDate = new Date();
+
+        sortedTasks.forEach((task) => {
+            const taskDate = new Date(task.date);
+            console.log(taskDate < todaysDate);
+            if(taskDate < todaysDate) {
+                task.expiredDate = true;
+            }
+        });
+
+        setListTimedItem(sortedTasks);
     })
 
     const onOpenModel = () => {
@@ -32,7 +50,9 @@ const TasksTimedScreen = ({ navigation }) => {
         setModalVisible(false);
         if (text.length == 0) text = ""
 
-        const id = Math.random().toString(36).substring(7)
+        const id = Math.random().toString(36).substring(7);
+        const taskDate = new Date(date);
+        const todaysDate = new Date();
 
         await addToAStorageKey(storageKey,
             {
@@ -41,22 +61,29 @@ const TasksTimedScreen = ({ navigation }) => {
                 countTask: 0,
                 subtasksItem: [],
                 date: date,
-                id: id
+                id: id,
+                expiredDate: taskDate < todaysDate ? true : false,
             }
         )
 
         let tasks = await getAStorageItem(storageKey);
-        setListTimedItem(tasks);
+        const sortedTasks = tasks.sort(compareDates);
+
+        setListTimedItem(sortedTasks);
     }
 
     const deleteHandler = async (item) => {
-        let tasks = await removeFromAStorageKey(storageKey,item)
-        setListTimedItem(tasks);
+        let tasks = await removeFromAStorageKey(storageKey,item);
+
+        const sortedTasks = tasks.sort(compareDates);
+        setListTimedItem(sortedTasks);
     }
 
     const updateHandler = async (replacement) => {
         let tasks = await replaceInAStorageKey(storageKey,replacement);
-        setListTimedItem(tasks);
+
+        const sortedTasks = tasks.sort(compareDates);
+        setListTimedItem(sortedTasks);
     }
 
     return (
@@ -73,9 +100,10 @@ const TasksTimedScreen = ({ navigation }) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи со временем</Text>
-                        <DatePicker mode='date' date={date} onDateChange={setDate} minimumDate={new Date()}/>
+                        {/*<DatePicker mode='date' date={date} onDateChange={setDate} />*/}
                         <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."/>
-                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
+                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}}
+                                 onPress={onCloseModal} title='Закрыть'/>
                     </View>
                 </View>
             </Modal>
@@ -89,7 +117,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        // backgroundColor: "#eee",
         backgroundColor: "#F9F9F9",
         alignItems: 'center',
         justifyContent: 'flex-start',
@@ -106,7 +133,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -52}],
+        transform: [{translateX: -80}, {translateY: -80}],
         width: 70,
         height: 70,
     },
