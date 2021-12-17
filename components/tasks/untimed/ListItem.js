@@ -117,7 +117,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
             </GestureRecognizer>
             <ScrollView style={styles.subtask} 
             snapToEnd='true' ref={scroll} nestedScrollEnabled={true}>
-                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}/>  
+                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks} styles={subtaskStyles}/>
             </ScrollView>
         </Animated.View>
     );
