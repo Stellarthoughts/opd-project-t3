@@ -32,7 +32,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
         }
         isOpenDropMenu = !isOpenDropMenu;
     }
-    
+
     // Анимация удаления
     const animate_deletion_state = {
         start: 0,
@@ -63,7 +63,7 @@ function ListItem({ el, deleteHandler, updateHandler }) {
         setCountTask(el.countTask);
         setCompleted(el.completedTask == el.countTask);
 
-        if(doScroll) 
+        if(doScroll)
         {
             scroll.current.scrollToEnd({ animated: true });
         }
@@ -86,8 +86,8 @@ function ListItem({ el, deleteHandler, updateHandler }) {
                         source={completed ? Images.tasks.closedFolder : Images.tasks.openFolder}/>
                     </View>
                     <View style={styles.info}>
-                        <TextInput placeholder="Новая задача" 
-                        style={styles.title} 
+                        <TextInput placeholder="Новая задача"
+                        style={styles.title}
                         onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>
                             {el.title}
                         </TextInput>
@@ -117,11 +117,31 @@ function ListItem({ el, deleteHandler, updateHandler }) {
             </GestureRecognizer>
             <ScrollView style={styles.subtask} 
             snapToEnd='true' ref={scroll} nestedScrollEnabled={true}>
-                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}/>   
+                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks} styles={subtaskStyles}/>
             </ScrollView>
         </Animated.View>
     );
 }
+
+const subtaskStyles = StyleSheet.create({
+
+    subtaskItem: {
+        flexDirection: "row",
+    },
+
+    checkbox: {
+        paddingVertical: 3,
+    },
+
+    subtaskItemText: {
+        color: "#555",
+        fontSize: 16,
+    },
+
+    subtaskButtonBg: {
+        backgroundColor: "#fff"
+    },
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -137,6 +157,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 4,
+        zIndex: 4,
         height: 75,
     },
 
@@ -157,8 +178,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
-        elevation: 4,
-        backgroundColor: "#fff",
     },
 
     icon: {
