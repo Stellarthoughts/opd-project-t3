@@ -95,7 +95,6 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
                         onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>
                             {el.title}
                         </TextInput>
-                        {/*<View style={styles.tasks} />*/}
                         <ScrollView style={styles.subtask}
                                     snapToEnd='true' ref={scroll}>
                             <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}
@@ -136,7 +135,8 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,
-        height: 200,
+        height: 240,
+        // borderWidth: 0.5,
         overflow: "hidden",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -146,10 +146,10 @@ const styles = StyleSheet.create({
     },
 
     task: {
-        height: 190,
+        height: 240,
+        // borderWidth: 0.5,
         flexDirection: "column",
     },
-
 
     subtask: {
         marginTop: 10,
@@ -166,8 +166,9 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         padding: 10,
         marginTop: 13,
-        height: 50,
+        height: 80,
         borderRadius: 20,
+        // borderWidth: 0.5,
         overflow: "hidden",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
