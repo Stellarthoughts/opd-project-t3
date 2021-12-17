@@ -75,7 +75,6 @@ const TasksScreen = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-            {/*<Header navigation={navigation}/>*/}
             <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>

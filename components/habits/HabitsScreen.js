@@ -69,7 +69,6 @@ function HabitsScreen({ navigation }) {
     } 
     return (
         <SafeAreaView style={styles.container}>
-            <Header navigation={navigation} />
             <Modal
                 animationType="slide"
                 transparent={true}

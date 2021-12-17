@@ -8,7 +8,6 @@ const ScheduleScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header navigation={navigation}/>
         </SafeAreaView>
     );
 }
