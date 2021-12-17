@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, To
 import List from "./List";
 import Header from '../../common/Header';
 import CButton from '../../common/CButton';
-import FormAddListItem from "../../common/FormAddListItem"; 
+import FormAddListItem from "../../common/FormAddListItem";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
@@ -32,13 +32,13 @@ const TasksScreen = ({navigation}) => {
         if (text.length == 0) text = ""
 
         const id = Math.random().toString(36).substring(7)
-        
+
         await addToAStorageKey(storageKey,
             {
-                title: text, 
-                completedTask: 0, 
-                countTask: 0, 
-                subtasksItem: [], 
+                title: text,
+                completedTask: 0,
+                countTask: 0,
+                subtasksItem: [],
                 id: id
             }
         )
@@ -55,10 +55,10 @@ const TasksScreen = ({navigation}) => {
     const updateHandler = async (replacement) => {
         let tasks = await replaceInAStorageKey(storageKey,replacement);
         setListItem(tasks);
-    } 
+    }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} >
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -75,7 +75,7 @@ const TasksScreen = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-            <Header navigation={navigation}/>
+            {/*<Header navigation={navigation}/>*/}
             <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
@@ -84,12 +84,14 @@ const TasksScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 12,
+        flex: 1,
         width: "100%",
-        backgroundColor: "#eee",
+        backgroundColor: "#ebebeb",
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginBottom: 0,
+        paddingBottom: 0,
+        marginBottom: Platform.OS === 'ios' ? -30 : 0,
+        height: "100%",
     },
 
     centeredView: {
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{translateX: -80}, {translateY: -52}],
+        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -110}] : [{translateX: -80}, {translateY: -60}],
         width: 70,
         height: 70,
     },

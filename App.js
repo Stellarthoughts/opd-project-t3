@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,8 +10,15 @@ import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
+import Header from './components/common/Header';
+import Images from './resources';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const tasksImage = Images.header.tasks;
+const tasksTimedImage = Images.header.tasks;
+const schedule = Images.header.building;
+const habbits = Images.header.like;
+const settings = Images.header.settings;
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
@@ -21,25 +28,77 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 	</View>
 );
 
+const MyTabBar = ({ state, descriptors, navigation }) => {
+	return(
+		<View style={{
+			flexDirection: 'row',
+			backgroundColor:"#05CEB6",
+			height: 50,
+			borderRadius: 50,
+			justifyContent:"center",
+			alignItems:"center" }}>
+    	</View>
+	);
+};
+
 function App() {
 	return (
 		<NavigationContainer style={styles.container}>
 			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Group screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="Tasks" component={TasksScreen}/>
-					<Stack.Screen name="TasksTimed" component={TasksTimedScreen}/>
-					<Stack.Screen name="Habits" component={HabitsScreen}/>
-					<Stack.Screen name="Schedule" component={ScheduleScreen}/>
-					<Stack.Screen name="Settings" component={SettingsScreen}/>
-				</Stack.Group>
-			</Stack.Navigator>
+			<Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
+				tabBarIcon: ({ focused, color, size }) => {
+					let iconName;
+
+					if (route.name === 'Tasks') {
+						iconName = focused
+							? tasksImage
+							: tasksImage;
+					} else if (route.name === 'TasksTimed') {
+						iconName = focused
+							? tasksTimedImage
+							: tasksTimedImage;
+					} else if (route.name === 'Schedule') {
+						iconName = focused
+							? schedule
+							: schedule;
+					} else if (route.name === 'Habits') {
+						iconName = focused
+							? habbits
+							: habbits;
+					} else if (route.name === 'Settings') {
+						iconName = focused
+							? settings
+							: settings;
+					}
+
+					// You can return any component that you like here!
+					return <Image source={iconName} style={{
+						height: 30, width: 34, marginTop: 6, marginLeft: 3, marginBottom: 9,
+					}}/>;
+				},
+				tabBarActiveTintColor: '#fff',
+				tabBarInactiveTintColor: 'gray',
+				tabBarStyle: {
+					height: 60,
+					backgroundColor: '#05CEB6',
+				},
+				tabBarShowLabel: false
+			})}
+			>
+				<Tab.Group screenOptions={{ headerShown: false }}>
+					<Tab.Screen name="Tasks" component={TasksScreen}/>
+					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
+					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
+					<Tab.Screen name="Habits" component={HabitsScreen}/>
+					<Tab.Screen name="Settings" component={SettingsScreen}/>
+				</Tab.Group>
+			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
 
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 34 : 56;
 
 const styles = StyleSheet.create({
 	container: {
