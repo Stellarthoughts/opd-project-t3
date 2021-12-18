@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, Linking, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 import Header from '../../common/Header';
 import CButton from '../../common/CButton';
 import WeekItem from './WeekItem';
+import Images from '../../../resources';
 
 const ScheduleScreen = ({navigation}) => {
     const storageKey = 'Schedule';
@@ -230,19 +231,29 @@ const ScheduleScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={stylesP.container}>
-                <CButton style={{backgroundColor: "#F2F2F2"}} styleText={{fontSize: 16, color: "#000"}}
-                         isShadow={false} onPress={swapDatePrevious}
-                         title="←"/>
-                <Text style={stylesP.title}>{formatTitle()}</Text>
-                <CButton style={{backgroundColor: "#F2F2F2"}} styleText={{fontSize: 16, color: "#000"}}
-                         isShadow={false} onPress={swapDateNext}
-                         title="→"/>
-            </View>
-            <View style={stylesP.viewDate}>
-                <FlatList data={dateWeek} renderItem={(item) => renderItem(item)}/>
-            </View>
-
+            <ScrollView style={stylesP.viewDate}>
+                <View style={stylesP.header}>
+                    <TouchableOpacity
+                        onPress={() => Linking.openURL("https://tusur.ru")}
+                        style={{flex: 1}}>
+                        <ImageBackground
+                            source={Images.tusur.logo}
+                            style={stylesP.logo}>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                    <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
+                </View>
+                <View style={stylesP.container}>
+                    <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#000"}}
+                            isShadow={false} onPress={swapDatePrevious}
+                            title="←"/>
+                    <Text style={stylesP.title}>{formatTitle()}</Text>
+                    <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#000"}}
+                            isShadow={false} onPress={swapDateNext}
+                            title="→"/>
+                </View>
+                <FlatList style={{paddingHorizontal: 13}} data={dateWeek} renderItem={(item) => renderItem(item)}/>
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -252,9 +263,9 @@ const stylesP = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#F2F2F2",
+        backgroundColor: "#fff",
         width: "100%",
-        padding: 15
+        padding: 15,    
     },
 
     title: {
@@ -265,13 +276,28 @@ const stylesP = StyleSheet.create({
         flex: 1,
         width: "100%",
     },
+
+    header: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        marginTop: 5,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 10
+    },
+
+    logo: {
+        marginTop: 10,
+        height: 23,
+        width: 220
+    },
 });
 
 const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        backgroundColor: "#eee",
+        backgroundColor: "#F3F3F3",
         alignItems: 'center',
         justifyContent: 'flex-start',
     },

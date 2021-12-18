@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button, ScrollView } from 'react-native';
 import CButton from '../../common/CButton';
@@ -28,8 +29,8 @@ function WeekItem({ el, updateHandler }) {
     // Вывод элемента
     return (
         <View style={styles.container}>
-            <Text  style={styles.title}>{formatDateWeek()}</Text>
-            <SubtaskList styles={subtaskStyles} data={listSubtask} set={setListSubtask} updateHandler={updateSubtasks}></SubtaskList>
+            <Text style={styles.title}>{formatDateWeek()}</Text>
+            <SubtaskList styles={subtaskStyles} data={listSubtask} set={setListSubtask} updateHandler={updateSubtasks} />
         </View>
     );
 }
@@ -57,11 +58,18 @@ const subtaskStyles = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        padding: 15
+        padding: 15,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        marginTop: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
 
     title: {
-        color: "#0AB09C",
+        color: "#0C54A0",
         fontSize: 16,
         marginBottom: 10
     }

@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksStackScreen from './components/tasks/untimed/TasksStackScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedStackScreen from './components/tasks/timed/TasksTimedStackScreen';
-import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
+import ScheduleStackScreen from './components/tasks/schedule/ScheduleStackScreen';
 import Images from './resources';
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +46,7 @@ function App() {
 						iconName = focused
 							? tasksTimedActiveIcon
 							: tasksTimedDisabledIcon;
-					} else if (route.name === 'Schedule') {
+					} else if (route.name === 'ScheduleStack') {
 						iconName = focused
 							? scheduleActiveIcon
 							: scheduleDisabledIcon;
@@ -73,7 +73,7 @@ function App() {
 				<Tab.Group screenOptions={{ headerShown: false }}>
 					<Tab.Screen name="TasksStack" component={TasksStackScreen}/>
 					<Tab.Screen name="TasksTimedStack" component={TasksTimedStackScreen}/>
-					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
+					<Tab.Screen name="ScheduleStack" component={ScheduleStackScreen}/>
 					<Tab.Screen name="Habits" component={HabitsScreen}/>
 				</Tab.Group>
 			</Tab.Navigator>
