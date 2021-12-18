@@ -98,7 +98,7 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#E9E9E9',
-        marginTop: 25,
+        marginTop: 15,
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,

@@ -4,11 +4,11 @@ import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity,
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import TasksStackScreen from './components/tasks/untimed/TasksStackScreen';
 import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
-import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
+import TasksTimedStackScreen from './components/tasks/timed/TasksTimedStackScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
 import Header from './components/common/Header';
 import Images from './resources';
@@ -31,16 +31,16 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 function App() {
 	return (
 		<NavigationContainer style={styles.container}>
-			<MyStatusBar backgroundColor="#05CEB6" barStyle="light-content" />
+			<MyStatusBar backgroundColor="#F3F3F3" barStyle="light-content" />
 			<Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
 				tabBarIcon: ({ focused, color, size }) => {
 					let iconName;
 
-					if (route.name === 'Tasks') {
+					if (route.name === 'TasksStack') {
 						iconName = focused
 							? tasksImage
 							: tasksImage;
-					} else if (route.name === 'TasksTimed') {
+					} else if (route.name === 'TasksTimedStack') {
 						iconName = focused
 							? tasksTimedImage
 							: tasksTimedImage;
@@ -72,11 +72,10 @@ function App() {
 			})}
 			>
 				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Tasks" component={TasksScreen}/>
-					<Tab.Screen name="TasksTimed" component={TasksTimedScreen}/>
+					<Tab.Screen name="TasksStack" component={TasksStackScreen}/>
+					<Tab.Screen name="TasksTimedStack" component={TasksTimedStackScreen}/>
 					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
 					<Tab.Screen name="Habits" component={HabitsScreen}/>
-					<Tab.Screen name="Settings" component={SettingsScreen}/>
 				</Tab.Group>
 			</Tab.Navigator>
 		</NavigationContainer>

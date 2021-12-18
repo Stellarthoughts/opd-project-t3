@@ -1,14 +1,12 @@
 import React, {forwardRef, useState} from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
 import List from "./List";
-import Header from '../../common/Header';
 import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 
-const TasksScreen = ({navigation}) => {
+const TasksScreen = ({ navigation }) => {
 
     const storageKey = 'Tasks';
 
@@ -75,7 +73,7 @@ const TasksScreen = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-            <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+            <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler} navigation={navigation}/>
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        backgroundColor: "#ebebeb",
+        backgroundColor: "#F3F3F3",
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingBottom: 0,

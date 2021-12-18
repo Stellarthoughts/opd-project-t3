@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, FlatList, Text} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { StyleSheet, View, FlatList, ImageBackground, TouchableOpacity, Linking, Button} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import ListItem from "./ListItem";
+import Images from '../../../resources';
 
-function List ({listData, deleteHandler, updateHandler}) {
+function List ({listData, deleteHandler, updateHandler, navigation}) {
 
     function renderItem({item})
     {
@@ -11,9 +12,21 @@ function List ({listData, deleteHandler, updateHandler}) {
     }
 
     return (
-        <View style={styles.container}>
-            <FlatList data={listData} renderItem={(item) => renderItem(item)}/>
-        </View>
+        <ScrollView style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL("https://tusur.ru")}
+                    style={{flex: 1}}>
+                    <ImageBackground
+                        source={Images.tusur.logo}
+                        style={styles.logo}>
+                    </ImageBackground>
+                </TouchableOpacity>
+                <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
+            </View>
+
+            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={false}/>
+        </ScrollView>
     );
 }
 
@@ -23,6 +36,19 @@ const styles = StyleSheet.create({
         height: "100%",
     },
 
+    header: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        marginTop: 5,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+
+    logo: {
+        marginTop: 10,
+        height: 18,
+        width: 155
+    },
 });
 
 export default List;

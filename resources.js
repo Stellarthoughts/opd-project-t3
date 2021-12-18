@@ -12,6 +12,9 @@ const Images = {
     },
     timedTasks: {
         clock: require('./assets/timedTasks/clock.png'),
+    },
+    tusur: {
+        logo: require('./assets/tusur.png'),
     }
 }
 

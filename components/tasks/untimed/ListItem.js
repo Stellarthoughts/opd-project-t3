@@ -100,8 +100,8 @@ function ListItem({ el, deleteHandler, updateHandler }) {
                             <View style={styles.progressBar}>
                                 <ProgressBar
                                     height={7}
-                                    backgroundColor={'#C9EDEC'}
-                                    completedColor={'#01CAC2'}
+                                    backgroundColor={'#D9E1FF'}
+                                    completedColor={'#1870CD'}
                                     completed={el.completedTask}
                                     count={el.countTask}
                                 />
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: "100%",
-        backgroundColor: "#E9E9E9",
+        backgroundColor: "#E8EDFF",
     },
 
     info: {
@@ -229,14 +229,14 @@ const styles = StyleSheet.create({
     openCircle: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#C9EDEC",
+        backgroundColor: "#E8EDFF",
         width: 45,
         height: 45,
         borderRadius: 50,
     },
 
     openText: {
-        color: "#01CAC2",
+        color: "#0C54A0",
         fontSize: 20,
         fontWeight: "bold",
         fontWeight: "normal",
