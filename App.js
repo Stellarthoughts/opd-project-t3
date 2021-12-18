@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Platform, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksStackScreen from './components/tasks/untimed/TasksStackScreen';
-import HabitsScreen from './components/habits/HabitsScreen';
+import HabitsStackScreen from './components/habits/HabitsStackScreen';
 import TasksTimedStackScreen from './components/tasks/timed/TasksTimedStackScreen';
 import ScheduleStackScreen from './components/tasks/schedule/ScheduleStackScreen';
 import Images from './resources';
@@ -50,7 +50,7 @@ function App() {
 						iconName = focused
 							? scheduleActiveIcon
 							: scheduleDisabledIcon;
-					} else if (route.name === 'Habits') {
+					} else if (route.name === 'HabitsStack') {
 						iconName = focused
 							? habbitsActiveIcon
 							: habbitsDisabledIcon;
@@ -74,7 +74,7 @@ function App() {
 					<Tab.Screen name="TasksStack" component={TasksStackScreen}/>
 					<Tab.Screen name="TasksTimedStack" component={TasksTimedStackScreen}/>
 					<Tab.Screen name="ScheduleStack" component={ScheduleStackScreen}/>
-					<Tab.Screen name="Habits" component={HabitsScreen}/>
+					<Tab.Screen name="HabitsStack" component={HabitsStackScreen}/>
 				</Tab.Group>
 			</Tab.Navigator>
 		</NavigationContainer>

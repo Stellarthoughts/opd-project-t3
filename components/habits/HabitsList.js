@@ -1,24 +1,52 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, FlatList, Button, ImageBackground, TouchableOpacity, Linking } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import HabitsListItem from "./HabitsListItem";
+import Images from '../../resources';
 
-function HabitsList({ listData, deleteHandler, updateHandler}) {
+function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL("https://tusur.ru")}
+                    style={{flex: 1}}>
+                    <ImageBackground
+                        source={Images.tusur.logo}
+                        style={styles.logo}>
+                    </ImageBackground>
+                </TouchableOpacity>
+                <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
+            </View>
+
             <FlatList data={listData} renderItem={({ item }) => (
                 <HabitsListItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler} />
-            )}/>
-        </View>
+            )} scrollEnabled={false} />
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "auto",
+        height: "100%",
         paddingBottom: 60,
     },
 
+    header: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        marginTop: 5,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 10,
+    },
+
+    logo: {
+        marginTop: 10,
+        height: 23,
+        width: 220
+    },
 });
 
 export default HabitsList;

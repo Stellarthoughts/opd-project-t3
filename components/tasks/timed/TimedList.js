@@ -25,7 +25,7 @@ function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
                 <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
             </View>
 
-            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={false}/>
+            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={false} />
         </ScrollView>
     );
 }

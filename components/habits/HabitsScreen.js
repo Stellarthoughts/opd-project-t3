@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../common/Header';
 import FormAddHabitListItem from "../common/FormAddHabitListItem";
 import CButton from '../common/CButton';
 import HabitsList from "./HabitsList";
@@ -85,7 +84,7 @@ function HabitsScreen({ navigation }) {
                     </View>
                 </View>
             </Modal>
-            <HabitsList listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+            <HabitsList listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler} navigation={navigation} />
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+' />
         </SafeAreaView>
     );
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        backgroundColor: "#eee",
+        backgroundColor: "#F3F3F3",
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: [{ translateX: -80 }, { translateY: -52 }],
+        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -80}] : [{translateX: -80}, {translateY: -60}],
         width: 70,
         height: 70,
     },

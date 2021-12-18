@@ -12,7 +12,7 @@ function FormAddListItem ({addHandler: addHandler, placeholder}) {
 
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} />
+            <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} placeholderTextColor={'grey'}/>
             <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHandler(text)} title='Добавить задачу'/>
         </View>
     );

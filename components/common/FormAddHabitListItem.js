@@ -15,9 +15,9 @@ function FormAddHabitListItem ({addHandler: addHandler, placeholder, dayPlacehol
 
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} />
+            <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} placeholderTextColor={'grey'} />
             <Text style={styles.text}>Количество недель</Text>
-            <TextInput style={styles.input} keyboardType='numeric' onChangeText={onChangeDay} placeholder={dayPlaceholder} />
+            <TextInput style={styles.input} keyboardType='numeric' onChangeText={onChangeDay} placeholder={dayPlaceholder} placeholderTextColor={'grey'} />
             <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHandler(text, day)} title='Добавить привычку'/>
         </View>
     );
