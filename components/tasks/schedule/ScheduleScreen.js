@@ -247,7 +247,6 @@ const ScheduleScreen = ({navigation}) => {
     );
 }
 
-
 const stylesP = StyleSheet.create({
     container: {
         flexDirection: "row",
