@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
     },
 
     clock: {
-        height: 25,
-        width: 27,
-        marginRight: 10,
+        height: 22,
+        width: 24,
+        marginRight: 7,
         marginLeft: 15,
         marginTop: 2
     },

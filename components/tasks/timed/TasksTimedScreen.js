@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 12,
         width: "100%",
-        backgroundColor: "#F9F9F9",
+        backgroundColor: "#F3F3F3",
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginBottom: Platform.OS === 'ios' ? -25 : 0,

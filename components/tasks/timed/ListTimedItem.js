@@ -20,16 +20,6 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
     const value = useRef(new Animated.Value(animate_state.start)).current;
     const inputRange = Object.values(animate_state);
     let height = value.interpolate({ inputRange, outputRange: [71, 280] });
-    const rotate = value.interpolate({ inputRange, outputRange: ["0deg", "180deg"] });
-
-    const startAnimate = (event) => {
-        if (isOpenDropMenu) {
-            Animated.timing(value, {toValue: animate_state.start, useNativeDriver: false, duration: 500}).start();
-        }
-        else {
-            Animated.timing(value, {toValue: animate_state.end, useNativeDriver: false, duration: 500}).start();
-        }
-    }
 
     // Анимация удаления
     const animate_deletion_state = {
@@ -97,23 +87,26 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#E9E9E9',
+        backgroundColor: '#fff',
         marginTop: 15,
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 8,
         borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
         height: 240,
     },
 
     subtask: {
-        marginTop: 10,
         marginRight: 15,
         marginBottom: 10,
     },
 
     info: {
-        backgroundColor: "#E9E9E9",
+        backgroundColor: "#fff",
         height: "auto",
         padding: 10,
         paddingHorizontal: 20,
@@ -146,7 +139,7 @@ const subtaskTimedStyles = StyleSheet.create({
     },
 
     subtaskButtonBg: {
-        backgroundColor: "#E9E9E9",
+        backgroundColor: "#fff",
         alignItems: "flex-start",
     },
 });
