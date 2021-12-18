@@ -71,34 +71,64 @@ function ListTimedItem({ el, deleteHandler, updateHandler, onExpiredDate }) {
     const [completedTask, setCompletedTask]  = useState(el.completedTask);
     const [countTask, setCountTask]  = useState(el.countTask);
 
-    // console.log(pickedDate);
-    // console.log(hadDateExpired());
     // Вывод элемента
     return (
         <Animated.View style={[styles.container, { marginLeft: posOffset }]}>
             <GestureRecognizer
                 onSwipeRight={startAnimateDeletion}
             >
-                <View style={styles.task}>
-                    <DateBlock date={el.date} expiredDate={el.expiredDate}/>
-                    {/*<DateBlock date={el.date} />*/}
-                    <View style={styles.info}>
-                        <TextInput placeholder="Новая задача"
+                <View style={styles.info}>
+                    <TextInput placeholder="Новая задача"
                         style={styles.title}
                         onEndEditing={(event) => updateTitle(event.nativeEvent.text)}>
-                            {el.title}
-                        </TextInput>
-                        <ScrollView style={styles.subtask}
-                                    snapToEnd='true' ref={scroll}>
-                            <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}
-                                         styles={subtaskTimedStyles} />
-                        </ScrollView>
-                    </View>
+                        {el.title}
+                    </TextInput>
+                    <DateBlock date={el.date} expiredDate={el.expiredDate}/>
                 </View>
             </GestureRecognizer>
+            <ScrollView style={styles.subtask}
+                        snapToEnd='true' ref={scroll} nestedScrollEnabled={true}>
+                <SubtaskList data={ListOfItems} set={setListItem} updateHandler={updateSubtasks}
+                             styles={subtaskTimedStyles} />
+            </ScrollView>
         </Animated.View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#E9E9E9',
+        marginTop: 25,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 8,
+        borderRadius: 20,
+        height: 240,
+    },
+
+    subtask: {
+        marginTop: 10,
+        marginRight: 15,
+        marginBottom: 10,
+    },
+
+    info: {
+        backgroundColor: "#E9E9E9",
+        height: "auto",
+        padding: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        marginTop: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+
+    title: {
+        color: "#444",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+});
 
 const subtaskTimedStyles = StyleSheet.create({
 
@@ -119,59 +149,6 @@ const subtaskTimedStyles = StyleSheet.create({
         backgroundColor: "#E9E9E9",
         alignItems: "flex-start",
     },
-});
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#F9F9F9',
-        marginTop: 25,
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 8,
-        height: 240,
-    },
-
-    task: {
-        height: 240,
-        flexDirection: "column",
-    },
-
-    subtask: {
-        marginTop: 10,
-        marginRight: 15,
-        marginBottom: 10,
-    },
-
-    info: {
-        flex: 1,
-        backgroundColor: "#E9E9E9",
-        height: "auto",
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingRight: 10,
-        padding: 10,
-        marginTop: 13,
-        height: 80,
-        borderRadius: 20,
-    },
-
-
-    title: {
-        color: "#444",
-        fontSize: 20,
-        fontWeight: "bold",
-    },
-
-    tasks: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-
-    tasksInfo: {
-        flexDirection: "row",
-    },
-
 });
 
 export default ListTimedItem;

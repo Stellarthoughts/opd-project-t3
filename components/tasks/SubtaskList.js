@@ -91,7 +91,7 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask, s
     return (
         <Animated.View style={[{marginLeft: posOffset}]}>
             <GestureRecognizer style={styles.subtaskItem}
-                onSwipeRight={startAnimateDeletion}
+                    onSwipeRight={startAnimateDeletion}
                 >
                 <CheckBox
                 checked={checked}

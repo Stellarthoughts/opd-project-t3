@@ -28,19 +28,6 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 	</View>
 );
 
-const MyTabBar = ({ state, descriptors, navigation }) => {
-	return(
-		<View style={{
-			flexDirection: 'row',
-			backgroundColor:"#05CEB6",
-			height: 50,
-			borderRadius: 50,
-			justifyContent:"center",
-			alignItems:"center" }}>
-    	</View>
-	);
-};
-
 function App() {
 	return (
 		<NavigationContainer style={styles.container}>
@@ -71,7 +58,6 @@ function App() {
 							: settings;
 					}
 
-					// You can return any component that you like here!
 					return <Image source={iconName} style={{
 						height: 30, width: 34, marginTop: 6, marginLeft: 3, marginBottom: 9,
 					}}/>;
