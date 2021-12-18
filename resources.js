@@ -25,6 +25,9 @@ const Images = {
         scheduleDisabled: require('./assets/tabBarIcons/scheduleDisabled.png'),
         habbitsActive: require('./assets/tabBarIcons/habitsActive.png'),
         habbitsDisabled: require('./assets/tabBarIcons/habitsDisabled.png'),
+    },
+    settings: {
+        button: require('./assets/settingsButton.png'),
     }
 }
 

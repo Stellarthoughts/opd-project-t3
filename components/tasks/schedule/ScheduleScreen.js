@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, Linking, Button } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
@@ -241,7 +241,14 @@ const ScheduleScreen = ({navigation}) => {
                             style={stylesP.logo}>
                         </ImageBackground>
                     </TouchableOpacity>
-                    <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('Settings')}
+                    >
+                    <ImageBackground
+                        source={Images.settings.button}
+                        style={stylesP.settingsButton}>
+                    </ImageBackground>
+                    </TouchableOpacity>
                 </View>
                 <View style={stylesP.container}>
                     <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#000"}}
@@ -280,17 +287,23 @@ const stylesP = StyleSheet.create({
     header: {
         justifyContent: "space-between",
         flexDirection: "row",
-        marginTop: 5,
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 10
+        marginTop: 8,
+        marginLeft: 16,
+        marginRight: 25,
+        marginBottom: 12,
     },
 
     logo: {
-        marginTop: 10,
+        marginTop: 8,
         height: 23,
         width: 220
     },
+
+    settingsButton: {
+        marginTop: 2,
+        width: 35,
+        height: 35
+    }
 });
 
 const styles = StyleSheet.create({

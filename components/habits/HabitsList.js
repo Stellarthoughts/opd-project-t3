@@ -16,7 +16,14 @@ function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
                         style={styles.logo}>
                     </ImageBackground>
                 </TouchableOpacity>
-                <Button title='go to settings' onPress={() => navigation.navigate('Settings')} />
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Settings')}
+                >
+                    <ImageBackground
+                        source={Images.settings.button}
+                        style={styles.settingsButton}>
+                    </ImageBackground>
+                </TouchableOpacity>
             </View>
 
             <FlatList data={listData} renderItem={({ item }) => (
@@ -36,17 +43,23 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: "space-between",
         flexDirection: "row",
-        marginTop: 5,
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 10,
+        marginTop: 8,
+        marginLeft: 16,
+        marginRight: 25,
+        marginBottom: 3,
     },
 
     logo: {
-        marginTop: 10,
+        marginTop: 8,
         height: 23,
         width: 220
     },
+
+    settingsButton: {
+        marginTop: 2,
+        width: 35,
+        height: 35
+    }
 });
 
 export default HabitsList;

@@ -7,9 +7,9 @@ const TasksStack = createNativeStackNavigator();
 
 const TasksStackScreen = () => {
     return (
-        <TasksStack.Navigator screenOptions={{ headerShown: false }}>
-            <TasksStack.Screen name={"Tasks"} component={TasksScreen} />
-            <TasksStack.Screen name={"Settings"} component={SettingsScreen} />
+        <TasksStack.Navigator>
+            <TasksStack.Screen name={"Tasks"} component={TasksScreen} options={{headerShown: false}} />
+            <TasksStack.Screen name={"Settings"} component={SettingsScreen} options={{title: 'Настройки', headerBackTitle: 'Back'}} />
         </TasksStack.Navigator>
     );
 };

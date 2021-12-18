@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
         top: "100%",
         left: "100%",
         transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -110}] : [{translateX: -80}, {translateY: -60}],
-        width: 70,
-        height: 70,
+        width: 65,
+        height: 65,
     },
 
     buttonAddText: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: "normal",
         marginTop: 0,
-        marginBottom: 0,
+        marginBottom: 4,
         marginLeft: 0,
         marginRight: 0,
     },

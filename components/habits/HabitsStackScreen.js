@@ -7,9 +7,9 @@ const HabitsStack = createNativeStackNavigator();
 
 const HabitsStackScreen = () => {
     return (
-        <HabitsStack.Navigator screenOptions={{ headerShown: false }}>
-            <HabitsStack.Screen name={"Habits"} component={HabitsScreen} />
-            <HabitsStack.Screen name={"Settings"} component={SettingsScreen} />
+        <HabitsStack.Navigator>
+            <HabitsStack.Screen name={"Habits"} component={HabitsScreen} options={{headerShown: false}} />
+            <HabitsStack.Screen name={"Settings"} component={SettingsScreen} options={{title: 'Настройки', headerBackTitle: 'Back'}} />
         </HabitsStack.Navigator>
     );
 };
