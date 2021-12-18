@@ -28,7 +28,6 @@ const TasksTimedScreen = ({ navigation }) => {
 
         sortedTasks.forEach((task) => {
             const taskDate = new Date(task.date);
-            console.log(taskDate < todaysDate);
             if(taskDate < todaysDate) {
                 task.expiredDate = true;
             }
