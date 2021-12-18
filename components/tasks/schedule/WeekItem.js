@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, View, FlatList, Text, Image, Animated, TextInput, CheckBox, Button, ScrollView } from 'react-native';
-import CButton from '../../../common/CButton';
-import SubtaskList from '../../SubtaskList';
+import CButton from '../../common/CButton';
+import SubtaskList from '../SubtaskList';
 
 function WeekItem({ el, updateHandler }) {
     const [listSubtask, setListSubtask] = useState(el.subtasksItem);
@@ -20,11 +20,16 @@ function WeekItem({ el, updateHandler }) {
         return el.shortName + " " + date + "." + month;
     }
 
+    function updateSubtasks(array) {
+        el.subtasksItem = array;
+        updateHandler(el);
+    }
+
     // Вывод элемента
     return (
         <View style={styles.container}>
             <Text  style={styles.title}>{formatDateWeek()}</Text>
-            <SubtaskList data={listSubtask} set={setListSubtask} updateHandler={updateHandler}></SubtaskList>
+            <SubtaskList data={listSubtask} set={setListSubtask} updateHandler={updateSubtasks}></SubtaskList>
         </View>
     );
 }
