@@ -25,7 +25,6 @@ function WeekItem({ el, updateHandler }) {
         <View style={styles.container}>
             <Text  style={styles.title}>{formatDateWeek()}</Text>
             <SubtaskList data={listSubtask} set={setListSubtask} updateHandler={updateHandler}></SubtaskList>
-            <CButton onPress={() => Update([{name: "Задача 1", key: Math.random().toString(36).substring(7), done: false},{name: "Задача 1", key: Math.random().toString(36).substring(7), done: false}])}/>
         </View>
     );
 }
