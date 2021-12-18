@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker'
 import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import TimedList from './TimedList';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 
@@ -106,7 +105,7 @@ const TasksTimedScreen = ({ navigation }) => {
                     </View>
                 </View>
             </Modal>
-            <TimedList listData={ListOfTimedItems} deleteHandler={deleteHandler} updateHandler={updateHandler} />
+            <TimedList listData={ListOfTimedItems} deleteHandler={deleteHandler} updateHandler={updateHandler} navigation={navigation} />
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );
