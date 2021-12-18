@@ -7,19 +7,19 @@ function Header ({navigation}) {
     return (
         <View style={styles.container}>
             <NavigationElement 
-                nav={navigation} node={'Home'}
-                imageSrc={Images.header.home}
-            />
-            <NavigationElement 
-                nav={navigation} node={'Tasks'}
-                imageSrc={Images.header.building}
-            />
-            <NavigationElement 
                 nav={navigation} node={'Tasks'}
                 imageSrc={Images.header.tasks}
             />
             <NavigationElement 
-                nav={navigation} node={'Tasks'}
+                nav={navigation} node={'TasksTimed'}
+                imageSrc={Images.header.tasks}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Schedule'}
+                imageSrc={Images.header.building}
+            />
+            <NavigationElement 
+                nav={navigation} node={'Habits'}
                 imageSrc={Images.header.like}
             />
             <NavigationElement 
@@ -39,6 +39,7 @@ const NavigationElement = ({nav, node, imageSrc}) =>
     const active = useRoute().name == node ? true : false;
     const touchStyle = active ? styles.active : null;
     const pressEvent = active ? null : () => NavigationButton(nav, node);
+    const size = active ? 40 : 40;
 
     return(
         <TouchableHighlight
@@ -50,7 +51,7 @@ const NavigationElement = ({nav, node, imageSrc}) =>
             <View style={styles.button}>
                 <Image
                     resizeMode="contain" 
-                    style={styles.icon}
+                    style={[styles.icon, {width: size, height: size}]}
                     source={imageSrc}
                 />  
             </View>
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     },
 
     active: {
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
     },
 
     icon: {

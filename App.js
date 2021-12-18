@@ -1,42 +1,89 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, CancelButton } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeScreen from './components/home/HomeScreen';
-import TasksScreen from './components/tasks/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import TasksStackScreen from './components/tasks/untimed/TasksStackScreen';
 import SettingsScreen from './components/settings/SettingsScreen';
+import HabitsScreen from './components/habits/HabitsScreen';
+import TasksTimedStackScreen from './components/tasks/timed/TasksTimedStackScreen';
+import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
+import Header from './components/common/Header';
+import Images from './resources';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const tasksImage = Images.header.tasks;
+const tasksTimedImage = Images.header.tasks;
+const schedule = Images.header.building;
+const habbits = Images.header.like;
+const settings = Images.header.settings;
+
+const MyStatusBar = ({backgroundColor, ...props}) => (
+	<View style={[styles.statusBar, { backgroundColor }]}>
+	  <SafeAreaView>
+		<StatusBar translucent backgroundColor={backgroundColor} {...props} />
+	  </SafeAreaView>
+	</View>
+);
 
 function App() {
 	return (
 		<NavigationContainer style={styles.container}>
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Group screenOptions={{ headerShown: false }}>
-					<Stack.Screen
-						name="Home"
-						component={HomeScreen}
-						options={{
-							title: 'Главная',
-							headerStyle: {
-								backgroundColor: '#f4511e',
-							},
-							headerTintColor: '#fff',
-							headerTitleStyle: {
-								fontWeight: 'bold',
-							},
-						}}
-					/>
-					<Stack.Screen name="Tasks" component={TasksScreen}/>
-					<Stack.Screen name="Settings" component={SettingsScreen}/>
-				</Stack.Group>
-			</Stack.Navigator>
+			<MyStatusBar backgroundColor="#F3F3F3" barStyle="light-content" />
+			<Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
+				tabBarIcon: ({ focused, color, size }) => {
+					let iconName;
+
+					if (route.name === 'TasksStack') {
+						iconName = focused
+							? tasksImage
+							: tasksImage;
+					} else if (route.name === 'TasksTimedStack') {
+						iconName = focused
+							? tasksTimedImage
+							: tasksTimedImage;
+					} else if (route.name === 'Schedule') {
+						iconName = focused
+							? schedule
+							: schedule;
+					} else if (route.name === 'Habits') {
+						iconName = focused
+							? habbits
+							: habbits;
+					} else if (route.name === 'Settings') {
+						iconName = focused
+							? settings
+							: settings;
+					}
+
+					return <Image source={iconName} style={{
+						height: 30, width: 34, marginTop: 6, marginLeft: 3, marginBottom: 9,
+					}}/>;
+				},
+				tabBarActiveTintColor: '#fff',
+				tabBarInactiveTintColor: 'gray',
+				tabBarStyle: {
+					height: 60,
+					backgroundColor: '#05CEB6',
+				},
+				tabBarShowLabel: false
+			})}
+			>
+				<Tab.Group screenOptions={{ headerShown: false }}>
+					<Tab.Screen name="TasksStack" component={TasksStackScreen}/>
+					<Tab.Screen name="TasksTimedStack" component={TasksTimedStackScreen}/>
+					<Tab.Screen name="Schedule" component={ScheduleScreen}/>
+					<Tab.Screen name="Habits" component={HabitsScreen}/>
+				</Tab.Group>
+			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
+
+const STATUSBAR_HEIGHT = StatusBar.currentHeight;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 34 : 56;
 
 const styles = StyleSheet.create({
 	container: {
@@ -46,6 +93,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0
 	},
+	statusBar: {
+		height: STATUSBAR_HEIGHT,
+	},
+	appBar: {
+		backgroundColor:'#05CEB6',
+		height: APPBAR_HEIGHT,
+	}
 });
 
 export default App;

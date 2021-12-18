@@ -5,6 +5,16 @@ const Images = {
         like: require('./assets/header/thumb.png'),
         building: require('./assets/header/building.png'),
         settings: require('./assets/header/gears.png')
+    },
+    tasks: {
+        openFolder: require('./assets/tasks/folder.png'),
+        closedFolder: require('./assets/tasks/folderClosed.png')
+    },
+    timedTasks: {
+        clock: require('./assets/timedTasks/clock.png'),
+    },
+    tusur: {
+        logo: require('./assets/tusur.png'),
     }
 }
 
