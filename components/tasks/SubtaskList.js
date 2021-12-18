@@ -5,8 +5,8 @@ import CButton from '../common/CButton';
 import { CheckBox } from 'react-native-elements';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-function SubtaskList({data, set, updateHandler})
-{   
+function SubtaskList({ data, set, updateHandler, styles })
+{
     // Logic
     const addSubtaskHandler = () => {
         set((list) => {
@@ -16,7 +16,7 @@ function SubtaskList({data, set, updateHandler})
                 {name: "", key: key, done: false}
             ]
             updateHandler(res, true);
-            return res; 
+            return res;
         })
     }
 
@@ -55,19 +55,19 @@ function SubtaskList({data, set, updateHandler})
     return (
         <View>
             <FlatList data={data} renderItem={({item}) => (
-                <SubtaskListItem item={item} updateItemText={updateItemText} 
-                updateItemDone={updateItemDone} deleteSubtask={deleteSubtask}/>
+                <SubtaskListItem item={item} updateItemText={updateItemText}
+                updateItemDone={updateItemDone} deleteSubtask={deleteSubtask} styles={styles}/>
             )}/>
-            <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#999"}} 
+            <CButton style={styles.subtaskButtonBg} styleText={{fontSize: 16, color: "#999"}}
             isShadow={false} onPress={addSubtaskHandler}
-            title="+ Добавить подзадачу"/>   
-        </View>   
+            title="+ Добавить подзадачу"/>
+        </View>
     )
 }
 
-function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask})
+function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask, styles})
 {
-    // Animation 
+    // Animation
     const animate_deletion_state = {
         start: 0,
         end: 1,
@@ -83,16 +83,15 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask})
     // Logic
     const [checked, setChecked] = useState(item.done);
 
-    const changeState = (event) =>
-    {
+    const changeState = (event) => {
         setChecked(!checked);
         updateItemDone(item.key, !checked);
     }
 
-    return (  
+    return (
         <Animated.View style={[{marginLeft: posOffset}]}>
             <GestureRecognizer style={styles.subtaskItem}
-                onSwipeRight={startAnimateDeletion}
+                    onSwipeRight={startAnimateDeletion}
                 >
                 <CheckBox
                 checked={checked}
@@ -102,12 +101,12 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask})
                 checkedColor="black"
                 onPress={changeState}
                 />
-                <TextInput 
+                <TextInput
                 style={styles.subtaskItemText, {
-                    fontStyle: checked ? 'italic' : 'normal', 
+                    fontStyle: checked ? 'italic' : 'normal',
                     textDecorationLine: checked ? 'line-through' : 'none',
                     textDecorationStyle: 'solid'
-                }} 
+                }}
                 onEndEditing={(event) => updateItemText(item.key, event.nativeEvent.text)}
                 placeholder="Новая подзадача"
                 >
@@ -115,24 +114,8 @@ function SubtaskListItem({item, updateItemText, updateItemDone, deleteSubtask})
                 </TextInput>
             </GestureRecognizer>
         </Animated.View>
-        
+
     )
 }
-
-const styles = StyleSheet.create({
-
-    subtaskItem: {
-        flexDirection: "row",
-    },
-    
-    checkbox: {
-        paddingVertical: 3,
-    },
-
-    subtaskItemText: {
-        color: "#555",
-        fontSize: 16,
-    }
-});
 
 export default SubtaskList;

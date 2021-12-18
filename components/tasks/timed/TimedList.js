@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, FlatList, Text} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ListItem from "./ListItem";
+import { StyleSheet, View, FlatList, Text } from 'react-native';
+import ListTimedItem from './ListTimedItem'
 
-function List ({listData, deleteHandler, updateHandler}) {
+function TimedList ({ listData, deleteHandler, updateHandler }) {
 
     function renderItem({item})
     {
-        return <ListItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler}></ListItem>
+        return <ListTimedItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
     }
 
     return (
@@ -25,4 +24,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default List;
+export default TimedList;

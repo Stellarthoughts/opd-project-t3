@@ -1,23 +1,42 @@
-import React, {forwardRef, useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
-import List from "./List";
-import Header from '../../common/Header';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import DatePicker from 'react-native-date-picker'
 import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem";
-import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TimedList from './TimedList';
 import {getAStorageItem, setAStorageKey, addToAStorageKey, removeFromAStorageKey, replaceInAStorageKey } from '../../storage/Storage';
 
-const TasksScreen = ({navigation}) => {
+function compareDates(a, b) {
+    if (a.date === b.date)
+        return 0;
 
-    const storageKey = 'Tasks';
+    return a.date < b.date ? -1 : 1;
+}
 
-    const [ListOfItems, setListItem] = useState(async () => {
-        let storage = await getAStorageItem(storageKey);
-        setListItem(storage);
-    })
+const TasksTimedScreen = ({ navigation }) => {
 
+    const storageKey = 'TasksTimed';
+
+    const [date, setDate] = useState(new Date());
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [ListOfTimedItems, setListTimedItem] = useState(async () => {
+        let storage = await getAStorageItem(storageKey);
+        const sortedTasks = storage.sort(compareDates);
+        const todaysDate = new Date();
+
+        sortedTasks.forEach((task) => {
+            const taskDate = new Date(task.date);
+            console.log(taskDate < todaysDate);
+            if(taskDate < todaysDate) {
+                task.expiredDate = true;
+            }
+        });
+
+        setListTimedItem(sortedTasks);
+    })
 
     const onOpenModel = () => {
         setModalVisible(true);
@@ -31,7 +50,9 @@ const TasksScreen = ({navigation}) => {
         setModalVisible(false);
         if (text.length == 0) text = ""
 
-        const id = Math.random().toString(36).substring(7)
+        const id = Math.random().toString(36).substring(7);
+        const taskDate = new Date(date);
+        const todaysDate = new Date();
 
         await addToAStorageKey(storageKey,
             {
@@ -39,26 +60,34 @@ const TasksScreen = ({navigation}) => {
                 completedTask: 0,
                 countTask: 0,
                 subtasksItem: [],
-                id: id
+                date: date,
+                id: id,
+                expiredDate: taskDate < todaysDate ? true : false,
             }
         )
 
         let tasks = await getAStorageItem(storageKey);
-        setListItem(tasks);
+        const sortedTasks = tasks.sort(compareDates);
+
+        setListTimedItem(sortedTasks);
     }
 
     const deleteHandler = async (item) => {
-        let tasks = await removeFromAStorageKey(storageKey,item)
-        setListItem(tasks);
+        let tasks = await removeFromAStorageKey(storageKey,item);
+
+        const sortedTasks = tasks.sort(compareDates);
+        setListTimedItem(sortedTasks);
     }
 
     const updateHandler = async (replacement) => {
         let tasks = await replaceInAStorageKey(storageKey,replacement);
-        setListItem(tasks);
+
+        const sortedTasks = tasks.sort(compareDates);
+        setListTimedItem(sortedTasks);
     }
 
     return (
-        <SafeAreaView style={styles.container} >
+        <SafeAreaView style={styles.container}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -69,13 +98,15 @@ const TasksScreen = ({navigation}) => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Добавление новой задачи</Text>
-                        <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."></FormAddListItem>
-                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
+                        <Text style={styles.modalText}>Добавление новой задачи со временем</Text>
+                        {/*<DatePicker mode='date' date={date} onDateChange={setDate} />*/}
+                        <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."/>
+                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}}
+                                 onPress={onCloseModal} title='Закрыть'/>
                     </View>
                 </View>
             </Modal>
-            <List listData={ListOfItems} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+            <TimedList listData={ListOfTimedItems} deleteHandler={deleteHandler} updateHandler={updateHandler} />
             <CButton style={styles.buttonAdd} styleText={styles.buttonAddText} onPress={onOpenModel} title='+'/>
         </SafeAreaView>
     );
@@ -83,14 +114,12 @@ const TasksScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 12,
         width: "100%",
-        backgroundColor: "#ebebeb",
+        backgroundColor: "#F9F9F9",
         alignItems: 'center',
         justifyContent: 'flex-start',
-        paddingBottom: 0,
-        marginBottom: Platform.OS === 'ios' ? -30 : 0,
-        height: "100%",
+        marginBottom: Platform.OS === 'ios' ? -25 : 0,
     },
 
     centeredView: {
@@ -104,7 +133,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "100%",
         left: "100%",
-        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -110}] : [{translateX: -80}, {translateY: -60}],
+        transform: Platform.OS === 'ios' ? [{translateX: -80}, {translateY: -105}] : [{translateX: -80}, {translateY: -60}],
         width: 70,
         height: 70,
     },
@@ -123,7 +152,7 @@ const styles = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
+        padding: 26,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -139,7 +168,9 @@ const styles = StyleSheet.create({
         color: "#666",
         fontSize: 18,
         fontWeight: "bold",
+        textAlign: 'center'
     }
+
 });
 
-export default TasksScreen;
+export default TasksTimedScreen;

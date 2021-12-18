@@ -7,7 +7,7 @@ import Header from '../../common/Header';
 import CButton from '../../common/CButton';
 import WeekItem from './WeekItem';
 
-const TasksTimedScreen = ({navigation}) => {
+const ScheduleScreen = ({navigation}) => {
     const storageKey = 'Schedule';
 
     const [ListOfItems, setListItem] = useState(async () => {
@@ -230,7 +230,6 @@ const TasksTimedScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header navigation={navigation}/>
             <View style={stylesP.container}>
                 <CButton style={{backgroundColor: "#F2F2F2"}} styleText={{fontSize: 16, color: "#000"}}
                          isShadow={false} onPress={swapDatePrevious}
@@ -243,6 +242,7 @@ const TasksTimedScreen = ({navigation}) => {
             <View style={stylesP.viewDate}>
                 <FlatList data={dateWeek} renderItem={(item) => renderItem(item)}/>
             </View>
+
         </SafeAreaView>
     );
 }
@@ -277,4 +277,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TasksTimedScreen;
+export default ScheduleScreen;
