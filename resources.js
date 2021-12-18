@@ -15,6 +15,16 @@ const Images = {
     },
     tusur: {
         logo: require('./assets/tusur.png'),
+    },
+    tabBar: {
+        tasksActive: require('./assets/tabBarIcons/tasksActive.png'),
+        tasksDisabled: require('./assets/tabBarIcons/tasksDisabled.png'),
+        tasksTimedActive: require('./assets/tabBarIcons/tasksTimedActive.png'),
+        tasksTimedDisabled: require('./assets/tabBarIcons/tasksTimedDisabled.png'),
+        scheduleActive: require('./assets/tabBarIcons/scheduleActive.png'),
+        scheduleDisabled: require('./assets/tabBarIcons/scheduleDisabled.png'),
+        habbitsActive: require('./assets/tabBarIcons/habitsActive.png'),
+        habbitsDisabled: require('./assets/tabBarIcons/habitsDisabled.png'),
     }
 }
 

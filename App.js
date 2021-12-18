@@ -6,19 +6,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksStackScreen from './components/tasks/untimed/TasksStackScreen';
-import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
 import TasksTimedStackScreen from './components/tasks/timed/TasksTimedStackScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
-import Header from './components/common/Header';
 import Images from './resources';
 
 const Tab = createBottomTabNavigator();
-const tasksImage = Images.header.tasks;
-const tasksTimedImage = Images.header.tasks;
-const schedule = Images.header.building;
-const habbits = Images.header.like;
-const settings = Images.header.settings;
+
+const tasksActiveIcon = Images.tabBar.tasksActive;
+const tasksDisabledIcon = Images.tabBar.tasksDisabled;
+const tasksTimedActiveIcon = Images.tabBar.tasksTimedActive;
+const tasksTimedDisabledIcon = Images.tabBar.tasksTimedDisabled;
+const scheduleActiveIcon = Images.tabBar.scheduleActive;
+const scheduleDisabledIcon = Images.tabBar.scheduleDisabled;
+const habbitsActiveIcon = Images.tabBar.habbitsActive;
+const habbitsDisabledIcon = Images.tabBar.habbitsDisabled;
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
@@ -38,35 +40,32 @@ function App() {
 
 					if (route.name === 'TasksStack') {
 						iconName = focused
-							? tasksImage
-							: tasksImage;
+							? tasksActiveIcon
+							: tasksDisabledIcon;
 					} else if (route.name === 'TasksTimedStack') {
 						iconName = focused
-							? tasksTimedImage
-							: tasksTimedImage;
+							? tasksTimedActiveIcon
+							: tasksTimedDisabledIcon;
 					} else if (route.name === 'Schedule') {
 						iconName = focused
-							? schedule
-							: schedule;
+							? scheduleActiveIcon
+							: scheduleDisabledIcon;
 					} else if (route.name === 'Habits') {
 						iconName = focused
-							? habbits
-							: habbits;
-					} else if (route.name === 'Settings') {
-						iconName = focused
-							? settings
-							: settings;
+							? habbitsActiveIcon
+							: habbitsDisabledIcon;
 					}
 
 					return <Image source={iconName} style={{
-						height: 30, width: 34, marginTop: 6, marginLeft: 3, marginBottom: 9,
+						height: route.name === 'TasksStack' ? 37 : 35, width: route.name === 'TasksStack' ? 45 : 39, 
+						marginTop: 6, marginLeft: 3, marginBottom: 9
 					}}/>;
 				},
 				tabBarActiveTintColor: '#fff',
 				tabBarInactiveTintColor: 'gray',
 				tabBarStyle: {
 					height: 60,
-					backgroundColor: '#05CEB6',
+					backgroundColor: '#FFFFFF',
 				},
 				tabBarShowLabel: false
 			})}
