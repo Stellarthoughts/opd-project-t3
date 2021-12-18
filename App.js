@@ -8,7 +8,7 @@ import TasksScreen from './components/tasks/untimed/TasksScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SettingsScreen from './components/settings/SettingsScreen';
 import HabitsScreen from './components/habits/HabitsScreen';
-import TasksTimedScreen from './components/tasks/schedule/ScheduleScreen';
+import TasksTimedScreen from './components/tasks/timed/TasksTimedScreen';
 import ScheduleScreen from './components/tasks/schedule/ScheduleScreen';
 import Header from './components/common/Header';
 import Images from './resources';

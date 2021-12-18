@@ -29,10 +29,30 @@ function WeekItem({ el, updateHandler }) {
     return (
         <View style={styles.container}>
             <Text  style={styles.title}>{formatDateWeek()}</Text>
-            <SubtaskList data={listSubtask} set={setListSubtask} updateHandler={updateSubtasks}></SubtaskList>
+            <SubtaskList styles={subtaskStyles} data={listSubtask} set={setListSubtask} updateHandler={updateSubtasks}></SubtaskList>
         </View>
     );
 }
+
+const subtaskStyles = StyleSheet.create({
+
+    subtaskItem: {
+        flexDirection: "row",
+    },
+
+    checkbox: {
+        paddingVertical: 3,
+    },
+
+    subtaskItemText: {
+        color: "#555",
+        fontSize: 16,
+    },
+
+    subtaskButtonBg: {
+        backgroundColor: "#fff"
+    },
+});
 
 const styles = StyleSheet.create({
     container: {
