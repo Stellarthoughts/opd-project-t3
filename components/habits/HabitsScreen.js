@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: "normal",
         marginTop: 0,
-        marginBottom: 0,
+        marginBottom: 4,
         marginLeft: 0,
         marginRight: 0,
     },
