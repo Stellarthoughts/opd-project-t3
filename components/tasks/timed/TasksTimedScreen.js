@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import DatePicker from 'react-native-date-picker'
+import DatePicker from 'react-native-date-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem";
 import TimedList from './TimedList';
@@ -19,6 +20,9 @@ const TasksTimedScreen = ({ navigation }) => {
     const storageKey = 'TasksTimed';
 
     const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const [ListOfTimedItems, setListTimedItem] = useState(async () => {
@@ -37,6 +41,7 @@ const TasksTimedScreen = ({ navigation }) => {
     })
 
     const onOpenModel = () => {
+        setShow(true);
         setModalVisible(true);
     }
 
@@ -84,6 +89,17 @@ const TasksTimedScreen = ({ navigation }) => {
         setListTimedItem(sortedTasks);
     }
 
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(false);
+        setDate(currentDate);
+    };
+    
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+    
     return (
         <SafeAreaView style={styles.container}>
             <Modal
@@ -97,8 +113,8 @@ const TasksTimedScreen = ({ navigation }) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи с дедлайном</Text>
-                        {/*<DatePicker mode='date' date={date} onDateChange={setDate} />*/}
-                        <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."/>
+                        {show && (<DateTimePicker testID="dateTimePicker" mode={'date'} value={date} is24Hour={true} display="default" onChange={onChange} />)}    
+                        <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..." />
                         <CButton style={{backgroundColor: "#565656"}} styleText={{fontSize: 16, color: "#fff"}}
                                  onPress={onCloseModal} title='Закрыть'/>
                     </View>
