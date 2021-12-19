@@ -97,7 +97,7 @@ const TasksTimedScreen = ({ navigation }) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи с дедлайном</Text>
-                        {/*<DatePicker mode='date' date={date} onDateChange={setDate} />*/}
+                        <DatePicker mode='date' date={date} onDateChange={setDate} />
                         <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."/>
                         <CButton style={{backgroundColor: "#565656"}} styleText={{fontSize: 16, color: "#fff"}}
                                  onPress={onCloseModal} title='Закрыть'/>
