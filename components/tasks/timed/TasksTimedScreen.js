@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker'
 import CButton from '../../common/CButton';
@@ -99,7 +99,7 @@ const TasksTimedScreen = ({ navigation }) => {
                         <Text style={styles.modalText}>Добавление новой задачи с дедлайном</Text>
                         {/*<DatePicker mode='date' date={date} onDateChange={setDate} />*/}
                         <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."/>
-                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}}
+                        <CButton style={{backgroundColor: "#565656"}} styleText={{fontSize: 16, color: "#fff"}}
                                  onPress={onCloseModal} title='Закрыть'/>
                     </View>
                 </View>

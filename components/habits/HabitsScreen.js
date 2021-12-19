@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Modal } from 'react-native';
+import { StyleSheet, Text, View, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormAddHabitListItem from "../common/FormAddHabitListItem";
 import CButton from '../common/CButton';
@@ -80,7 +80,7 @@ function HabitsScreen({ navigation }) {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой привычки</Text>
                         <FormAddHabitListItem addHandler={addHandler} placeholder="Введите название привычки..." dayPlaceholder="3"></FormAddHabitListItem>
-                        <CButton style={{ backgroundColor: "#e14b4b" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
+                        <CButton style={{ backgroundColor: "#565656" }} styleText={{ fontSize: 16, color: "#fff" }} onPress={onCloseModal} title='Закрыть' />
                     </View>
                 </View>
             </Modal>
@@ -89,6 +89,7 @@ function HabitsScreen({ navigation }) {
         </SafeAreaView>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 12,

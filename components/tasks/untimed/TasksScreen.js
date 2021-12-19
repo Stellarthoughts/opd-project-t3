@@ -1,5 +1,5 @@
 import React, {forwardRef, useState} from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ScrollView, Modal, Alert, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import List from "./List";
 import CButton from '../../common/CButton';
 import FormAddListItem from "../../common/FormAddListItem";
@@ -69,7 +69,7 @@ const TasksScreen = ({ navigation }) => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Добавление новой задачи</Text>
                         <FormAddListItem addHandler={addHandler} placeholder="Введите название задачи..."></FormAddListItem>
-                        <CButton style={{backgroundColor: "#e14b4b"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
+                        <CButton style={{backgroundColor: "#565656"}} styleText={{fontSize: 16, color: "#fff"}} onPress={onCloseModal} title='Закрыть'/>
                     </View>
                 </View>
             </Modal>

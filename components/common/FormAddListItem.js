@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
-import ListItem from "../tasks/untimed/ListItem";
 import CButton from './CButton';
 
 function FormAddListItem ({addHandler: addHandler, placeholder}) {
@@ -13,7 +12,7 @@ function FormAddListItem ({addHandler: addHandler, placeholder}) {
     return (
         <View style={styles.container}>
             <TextInput style={styles.input} onChangeText={onChange} placeholder={placeholder} placeholderTextColor={'grey'}/>
-            <CButton style={{backgroundColor: "#57c79e"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHandler(text)} title='Добавить задачу'/>
+            <CButton style={{backgroundColor: "#1870CD"}} styleText={{fontSize: 16, color: "#fff"}} onPress={() => addHandler(text)} title='Добавить задачу'/>
         </View>
     );
 }

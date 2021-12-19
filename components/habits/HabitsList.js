@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Button, ImageBackground, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, View, FlatList, ImageBackground, TouchableOpacity, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import HabitsListItem from "./HabitsListItem";
 import Images from '../../resources';
 
 function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} keyboardDismissMode='interactive'>
             <View style={styles.header}>
                 <TouchableOpacity
                     onPress={() => Linking.openURL("https://tusur.ru")}
