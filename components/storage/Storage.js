@@ -33,7 +33,6 @@ export async function setAStorageKey(key,item)
 export async function addToAStorageKey(key,item)
 {
     let existingVals = await getAStorageItem(key);
-    console.log(existingVals);
     existingVals.push(item);
     setAStorageKey(key,existingVals);
     return existingVals;
