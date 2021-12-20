@@ -16,7 +16,8 @@ function List ({listData, deleteHandler, updateHandler, navigation}) {
     return (
         <View style={styles.container}>
             <Header navigation={navigation}/>
-            <FlatList style={{marginTop: 10}} data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true}/>
+            <FlatList style={{flexGrow: 50}} data={listData} renderItem={(item) => renderItem(item)} 
+            scrollEnabled={true} ListFooterComponent={<View style={{height: 100}}/>}/>
         </View>
     );
 }

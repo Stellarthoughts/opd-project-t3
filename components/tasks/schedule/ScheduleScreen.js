@@ -233,24 +233,7 @@ const ScheduleScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={stylesP.viewDate}>
-                <View style={StylesShared.header}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL("https://tusur.ru")}
-                        style={{flex: 1}}>
-                        <ImageBackground
-                            source={Images.tusur.logo}
-                            style={StylesShared.logo}>
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => navigation.navigate('Settings')}
-                    >
-                    <ImageBackground
-                        source={Images.settings.button}
-                        style={StylesShared.settingsButton}>
-                    </ImageBackground>
-                    </TouchableOpacity>
-                </View>
+                <Header navigation={navigation}/>
                 <View style={stylesP.container}>
                     <CButton style={{backgroundColor: "#fff"}} styleText={{fontSize: 16, color: "#000"}}
                             isShadow={false} onPress={swapDatePrevious}

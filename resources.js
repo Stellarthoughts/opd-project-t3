@@ -43,12 +43,9 @@ export const StylesShared = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 8,
-        marginBottom: 8,
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: 4 },
-        shadowRadius: 6,
-        shadowOpacity: 0.2,
-        elevation: 3,
+        paddingBottom: 8,
+        borderBottomColor: '#1870CD',
+        borderBottomWidth: 6
     },
     logo: {
         height: 23,

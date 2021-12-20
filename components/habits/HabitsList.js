@@ -4,32 +4,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 import HabitsListItem from "./HabitsListItem";
 import Images from '../../resources';
 import { StylesShared } from '../../resources';
+import Header from '../common/Header';
 
 function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
     return (
         <View style={styles.container} keyboardDismissMode='interactive'>
-            <View style={StylesShared.header}>
-                <TouchableOpacity
-                    onPress={() => Linking.openURL("https://tusur.ru")}
-                    style={{flex: 1}}>
-                    <ImageBackground
-                        source={Images.tusur.logo}
-                        style={StylesShared.logo}>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Settings')}
-                >
-                    <ImageBackground
-                        source={Images.settings.button}
-                        style={StylesShared.settingsButton}>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-
+            <Header navigation={navigation}/>
             <FlatList data={listData} renderItem={({ item }) => (
                 <HabitsListItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler} />
-            )} scrollEnabled={true} />
+            )} scrollEnabled={true} ListFooterComponent={<View style={{height: 100}}/>}/>
         </View>
     );
 }
@@ -38,7 +21,6 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        paddingBottom: 60,
     },
 
     header: {

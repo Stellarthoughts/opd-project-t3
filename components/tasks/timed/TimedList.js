@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ListTimedItem from './ListTimedItem';
 import Images from '../../../resources';
 import { StylesShared } from '../../../resources';
+import Header from '../../common/Header';
 
 function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
 
@@ -14,26 +15,9 @@ function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={StylesShared.header}>
-                <TouchableOpacity
-                    onPress={() => Linking.openURL("https://tusur.ru")}
-                    style={{flex: 1}}>
-                    <ImageBackground
-                        source={Images.tusur.logo}
-                        style={StylesShared.logo}>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Settings')}
-                >
-                    <ImageBackground
-                        source={Images.settings.button}
-                        style={StylesShared.settingsButton}>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-
-            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true} />
+            <Header navigation={navigation}/>
+            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true} 
+            ListFooterComponent={<View style={{height: 100}}/>}/>
         </View>
     );
 }
