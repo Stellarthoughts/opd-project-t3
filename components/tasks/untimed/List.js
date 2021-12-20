@@ -3,6 +3,8 @@ import { StyleSheet, View, FlatList, ImageBackground, TouchableOpacity, Linking}
 import { ScrollView } from 'react-native-gesture-handler';
 import ListItem from "./ListItem";
 import Images from '../../../resources';
+import { StylesShared } from '../../../resources';
+import Header from '../../common/Header';
 
 function List ({listData, deleteHandler, updateHandler, navigation}) {
 
@@ -12,28 +14,10 @@ function List ({listData, deleteHandler, updateHandler, navigation}) {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity
-                    onPress={() => Linking.openURL("https://tusur.ru")}
-                    style={{flex: 1}}>
-                    <ImageBackground
-                        source={Images.tusur.logo}
-                        style={styles.logo}>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Settings')}
-                >
-                    <ImageBackground
-                        source={Images.settings.button}
-                        style={styles.settingsButton}>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-
-            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={false}/>
-        </ScrollView>
+        <View style={styles.container}>
+            <Header navigation={navigation}/>
+            <FlatList style={{marginTop: 10}} data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true}/>
+        </View>
     );
 }
 
@@ -50,18 +34,6 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         marginRight: 25,
     },
-
-    logo: {
-        marginTop: 8,
-        height: 23,
-        width: 220
-    },
-
-    settingsButton: {
-        marginTop: 2,
-        width: 35,
-        height: 35
-    }
 });
 
 export default List;

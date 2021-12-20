@@ -1,31 +1,33 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Image, TouchableHighlight} from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Image, TouchableHighlight, TouchableOpacity, ImageBackground} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import Images from '../../resources';
+import { StylesShared } from '../../resources';
+import { shadowOpt } from '../../resources';
+import { BoxShadow } from 'react-native-shadow';
+
 
 function Header ({navigation}) {
-    return (
-        <View style={styles.container}>
-            <NavigationElement 
-                nav={navigation} node={'Tasks'}
-                imageSrc={Images.header.tasks}
-            />
-            <NavigationElement 
-                nav={navigation} node={'TasksTimed'}
-                imageSrc={Images.header.tasks}
-            />
-            <NavigationElement 
-                nav={navigation} node={'Schedule'}
-                imageSrc={Images.header.building}
-            />
-            <NavigationElement 
-                nav={navigation} node={'Habits'}
-                imageSrc={Images.header.like}
-            />
-            <NavigationElement 
-                nav={navigation} node={'Settings'}
-                imageSrc={Images.header.settings}
-            />
+    return (  
+        <View style={{overflow: 'hidden'}}>
+            <View style={StylesShared.header}>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL("https://tusur.ru")}
+                    style={{flex: 1}}>
+                    <ImageBackground
+                        source={Images.tusur.logo}
+                        style={StylesShared.logo}>
+                    </ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Settings')}
+                >
+                    <ImageBackground
+                        source={Images.settings.button}
+                        style={StylesShared.settingsButton}>
+                    </ImageBackground>
+                </TouchableOpacity>   
+            </View>
         </View>
     );
 }

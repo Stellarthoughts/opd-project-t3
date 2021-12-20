@@ -3,17 +3,18 @@ import { StyleSheet, View, FlatList, ImageBackground, TouchableOpacity, Linking 
 import { ScrollView } from 'react-native-gesture-handler';
 import HabitsListItem from "./HabitsListItem";
 import Images from '../../resources';
+import { StylesShared } from '../../resources';
 
 function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
     return (
-        <ScrollView style={styles.container} keyboardDismissMode='interactive'>
-            <View style={styles.header}>
+        <View style={styles.container} keyboardDismissMode='interactive'>
+            <View style={StylesShared.header}>
                 <TouchableOpacity
                     onPress={() => Linking.openURL("https://tusur.ru")}
                     style={{flex: 1}}>
                     <ImageBackground
                         source={Images.tusur.logo}
-                        style={styles.logo}>
+                        style={StylesShared.logo}>
                     </ImageBackground>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -21,15 +22,15 @@ function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
                 >
                     <ImageBackground
                         source={Images.settings.button}
-                        style={styles.settingsButton}>
+                        style={StylesShared.settingsButton}>
                     </ImageBackground>
                 </TouchableOpacity>
             </View>
 
             <FlatList data={listData} renderItem={({ item }) => (
                 <HabitsListItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler} />
-            )} scrollEnabled={false} />
-        </ScrollView>
+            )} scrollEnabled={true} />
+        </View>
     );
 }
 

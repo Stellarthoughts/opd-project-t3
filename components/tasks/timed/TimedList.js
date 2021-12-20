@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, Button, ImageBackground, TouchableOpacity, 
 import { ScrollView } from 'react-native-gesture-handler';
 import ListTimedItem from './ListTimedItem';
 import Images from '../../../resources';
+import { StylesShared } from '../../../resources';
 
 function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
 
@@ -12,14 +13,14 @@ function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.header}>
+        <View style={styles.container}>
+            <View style={StylesShared.header}>
                 <TouchableOpacity
                     onPress={() => Linking.openURL("https://tusur.ru")}
                     style={{flex: 1}}>
                     <ImageBackground
                         source={Images.tusur.logo}
-                        style={styles.logo}>
+                        style={StylesShared.logo}>
                     </ImageBackground>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -27,13 +28,13 @@ function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
                 >
                     <ImageBackground
                         source={Images.settings.button}
-                        style={styles.settingsButton}>
+                        style={StylesShared.settingsButton}>
                     </ImageBackground>
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={false} />
-        </ScrollView>
+            <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true} />
+        </View>
     );
 }
 
@@ -49,13 +50,6 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginLeft: 16,
         marginRight: 25,
-        marginBottom: 3,
-    },
-
-    logo: {
-        marginTop: 8,
-        height: 23,
-        width: 220
     },
 
     settingsButton: {

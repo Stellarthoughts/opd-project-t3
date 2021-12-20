@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 const Images = {
     header: {
         home: require('./assets/header/house.png'),
@@ -32,3 +34,28 @@ const Images = {
 }
 
 export default Images;
+
+export const StylesShared = StyleSheet.create({
+    header: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 8,
+        marginBottom: 8,
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 4 },
+        shadowRadius: 6,
+        shadowOpacity: 0.2,
+        elevation: 3,
+    },
+    logo: {
+        height: 23,
+        width: 220
+    },
+    settingsButton: {
+        width: 35,
+        height: 35
+    }
+})

@@ -7,6 +7,7 @@ import Header from '../../common/Header';
 import CButton from '../../common/CButton';
 import WeekItem from './WeekItem';
 import Images from '../../../resources';
+import { StylesShared } from '../../../resources';
 
 const ScheduleScreen = ({navigation}) => {
     const storageKey = 'Schedule';
@@ -231,14 +232,14 @@ const ScheduleScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={stylesP.viewDate}>
-                <View style={stylesP.header}>
+            <View style={stylesP.viewDate}>
+                <View style={StylesShared.header}>
                     <TouchableOpacity
                         onPress={() => Linking.openURL("https://tusur.ru")}
                         style={{flex: 1}}>
                         <ImageBackground
                             source={Images.tusur.logo}
-                            style={stylesP.logo}>
+                            style={StylesShared.logo}>
                         </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -246,7 +247,7 @@ const ScheduleScreen = ({navigation}) => {
                     >
                     <ImageBackground
                         source={Images.settings.button}
-                        style={stylesP.settingsButton}>
+                        style={StylesShared.settingsButton}>
                     </ImageBackground>
                     </TouchableOpacity>
                 </View>
@@ -260,7 +261,7 @@ const ScheduleScreen = ({navigation}) => {
                             title="→"/>
                 </View>
                 <FlatList style={{paddingHorizontal: 13}} data={dateWeek} renderItem={(item) => renderItem(item)}/>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 }
@@ -292,18 +293,6 @@ const stylesP = StyleSheet.create({
         marginRight: 25,
         marginBottom: 12,
     },
-
-    logo: {
-        marginTop: 8,
-        height: 23,
-        width: 220
-    },
-
-    settingsButton: {
-        marginTop: 2,
-        width: 35,
-        height: 35
-    }
 });
 
 const styles = StyleSheet.create({
