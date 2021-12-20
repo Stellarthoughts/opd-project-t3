@@ -12,7 +12,7 @@ function HabitsList({ listData, deleteHandler, updateHandler, navigation }) {
             <Header navigation={navigation}/>
             <FlatList data={listData} renderItem={({ item }) => (
                 <HabitsListItem el={item} deleteHandler={deleteHandler} updateHandler={updateHandler} />
-            )} scrollEnabled={true} ListFooterComponent={<View style={{height: 100}}/>}/>
+            )} scrollEnabled={true} ListFooterComponent={<View style={{height: 125}}/>}/>
         </View>
     );
 }

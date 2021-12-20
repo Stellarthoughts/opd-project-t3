@@ -17,7 +17,7 @@ function TimedList ({ listData, deleteHandler, updateHandler, navigation }) {
         <View style={styles.container}>
             <Header navigation={navigation}/>
             <FlatList data={listData} renderItem={(item) => renderItem(item)} scrollEnabled={true} 
-            ListFooterComponent={<View style={{height: 100}}/>}/>
+            ListFooterComponent={<View style={{height:  125}}/>}/>
         </View>
     );
 }
