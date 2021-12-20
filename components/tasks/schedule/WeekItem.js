@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
 
     title: {
         color: "#0C54A0",
+        fontWeight: "bold",
         fontSize: 16,
         marginBottom: 10
     }
