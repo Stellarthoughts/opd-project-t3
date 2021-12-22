@@ -40,9 +40,14 @@ const TasksTimedScreen = ({ navigation }) => {
         setListTimedItem(sortedTasks);
     })
 
-    const onOpenModel = () => {
-        setShow(true);
+    function timeout(delay) {
+        return new Promise( res => setTimeout(res, delay) );
+    }
+
+    const onOpenModel = async () => {
         setModalVisible(true);
+        await timeout(200);
+        setShow(true);
     }
 
     const onCloseModal = () => {
