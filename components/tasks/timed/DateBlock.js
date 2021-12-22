@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     },
 
     dateExpired: {
-        color: 'red',
+        color: '#FA0034',
+        fontWeight: "bold",
         fontSize: 16
     },
 
